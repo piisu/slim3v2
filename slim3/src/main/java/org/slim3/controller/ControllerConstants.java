@@ -30,11 +30,6 @@ public final class ControllerConstants {
     public static String UUID_KEY = "slim3.uuid";
 
     /**
-     * The key of hot reloading.
-     */
-    public static String HOT_RELOADING_KEY = "slim3.hotReloading";
-
-    /**
      * The key of configuration setting for request character set.
      */
     public static String REQUEST_CHARSET_KEY =

@@ -15,39 +15,20 @@
  */
 package org.slim3.controller;
 
+import org.slim3.controller.router.Router;
+import org.slim3.controller.router.RouterFactory;
+import org.slim3.controller.validator.Errors;
+import org.slim3.util.*;
+
+import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.lang.reflect.Modifier;
 import java.util.Locale;
 import java.util.TimeZone;
 import java.util.UUID;
-
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import org.slim3.controller.router.Router;
-import org.slim3.controller.router.RouterFactory;
-import org.slim3.controller.validator.Errors;
-import org.slim3.util.ApplicationMessage;
-import org.slim3.util.CipherFactory;
-import org.slim3.util.ClassUtil;
-import org.slim3.util.LocaleLocator;
-import org.slim3.util.LocaleUtil;
-import org.slim3.util.RequestLocator;
-import org.slim3.util.RequestUtil;
-import org.slim3.util.ResponseLocator;
-import org.slim3.util.ServletContextLocator;
-import org.slim3.util.StringUtil;
-import org.slim3.util.ThrowableUtil;
-import org.slim3.util.TimeZoneLocator;
 
 /**
  * The front controller of Slim3.
@@ -276,11 +257,7 @@ public class FrontController implements Filter {
             if (controller != null) {
                 processController(request, response, controller);
             } else {
-                if (request instanceof HotHttpServletRequestWrapper) {
-                    request =
-                        ((HotHttpServletRequestWrapper) request)
-                            .getOriginalRequest();
-                }
+
                 chain.doFilter(request, response);
             }
         } finally {
