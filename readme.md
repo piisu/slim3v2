@@ -47,3 +47,10 @@
 ./gradlew slim3-blank:gen-model
 ```
 
+## デプロイ
+
+```gradle
+gcloud config set project your_project_name
+./gradlew slim3-blank:appengineDeploy
+
+```
