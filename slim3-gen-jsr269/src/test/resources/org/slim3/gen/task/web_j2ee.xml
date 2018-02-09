@@ -4,15 +4,4 @@
         <param-name>slim3.rootPackage</param-name>
         <param-value>aaa.bbb</param-value>
     </context-param>
-  
-    <servlet>
-        <servlet-name>GWTServiceServlet</servlet-name>
-        <servlet-class>org.slim3.gwt.server.GWTServiceServlet</servlet-class>
-    </servlet>
-  
-    <servlet-mapping>
-        <servlet-name>GWTServiceServlet</servlet-name>
-        <url-pattern>/slim3gwt_demo/gwtservice</url-pattern>
-    </servlet-mapping>
-  
 </web-app>

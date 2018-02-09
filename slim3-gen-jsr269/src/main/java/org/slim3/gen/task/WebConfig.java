@@ -78,22 +78,6 @@ public class WebConfig {
     }
 
     /**
-     * {@code true} if {@code GWTServiceServlet} is defined.
-     * 
-     * @return {@code true} if {@code GWTServiceServlet} is defined
-     * @throws IOException
-     * @throws XPathExpressionException
-     */
-    public boolean isGWTServiceServletDefined() throws IOException,
-            XPathExpressionException {
-        String servletName =
-            evaluate(
-                "/javaee:web-app/javaee:servlet/javaee:servlet-name[text()='GWTServiceServlet']",
-                "/j2ee:web-app/j2ee:servlet/j2ee:servlet-name[text()='GWTServiceServlet']");
-        return servletName != null;
-    }
-
-    /**
      * Evaluates xpath expressions.
      * 
      * @param expressions
