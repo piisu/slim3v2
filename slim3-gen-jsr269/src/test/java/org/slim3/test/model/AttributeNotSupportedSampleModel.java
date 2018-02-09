@@ -25,7 +25,7 @@ import com.google.appengine.api.datastore.Key;
 /**
  * @author vvakame
  */
-@Model
+//@Model//TODO ビルド前に自身の注釈プロセッサが実行されてしまいコンパイルができなくなってしまう問題が…。対応を考える
 public class AttributeNotSupportedSampleModel {
     @Attribute(primaryKey = true)
     Key primaryKey;
