@@ -83,15 +83,6 @@ appengine {
 //    }
 }
 
+
 //ant task
 ant.importBuild 'build.xml'
-
-task updateSlim3Gen << {
-    def file = project.configurations["apt"].files.find { it.name.contains("slim3-gen-js269") }
-    if (file) {
-        copy {
-            from file
-            into outFile
-        }
-    }
-}

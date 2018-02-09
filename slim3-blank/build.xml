@@ -2,7 +2,7 @@
     <property file="build.properties" />
 
     <path id="classpath">
-        <fileset dir="lib">
+        <fileset dir="../slim3-gen-jsr269/build/libs/">
             <include name="**/*.jar" />
         </fileset>
     </path>

@@ -10,3 +10,30 @@
 - GWT 機能の削除
 - maven/eclipseサポートの終了
 - gradle/ideaサポート
+
+# ビルド方法
+
+```gradle
+./gradlew build
+```
+
+# slim3-blankプロジェクトについて
+## ローカルサーバー起動
+
+```gradle
+./gradlew slim3-blank:appengineRun
+
+```
+
+## コントローラーの作成
+
+```gradle
+./gradlew slim3-blank:gen-controller
+./gradlew slim3-blank:gen-controller-without-view
+```
+
+## モデルの作成
+
+```gradle
+./gradlew slim3-blank:gen-model
+```
