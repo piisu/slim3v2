@@ -245,4 +245,9 @@ public class TestEnvironment implements ApiProxy.Environment {
     public void setRemainingMillis(long remainingMillis) {
         this.remainingMillis = remainingMillis;
     }
+
+    @Override
+    public String getModuleId() {
+        return "slim3";
+    }
 }
