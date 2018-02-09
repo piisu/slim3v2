@@ -4,12 +4,14 @@
 当面の目標はslim3から不要な機能をそぎ落としてメンテしやすくする
 
 やること
-- appengine最新バージョンへの追従
 - repackaged なクラスの除去
-- JSON 機能削除
-- GWT 機能の削除
+
+やったこと
+- appengine最新バージョンへの追従
 - maven/eclipseサポートの終了
 - gradle/ideaサポート
+- JSON 機能削除(必要ならJackson使えばええやろ)
+- GWT 機能の削除(今使ってるやつおらんやろ(暴言))
 
 # ビルド方法
 
