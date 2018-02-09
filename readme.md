@@ -5,7 +5,7 @@
 
 やること
 - appengine最新バージョンへの追従
-- repackaged ならクラスの除去
+- repackaged なクラスの除去
 - JSON 機能削除
 - GWT 機能の削除
 - maven, eclipseサポートの終了
