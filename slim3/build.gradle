@@ -24,8 +24,6 @@ dependencies {
     testCompile group: 'com.google.appengine', name: 'appengine-api-stubs', version: appengineVersion
     testCompile group: 'com.google.appengine', name: 'appengine-api-1.0-sdk', version: appengineVersion
 
-    testCompile group: 'com.google.gwt', name: 'gwt-user', version: '2.5.0'
-    compile group: 'com.google.gwt', name: 'gwt-servlet', version: '2.5.0'
     compile group: 'javax.servlet', name: 'servlet-api', version: '2.5'
     compile group: 'javax.servlet.jsp', name: 'jsp-api', version: '2.1'
     compile group: 'junit', name: 'junit', version: '4.12'
