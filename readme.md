@@ -1,5 +1,11 @@
-# Slim3 [![Build Status](https://travis-ci.org/Slim3/slim3.png?branch=master)](https://travis-ci.org/Slim3/slim3)
+# Slim3-lite
 
-## maven
+本当ならもう使いたくないが、稼働中システムでslim3を使ってるので、ひっそりとslim3をメンテする場所
+当面の目標はslim3から不要な機能をそぎ落としてメンテしやすくする
 
-```$ mvn archetype:generate -DarchetypeCatalog=http://slim3.github.com/slim3/archetype-catalog.xml```
+やること
+- appengine最新バージョンへの追従
+- repackaged ならクラスの除去
+- JSON 機能削除
+- GWT 機能の削除
+- maven, eclipseサポートの終了
