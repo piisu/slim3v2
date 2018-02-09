@@ -14,6 +14,7 @@ slim3を使ってサービスを2013年から運用しています。きちん�
 - gradle/ideaサポート
 - JSON 機能削除(必要ならJackson使えばええやろ)
 - GWT 機能の削除(今使ってるやつおらんやろ(暴言))
+- Hot Reloadingの削除(jetty の HotReloadingあるし)
 
 # ビルド方法
 
