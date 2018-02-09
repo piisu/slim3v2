@@ -96,3 +96,7 @@ gradle-app.setting
 .DS_Store
 
 classes/
+
+!/repository/**/*.jar
+!/slim3demo/lib/*.jar
+!/slim3-blank/lib/*.jar
