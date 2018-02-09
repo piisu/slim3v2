@@ -8,4 +8,5 @@
 - repackaged なクラスの除去
 - JSON 機能削除
 - GWT 機能の削除
-- maven, eclipseサポートの終了
+- maven/eclipseサポートの終了
+- gradle/ideaサポート
