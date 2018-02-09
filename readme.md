@@ -19,7 +19,14 @@
 ./gradlew build
 ```
 
-# slim3-blankプロジェクトについて
+# slim3-demo
+下記コマンドを実行することですぐにデモを試すことができます
+```gradle
+./gradlew slim3-demo:appengineRun
+
+```
+
+# slim3-blank
 ## ローカルサーバー起動
 
 ```gradle
@@ -39,3 +46,4 @@
 ```gradle
 ./gradlew slim3-blank:gen-model
 ```
+
