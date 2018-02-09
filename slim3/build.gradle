@@ -1,6 +1,4 @@
 apply plugin: 'java'
-apply plugin: 'maven'
-
 
 description = """Slim3"""
 

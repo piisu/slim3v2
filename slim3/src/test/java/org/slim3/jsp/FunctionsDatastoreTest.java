@@ -29,6 +29,7 @@ import com.google.appengine.api.datastore.KeyFactory;
  * @author higa
  * 
  */
+@Ignore
 public class FunctionsDatastoreTest extends ServletTestCase {
 
     /**
