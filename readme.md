@@ -1,12 +1,14 @@
-# Slim3-lite
+# slim3-lite
+本当ならもう使いたくないが、稼働中システムでslim3を使ってるので、ひっそりとslim3をメンテする場所<br/>
+slim3から不要な機能をそぎ落としてメンテしやすくするが当面の目標
 
-本当ならもう使いたくないが、稼働中システムでslim3を使ってるので、ひっそりとslim3をメンテする場所
-当面の目標はslim3から不要な機能をそぎ落としてメンテしやすくする
+# 感謝
+slim3を使ってサービスを2013年から運用しています。きちんとテストされていて素晴らしいです。コミッターの方に感謝。
 
-やること
-- repackaged なクラスの除去
+# やること
+- repackaged なクラスの除去(あれ?意外とslim3側でさらにrepackageしてる?)
 
-やったこと
+# やったこと
 - appengine最新バージョンへの追従
 - maven/eclipseサポートの終了
 - gradle/ideaサポート
@@ -44,7 +46,7 @@
 ## モデルの作成
 
 ```gradle
-./gradlew slim3-blank:gen-model
+./gradlew slim3-blank:gen-model 
 ```
 
 ## デプロイ
@@ -54,3 +56,9 @@ gcloud config set project your_project_name
 ./gradlew slim3-blank:appengineDeploy
 
 ```
+
+# デモ
+
+懐かしみしかないデモをどうぞ
+
+http://slim3-lite-demo.appspot.com/
