@@ -15,11 +15,7 @@
  */
 package org.slim3.datastore;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.hamcrest.CoreMatchers.sameInstance;
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 
 import java.util.Arrays;
@@ -127,7 +123,7 @@ public class ModelQueryTest extends AppEngineTestCase {
             query,
             is(sameInstance(query.filter(meta.myString.equal("aaa")))));
         assertThat(query.filters.size(), is(1));
-        assertThat(query.filters.get(0), is(Query.FilterPredicate.class));
+        assertThat(query.filters.get(0), isA((Class)Query.FilterPredicate.class));
     }
 
     /**
@@ -146,10 +142,10 @@ public class ModelQueryTest extends AppEngineTestCase {
         assertThat(filter.getSubFilters().size(), is(2));
         assertThat(
             filter.getSubFilters().get(0),
-            is(Query.FilterPredicate.class));
+                isA((Class)Query.FilterPredicate.class));
         assertThat(
             filter.getSubFilters().get(1),
-            is(Query.FilterPredicate.class));
+            isA((Class)Query.FilterPredicate.class));
         Query.FilterPredicate fp =
             (Query.FilterPredicate) filter.getSubFilters().get(0);
         Query.FilterPredicate fp2 =

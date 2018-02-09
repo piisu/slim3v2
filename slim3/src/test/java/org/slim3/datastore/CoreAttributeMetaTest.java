@@ -47,7 +47,7 @@ public class CoreAttributeMetaTest {
      */
     @Test
     public void notEqual() throws Exception {
-        assertThat(meta.myString.notEqual("a"), is(NotEqualCriterion.class));
+        assertThat(meta.myString.notEqual("a"), isA(NotEqualCriterion.class));
         assertThat(meta.myString.notEqual(null), is(notNullValue()));
     }
 
@@ -57,7 +57,7 @@ public class CoreAttributeMetaTest {
      */
     @Test
     public void lessThan() throws Exception {
-        assertThat(meta.myString.lessThan("a"), is(LessThanCriterion.class));
+        assertThat(meta.myString.lessThan("a"), isA(LessThanCriterion.class));
         assertThat(meta.myString.lessThan(null), is(notNullValue()));
     }
 
@@ -103,7 +103,7 @@ public class CoreAttributeMetaTest {
      */
     @Test
     public void in() throws Exception {
-        assertThat(meta.myString.in(Arrays.asList("a")), is(InCriterion.class));
+        assertThat(meta.myString.in(Arrays.asList("a")), isA(InCriterion.class));
     }
 
     /**
@@ -112,7 +112,7 @@ public class CoreAttributeMetaTest {
      */
     @Test
     public void inForVarargs() throws Exception {
-        assertThat(meta.myString.in("a"), is(InCriterion.class));
+        assertThat(meta.myString.in("a"), isA(InCriterion.class));
     }
 
     /**

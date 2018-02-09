@@ -55,7 +55,7 @@ public class HotReloadingFilterTest {
             assertThat(filter.hotReloading, is(true));
             assertThat(
                 ServletContextLocator.get(),
-                is(HotServletContextWrapper.class));
+                    isA((Class)HotServletContextWrapper.class));
         } finally {
             System.clearProperty("com.google.appengine.runtime.environment");
         }

@@ -16,6 +16,7 @@
 package org.slim3.datastore;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.isA;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
@@ -95,7 +96,7 @@ public class CompositeCriterionTest {
         CompositeCriterion criterion =
             new CompositeCriterion(meta, operator, criteria);
         assertThat(criterion.getFilters().length, is(1));
-        assertThat(criterion.getFilters()[0], is(CompositeFilter.class));
+        assertThat(criterion.getFilters()[0], isA((Class)CompositeFilter.class));
         CompositeFilter cf = (CompositeFilter) criterion.getFilters()[0];
         assertThat(cf.getOperator(), is(operator));
         assertThat(cf.getSubFilters().size(), is(2));

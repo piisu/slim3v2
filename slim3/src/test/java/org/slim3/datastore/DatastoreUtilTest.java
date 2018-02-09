@@ -15,11 +15,7 @@
  */
 package org.slim3.datastore;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.hamcrest.CoreMatchers.sameInstance;
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 
 import java.util.ArrayList;
@@ -773,6 +769,6 @@ public class DatastoreUtilTest extends AppEngineTestCase {
         List<Filter> filters =
             DatastoreUtil.toFilters(meta, meta.myString.equal("aaa"));
         assertThat(filters.size(), is(1));
-        assertThat(filters.get(0), is(Query.FilterPredicate.class));
+        assertThat(filters.get(0), isA((Class)Query.FilterPredicate.class));
     }
 }
