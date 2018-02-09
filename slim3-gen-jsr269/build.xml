@@ -5,11 +5,6 @@
     <path id="classpath">
     </path>
 
-    <target name="dist" depends="clean,compile,copy">
-        <jar jarfile="target/slim3-gen-${ver}.jar" basedir="${build}" />
-        <jar jarfile="target/slim3-gen-${ver}-sources.jar" basedir="${src}" />
-    </target>
-
     <target name="clean">
         <delete dir="target" failonerror="false"/>
         <mkdir dir="target"/>

@@ -15,21 +15,17 @@
  */
 package org.slim3.datastore;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
-
-import org.junit.Test;
-import org.slim3.datastore.json.JsonRootReader;
-import org.slim3.datastore.json.JsonWriter;
-import org.slim3.datastore.model.Hoge;
-
 import com.google.appengine.api.datastore.AsyncDatastoreService;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
+import org.junit.Test;
+import org.slim3.datastore.model.Hoge;
+
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.assertThat;
 
 /**
  * @author higa
- * 
  */
 public class StringUnindexedAttributeMetaTest {
 
@@ -79,19 +75,9 @@ public class StringUnindexedAttributeMetaTest {
 
         @Override
         protected void assignKeyToModelRefIfNecessary(AsyncDatastoreService ds,
-                Object model) throws NullPointerException {
+                                                      Object model) throws NullPointerException {
         }
 
-        @Override
-        protected void modelToJson(JsonWriter writer, Object model, int maxDepth, int currentDepth) {
-        }
-
-        @Override
-        public Hoge jsonToModel(JsonRootReader reader, int maxDepth,
-                int currentDepth) {
-            return null;
-        }
-        
         @Override
         protected void postGet(Object model) {
             return;
@@ -99,23 +85,21 @@ public class StringUnindexedAttributeMetaTest {
     };
 
     private StringUnindexedAttributeMeta<Hoge> myString =
-        new StringUnindexedAttributeMeta<Hoge>(meta, "myString", "myString");
+            new StringUnindexedAttributeMeta<Hoge>(meta, "myString", "myString");
 
     /**
      * @throws Exception
-     * 
      */
     @Test
     public void startsWith() throws Exception {
         assertThat(
-            myString.startsWith("a"),
-            is(InMemoryStartsWithCriterion.class));
+                myString.startsWith("a"),
+                is(InMemoryStartsWithCriterion.class));
         assertThat(myString.startsWith(null), is(not(nullValue())));
     }
 
     /**
      * @throws Exception
-     * 
      */
     @Test
     public void endsWith() throws Exception {
@@ -125,7 +109,6 @@ public class StringUnindexedAttributeMetaTest {
 
     /**
      * @throws Exception
-     * 
      */
     @Test
     public void contains() throws Exception {

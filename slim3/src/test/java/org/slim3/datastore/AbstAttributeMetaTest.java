@@ -15,22 +15,19 @@
  */
 package org.slim3.datastore;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
-
-import org.junit.Test;
-import org.slim3.datastore.json.JsonRootReader;
-import org.slim3.datastore.json.JsonWriter;
-import org.slim3.datastore.model.Hoge;
-import org.slim3.tester.AppEngineTestCase;
-
 import com.google.appengine.api.datastore.AsyncDatastoreService;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
+import org.junit.Test;
+import org.slim3.datastore.model.Hoge;
+import org.slim3.tester.AppEngineTestCase;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.sameInstance;
+import static org.junit.Assert.assertThat;
 
 /**
  * @author higa
- * 
  */
 public class AbstAttributeMetaTest extends AppEngineTestCase {
 
@@ -80,19 +77,10 @@ public class AbstAttributeMetaTest extends AppEngineTestCase {
 
         @Override
         protected void assignKeyToModelRefIfNecessary(AsyncDatastoreService ds,
-                Object model) throws NullPointerException {
+                                                      Object model) throws NullPointerException {
         }
 
-        @Override
-        protected void modelToJson(JsonWriter writer, Object model, int maxDepth, int currentDepth) {
-        }
 
-        @Override
-        public Hoge jsonToModel(JsonRootReader reader, int maxDepth,
-                int currentDepth) {
-            return null;
-        }
-        
         @Override
         protected void postGet(Object model) {
             return;
@@ -101,38 +89,36 @@ public class AbstAttributeMetaTest extends AppEngineTestCase {
 
     /**
      * @throws Exception
-     * 
      */
     @Test
     public void constructor() throws Exception {
         AbstractAttributeMeta<Hoge, String> attrMeta =
-            new AbstractAttributeMeta<Hoge, String>(
-                meta,
-                "aaa",
-                "aaa2",
-                String.class) {
-            };
+                new AbstractAttributeMeta<Hoge, String>(
+                        meta,
+                        "aaa",
+                        "aaa2",
+                        String.class) {
+                };
         assertThat(attrMeta.modelMeta, is(sameInstance(meta)));
         assertThat(attrMeta.name, is("aaa"));
         assertThat(attrMeta.attributeName, is("aaa2"));
         assertThat(
-            attrMeta.attributeClass.getName(),
-            is(String.class.getName()));
+                attrMeta.attributeClass.getName(),
+                is(String.class.getName()));
     }
 
     /**
      * @throws Exception
-     * 
      */
     @Test
     public void getValue() throws Exception {
         AbstractAttributeMeta<Hoge, String> attrMeta =
-            new AbstractAttributeMeta<Hoge, String>(
-                meta,
-                "myString",
-                "myString",
-                String.class) {
-            };
+                new AbstractAttributeMeta<Hoge, String>(
+                        meta,
+                        "myString",
+                        "myString",
+                        String.class) {
+                };
         Hoge hoge = new Hoge();
         hoge.setKey(Datastore.createKey(Hoge.class, 1));
         hoge.setMyString("aaa");
@@ -141,65 +127,61 @@ public class AbstAttributeMetaTest extends AppEngineTestCase {
 
     /**
      * @throws Exception
-     * 
      */
     @Test
     public void charAt() throws Exception {
         AbstractAttributeMeta<Hoge, String> attrMeta =
-            new AbstractAttributeMeta<Hoge, String>(
-                meta,
-                "myString",
-                "myString",
-                String.class) {
-            };
+                new AbstractAttributeMeta<Hoge, String>(
+                        meta,
+                        "myString",
+                        "myString",
+                        String.class) {
+                };
         assertThat(attrMeta.charAt(3), is("myString".charAt(3)));
     }
 
     /**
      * @throws Exception
-     * 
      */
     @Test
     public void length() throws Exception {
         AbstractAttributeMeta<Hoge, String> attrMeta =
-            new AbstractAttributeMeta<Hoge, String>(
-                meta,
-                "myString",
-                "myString",
-                String.class) {
-            };
+                new AbstractAttributeMeta<Hoge, String>(
+                        meta,
+                        "myString",
+                        "myString",
+                        String.class) {
+                };
         assertThat(attrMeta.length(), is("myString".length()));
     }
 
     /**
      * @throws Exception
-     * 
      */
     @Test
     public void subSequence() throws Exception {
         AbstractAttributeMeta<Hoge, String> attrMeta =
-            new AbstractAttributeMeta<Hoge, String>(
-                meta,
-                "myString",
-                "myString",
-                String.class) {
-            };
+                new AbstractAttributeMeta<Hoge, String>(
+                        meta,
+                        "myString",
+                        "myString",
+                        String.class) {
+                };
         assertThat(attrMeta.subSequence(1, 3), is("myString".subSequence(1, 3)));
     }
 
     /**
      * @throws Exception
-     * 
      */
     @Test
     public void testToString() throws Exception {
         AbstractAttributeMeta<Hoge, String> attrMeta =
-            new AbstractAttributeMeta<Hoge, String>(
-                meta,
-                "myString",
-                "myString",
-                String.class) {
-            };
+                new AbstractAttributeMeta<Hoge, String>(
+                        meta,
+                        "myString",
+                        "myString",
+                        String.class) {
+                };
         assertThat(attrMeta.toString(), is("myString"));
     }
 }

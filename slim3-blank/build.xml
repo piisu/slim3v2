@@ -2,12 +2,6 @@
     <property file="build.properties" />
 
     <path id="classpath">
-        <fileset dir="war/WEB-INF/classes">
-            <include name="**/*.class" />
-        </fileset>
-        <fileset dir="war/WEB-INF/lib">
-            <include name="**/*.jar" />
-        </fileset>
         <fileset dir="lib">
             <include name="**/*.jar" />
         </fileset>
@@ -57,7 +51,7 @@
     </target>
     
     <target name="copy">
-        <copy todir="war/WEB-INF/lib" file="../slim3/target/slim3-${ver}.jar"/>
+        <copy todir="src/main/webapp/WEB-INF/lib" file="../slim3/target/slim3-${ver}.jar"/>
         <copy todir="libsrc" file="../slim3/target/slim3-${ver}-sources.jar"/>
         <copy todir="lib" file="../slim3-gen/target/slim3-gen-${ver}.jar"/>
         <copy todir="libsrc" file="../slim3-gen/target/slim3-gen-${ver}-sources.jar"/>

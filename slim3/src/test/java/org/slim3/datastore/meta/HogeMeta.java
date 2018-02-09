@@ -15,36 +15,16 @@
  */
 package org.slim3.datastore.meta;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
-
-import org.slim3.datastore.CollectionAttributeMeta;
-import org.slim3.datastore.CoreAttributeMeta;
-import org.slim3.datastore.ModelMeta;
-import org.slim3.datastore.StringAttributeMeta;
-import org.slim3.datastore.StringCollectionAttributeMeta;
-import org.slim3.datastore.StringUnindexedAttributeMeta;
-import org.slim3.datastore.UnindexedAttributeMeta;
-import org.slim3.datastore.json.JsonRootReader;
-import org.slim3.datastore.json.JsonWriter;
+import com.google.appengine.api.datastore.*;
+import com.google.appengine.api.datastore.Query.SortDirection;
+import org.slim3.datastore.*;
 import org.slim3.datastore.model.Hoge;
 import org.slim3.datastore.model.MySerializable;
 
-import com.google.appengine.api.datastore.AsyncDatastoreService;
-import com.google.appengine.api.datastore.Blob;
-import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.Query.SortDirection;
-import com.google.appengine.api.datastore.ShortBlob;
-import com.google.appengine.api.datastore.Text;
+import java.util.*;
 
 /**
  * @author higa
- * 
  */
 public class HogeMeta extends ModelMeta<Hoge> {
 
@@ -58,346 +38,346 @@ public class HogeMeta extends ModelMeta<Hoge> {
     }
 
     /**
-     * 
+     *
      */
     public CoreAttributeMeta<Hoge, Key> key =
-        new CoreAttributeMeta<Hoge, Key>(this, "__key__", "key", Key.class);
+            new CoreAttributeMeta<Hoge, Key>(this, "__key__", "key", Key.class);
 
     /**
-     * 
+     *
      */
     public CoreAttributeMeta<Hoge, Short> myPrimitiveShort =
-        new CoreAttributeMeta<Hoge, Short>(
-            this,
-            "myPrimitiveShort",
-            "myPrimitiveShort",
-            Short.class);
+            new CoreAttributeMeta<Hoge, Short>(
+                    this,
+                    "myPrimitiveShort",
+                    "myPrimitiveShort",
+                    Short.class);
 
     /**
-     * 
+     *
      */
     public CoreAttributeMeta<Hoge, Short> myShort =
-        new CoreAttributeMeta<Hoge, Short>(
-            this,
-            "myShort",
-            "myShort",
-            Short.class);
+            new CoreAttributeMeta<Hoge, Short>(
+                    this,
+                    "myShort",
+                    "myShort",
+                    Short.class);
 
     /**
-     * 
+     *
      */
     public CoreAttributeMeta<Hoge, Integer> myPrimitiveInt =
-        new CoreAttributeMeta<Hoge, Integer>(
-            this,
-            "myPrimitiveInt",
-            "myPrimitiveInt",
-            int.class);
+            new CoreAttributeMeta<Hoge, Integer>(
+                    this,
+                    "myPrimitiveInt",
+                    "myPrimitiveInt",
+                    int.class);
 
     /**
-     * 
+     *
      */
     public CoreAttributeMeta<Hoge, Integer> myInteger =
-        new CoreAttributeMeta<Hoge, Integer>(
-            this,
-            "myInteger",
-            "myInteger",
-            Integer.class);
+            new CoreAttributeMeta<Hoge, Integer>(
+                    this,
+                    "myInteger",
+                    "myInteger",
+                    Integer.class);
 
     /**
-     * 
+     *
      */
     public CoreAttributeMeta<Hoge, Long> myPrimitiveLong =
-        new CoreAttributeMeta<Hoge, Long>(
-            this,
-            "myPrimitiveLong",
-            "myPrimitiveLong",
-            long.class);
+            new CoreAttributeMeta<Hoge, Long>(
+                    this,
+                    "myPrimitiveLong",
+                    "myPrimitiveLong",
+                    long.class);
 
     /**
-     * 
+     *
      */
     public CoreAttributeMeta<Hoge, Long> myLong =
-        new CoreAttributeMeta<Hoge, Long>(this, "myLong", "myLong", Long.class);
+            new CoreAttributeMeta<Hoge, Long>(this, "myLong", "myLong", Long.class);
 
     /**
-     * 
+     *
      */
     public CoreAttributeMeta<Hoge, Float> myPrimitiveFloat =
-        new CoreAttributeMeta<Hoge, Float>(
-            this,
-            "myPrimitiveFloat",
-            "myPrimitiveFloat",
-            float.class);
+            new CoreAttributeMeta<Hoge, Float>(
+                    this,
+                    "myPrimitiveFloat",
+                    "myPrimitiveFloat",
+                    float.class);
 
     /**
-     * 
+     *
      */
     public CoreAttributeMeta<Hoge, Float> myFloat =
-        new CoreAttributeMeta<Hoge, Float>(
-            this,
-            "myFloat",
-            "myFloat",
-            Float.class);
+            new CoreAttributeMeta<Hoge, Float>(
+                    this,
+                    "myFloat",
+                    "myFloat",
+                    Float.class);
 
     /**
-     * 
+     *
      */
     public CoreAttributeMeta<Hoge, Double> myPrimitiveDouble =
-        new CoreAttributeMeta<Hoge, Double>(
-            this,
-            "myPrimitiveDouble",
-            "myPrimitiveDouble",
-            double.class);
+            new CoreAttributeMeta<Hoge, Double>(
+                    this,
+                    "myPrimitiveDouble",
+                    "myPrimitiveDouble",
+                    double.class);
 
     /**
-     * 
+     *
      */
     public CoreAttributeMeta<Hoge, Double> myDouble =
-        new CoreAttributeMeta<Hoge, Double>(
-            this,
-            "myDouble",
-            "myDouble",
-            Double.class);
+            new CoreAttributeMeta<Hoge, Double>(
+                    this,
+                    "myDouble",
+                    "myDouble",
+                    Double.class);
 
     /**
-     * 
+     *
      */
     public StringAttributeMeta<Hoge> myString =
-        new StringAttributeMeta<Hoge>(this, "myString", "myString");
+            new StringAttributeMeta<Hoge>(this, "myString", "myString");
 
     /**
-     * 
+     *
      */
     public CoreAttributeMeta<Hoge, Boolean> myPrimitiveBoolean =
-        new CoreAttributeMeta<Hoge, Boolean>(
-            this,
-            "myPrimitiveBoolean",
-            "myPrimitiveBoolean",
-            boolean.class);
+            new CoreAttributeMeta<Hoge, Boolean>(
+                    this,
+                    "myPrimitiveBoolean",
+                    "myPrimitiveBoolean",
+                    boolean.class);
 
     /**
-     * 
+     *
      */
     public CoreAttributeMeta<Hoge, Boolean> myBoolean =
-        new CoreAttributeMeta<Hoge, Boolean>(
-            this,
-            "myBoolean",
-            "myBoolean",
-            Boolean.class);
+            new CoreAttributeMeta<Hoge, Boolean>(
+                    this,
+                    "myBoolean",
+                    "myBoolean",
+                    Boolean.class);
 
     /**
-     * 
+     *
      */
     public CoreAttributeMeta<Hoge, Date> myDate =
-        new CoreAttributeMeta<Hoge, Date>(this, "myDate", "myDate", Date.class);
+            new CoreAttributeMeta<Hoge, Date>(this, "myDate", "myDate", Date.class);
 
     /**
-     * 
+     *
      */
     public CoreAttributeMeta<Hoge, SortDirection> myEnum =
-        new CoreAttributeMeta<Hoge, SortDirection>(
-            this,
-            "myEnum",
-            "myEnum",
-            SortDirection.class);
+            new CoreAttributeMeta<Hoge, SortDirection>(
+                    this,
+                    "myEnum",
+                    "myEnum",
+                    SortDirection.class);
 
     /**
-     * 
+     *
      */
     public CollectionAttributeMeta<Hoge, List<Short>, Short> myShortList =
-        new CollectionAttributeMeta<Hoge, List<Short>, Short>(
-            this,
-            "myShortList",
-            "myShortList",
-            List.class);
+            new CollectionAttributeMeta<Hoge, List<Short>, Short>(
+                    this,
+                    "myShortList",
+                    "myShortList",
+                    List.class);
 
     /**
-     * 
+     *
      */
     public CollectionAttributeMeta<Hoge, Set<Short>, Short> myShortSet =
-        new CollectionAttributeMeta<Hoge, Set<Short>, Short>(
-            this,
-            "myShortSet",
-            "myShortSet",
-            Set.class);
+            new CollectionAttributeMeta<Hoge, Set<Short>, Short>(
+                    this,
+                    "myShortSet",
+                    "myShortSet",
+                    Set.class);
 
     /**
-     * 
+     *
      */
     public CollectionAttributeMeta<Hoge, SortedSet<Short>, Short> myShortSortedSet =
-        new CollectionAttributeMeta<Hoge, SortedSet<Short>, Short>(
-            this,
-            "myShortSortedSet",
-            "myShortSortedSet",
-            SortedSet.class);
+            new CollectionAttributeMeta<Hoge, SortedSet<Short>, Short>(
+                    this,
+                    "myShortSortedSet",
+                    "myShortSortedSet",
+                    SortedSet.class);
 
     /**
-     * 
+     *
      */
     public CollectionAttributeMeta<Hoge, List<Integer>, Integer> myIntegerList =
-        new CollectionAttributeMeta<Hoge, List<Integer>, Integer>(
-            this,
-            "myIntegerList",
-            "myIntegerList",
-            List.class);
+            new CollectionAttributeMeta<Hoge, List<Integer>, Integer>(
+                    this,
+                    "myIntegerList",
+                    "myIntegerList",
+                    List.class);
 
     /**
-     * 
+     *
      */
     public CollectionAttributeMeta<Hoge, Set<Integer>, Integer> myIntegerSet =
-        new CollectionAttributeMeta<Hoge, Set<Integer>, Integer>(
-            this,
-            "myIntegerSet",
-            "myIntegerSet",
-            Set.class);
+            new CollectionAttributeMeta<Hoge, Set<Integer>, Integer>(
+                    this,
+                    "myIntegerSet",
+                    "myIntegerSet",
+                    Set.class);
 
     /**
-     * 
+     *
      */
     public CollectionAttributeMeta<Hoge, SortedSet<Integer>, Integer> myIntegerSortedSet =
-        new CollectionAttributeMeta<Hoge, SortedSet<Integer>, Integer>(
-            this,
-            "myIntegerSortedSet",
-            "myIntegerSortedSet",
-            SortedSet.class);
+            new CollectionAttributeMeta<Hoge, SortedSet<Integer>, Integer>(
+                    this,
+                    "myIntegerSortedSet",
+                    "myIntegerSortedSet",
+                    SortedSet.class);
 
     /**
-     * 
+     *
      */
     public CollectionAttributeMeta<Hoge, List<Long>, Long> myLongList =
-        new CollectionAttributeMeta<Hoge, List<Long>, Long>(
-            this,
-            "myLongList",
-            "myLongList",
-            List.class);
+            new CollectionAttributeMeta<Hoge, List<Long>, Long>(
+                    this,
+                    "myLongList",
+                    "myLongList",
+                    List.class);
 
     /**
-     * 
+     *
      */
     public CollectionAttributeMeta<Hoge, Set<Long>, Long> myLongSet =
-        new CollectionAttributeMeta<Hoge, Set<Long>, Long>(
-            this,
-            "myLongSet",
-            "myLongSet",
-            Set.class);
+            new CollectionAttributeMeta<Hoge, Set<Long>, Long>(
+                    this,
+                    "myLongSet",
+                    "myLongSet",
+                    Set.class);
 
     /**
-     * 
+     *
      */
     public CollectionAttributeMeta<Hoge, SortedSet<Long>, Long> myLongSortedSet =
-        new CollectionAttributeMeta<Hoge, SortedSet<Long>, Long>(
-            this,
-            "myLongSortedSet",
-            "myLongSortedSet",
-            SortedSet.class);
+            new CollectionAttributeMeta<Hoge, SortedSet<Long>, Long>(
+                    this,
+                    "myLongSortedSet",
+                    "myLongSortedSet",
+                    SortedSet.class);
 
     /**
-     * 
+     *
      */
     public CollectionAttributeMeta<Hoge, List<Float>, Float> myFloatList =
-        new CollectionAttributeMeta<Hoge, List<Float>, Float>(
-            this,
-            "myFloatList",
-            "myFloatList",
-            List.class);
+            new CollectionAttributeMeta<Hoge, List<Float>, Float>(
+                    this,
+                    "myFloatList",
+                    "myFloatList",
+                    List.class);
 
     /**
-     * 
+     *
      */
     public CollectionAttributeMeta<Hoge, Set<Float>, Float> myFloatSet =
-        new CollectionAttributeMeta<Hoge, Set<Float>, Float>(
-            this,
-            "myFloatSet",
-            "myFloatSet",
-            Set.class);
+            new CollectionAttributeMeta<Hoge, Set<Float>, Float>(
+                    this,
+                    "myFloatSet",
+                    "myFloatSet",
+                    Set.class);
 
     /**
-     * 
+     *
      */
     public CollectionAttributeMeta<Hoge, SortedSet<Float>, Float> myFloatSortedSet =
-        new CollectionAttributeMeta<Hoge, SortedSet<Float>, Float>(
-            this,
-            "myFloatSortedSet",
-            "myFloatSortedSet",
-            SortedSet.class);
+            new CollectionAttributeMeta<Hoge, SortedSet<Float>, Float>(
+                    this,
+                    "myFloatSortedSet",
+                    "myFloatSortedSet",
+                    SortedSet.class);
 
     /**
-     * 
+     *
      */
     public CoreAttributeMeta<Hoge, Long> version =
-        new CoreAttributeMeta<Hoge, Long>(
-            this,
-            "version",
-            "version",
-            Long.class);
+            new CoreAttributeMeta<Hoge, Long>(
+                    this,
+                    "version",
+                    "version",
+                    Long.class);
 
     /**
-     * 
+     *
      */
     public CollectionAttributeMeta<Hoge, List<SortDirection>, SortDirection> myEnumList =
-        new CollectionAttributeMeta<Hoge, List<SortDirection>, SortDirection>(
-            this,
-            "myEnumList",
-            "myEnumList",
-            List.class);
+            new CollectionAttributeMeta<Hoge, List<SortDirection>, SortDirection>(
+                    this,
+                    "myEnumList",
+                    "myEnumList",
+                    List.class);
 
     /**
-     * 
+     *
      */
     public StringCollectionAttributeMeta<Hoge, List<String>> myStringList =
-        new StringCollectionAttributeMeta<Hoge, List<String>>(
-            this,
-            "myStringList",
-            "myStringList",
-            List.class);
+            new StringCollectionAttributeMeta<Hoge, List<String>>(
+                    this,
+                    "myStringList",
+                    "myStringList",
+                    List.class);
 
     /**
-     * 
+     *
      */
     public UnindexedAttributeMeta<Hoge, Text> myText =
-        new UnindexedAttributeMeta<Hoge, Text>(
-            this,
-            "myText",
-            "myText",
-            Text.class);
+            new UnindexedAttributeMeta<Hoge, Text>(
+                    this,
+                    "myText",
+                    "myText",
+                    Text.class);
 
     /**
-     * 
+     *
      */
     public UnindexedAttributeMeta<Hoge, Blob> myBlob =
-        new UnindexedAttributeMeta<Hoge, Blob>(
-            this,
-            "myBlob",
-            "myBlob",
-            Blob.class);
+            new UnindexedAttributeMeta<Hoge, Blob>(
+                    this,
+                    "myBlob",
+                    "myBlob",
+                    Blob.class);
 
     /**
-     * 
+     *
      */
     public final StringUnindexedAttributeMeta<Hoge> myCipherLobString =
-        new StringUnindexedAttributeMeta<Hoge>(
-            this,
-            "myCipherLobString",
-            "myCipherLobString");
+            new StringUnindexedAttributeMeta<Hoge>(
+                    this,
+                    "myCipherLobString",
+                    "myCipherLobString");
 
     /**
-     * 
+     *
      */
     public final StringAttributeMeta<Hoge> myCipherString =
-        new StringAttributeMeta<Hoge>(this, "myCipherString", "myCipherString");
+            new StringAttributeMeta<Hoge>(this, "myCipherString", "myCipherString");
 
     /**
-     * 
+     *
      */
     public UnindexedAttributeMeta<Hoge, Text> myCipherText =
-        new UnindexedAttributeMeta<Hoge, Text>(
-            this,
-            "myCipherText",
-            "myCipherText",
-            Text.class);
+            new UnindexedAttributeMeta<Hoge, Text>(
+                    this,
+                    "myCipherText",
+                    "myCipherText",
+                    Text.class);
 
     /**
-     * 
+     *
      */
     public HogeMeta() {
         super("Hoge", Hoge.class);
@@ -408,83 +388,83 @@ public class HogeMeta extends ModelMeta<Hoge> {
         Hoge model = new Hoge();
         model.setKey(entity.getKey());
         model.setMyPrimitiveShort(longToPrimitiveShort((Long) entity
-            .getProperty("myPrimitiveShort")));
+                .getProperty("myPrimitiveShort")));
         model.setMyShort(longToShort((Long) entity.getProperty("myShort")));
         model.setMyPrimitiveInt(longToPrimitiveInt((Long) entity
-            .getProperty("myPrimitiveInt")));
+                .getProperty("myPrimitiveInt")));
         model
-            .setMyInteger(longToInteger((Long) entity.getProperty("myInteger")));
+                .setMyInteger(longToInteger((Long) entity.getProperty("myInteger")));
         model.setMyPrimitiveLong(longToPrimitiveLong((Long) entity
-            .getProperty("myPrimitiveLong")));
+                .getProperty("myPrimitiveLong")));
         model.setMyLong((Long) entity.getProperty("myLong"));
         model.setMyPrimitiveFloat(doubleToPrimitiveFloat((Double) entity
-            .getProperty("myPrimitiveFloat")));
+                .getProperty("myPrimitiveFloat")));
         model.setMyFloat(doubleToFloat((Double) entity.getProperty("myFloat")));
         model.setMyPrimitiveDouble(doubleToPrimitiveDouble((Double) entity
-            .getProperty("myPrimitiveDouble")));
+                .getProperty("myPrimitiveDouble")));
         model.setMyDouble((Double) entity.getProperty("myDouble"));
         model.setMyString((String) entity.getProperty("myString"));
         model.setMyPrimitiveBoolean(booleanToPrimitiveBoolean((Boolean) entity
-            .getProperty("myPrimitiveBoolean")));
+                .getProperty("myPrimitiveBoolean")));
         model.setMyBoolean((Boolean) entity.getProperty("myBoolean"));
         model.setMyDate((Date) entity.getProperty("myDate"));
         model.setMyEnum(stringToEnum(SortDirection.class, (String) entity
-            .getProperty("myEnum")));
+                .getProperty("myEnum")));
 
         model.setMyStringText(textToString((Text) entity
-            .getProperty("myStringText")));
+                .getProperty("myStringText")));
         model.setMyText((Text) entity.getProperty("myText"));
         model.setMyBytes(shortBlobToBytes((ShortBlob) entity
-            .getProperty("myBytes")));
+                .getProperty("myBytes")));
         model.setMyBytesBlob(blobToBytes((Blob) entity
-            .getProperty("myBytesBlob")));
+                .getProperty("myBytesBlob")));
         model
-            .setMySerializable((MySerializable) shortBlobToSerializable((ShortBlob) entity
-                .getProperty("mySerializable")));
+                .setMySerializable((MySerializable) shortBlobToSerializable((ShortBlob) entity
+                        .getProperty("mySerializable")));
         model
-            .setMySerializableBlob((MySerializable) blobToSerializable((Blob) entity
-                .getProperty("mySerializableBlob")));
+                .setMySerializableBlob((MySerializable) blobToSerializable((Blob) entity
+                        .getProperty("mySerializableBlob")));
         model.setMyBlob((Blob) entity.getProperty("myBlob"));
         model.setMyShortBlob((ShortBlob) entity.getProperty("myShortBlob"));
 
         model.setMyShortList(longListToShortList(entity
-            .getProperty("myShortList")));
+                .getProperty("myShortList")));
         model.setMyShortSet(new HashSet<Short>(longListToShortList(entity
-            .getProperty("myShortSet"))));
+                .getProperty("myShortSet"))));
         model.setMyShortSortedSet(new TreeSet<Short>(longListToShortList(entity
-            .getProperty("myShortSortedSet"))));
+                .getProperty("myShortSortedSet"))));
 
         model.setMyIntegerList(longListToIntegerList(entity
-            .getProperty("myIntegerList")));
+                .getProperty("myIntegerList")));
         model.setMyIntegerSet(new HashSet<Integer>(longListToIntegerList(entity
-            .getProperty("myIntegerSet"))));
+                .getProperty("myIntegerSet"))));
         model.setMyIntegerSortedSet(new TreeSet<Integer>(
-            longListToIntegerList(entity.getProperty("myIntegerSortedSet"))));
+                longListToIntegerList(entity.getProperty("myIntegerSortedSet"))));
 
         model
-            .setMyLongList(toList(Long.class, entity.getProperty("myLongList")));
+                .setMyLongList(toList(Long.class, entity.getProperty("myLongList")));
         model.setMyLongSet(new HashSet<Long>(toList(Long.class, entity
-            .getProperty("myLongSet"))));
+                .getProperty("myLongSet"))));
         model.setMyLongSortedSet(new TreeSet<Long>(toList(Long.class, entity
-            .getProperty("myLongSortedSet"))));
+                .getProperty("myLongSortedSet"))));
 
         model.setMyFloatList(doubleListToFloatList(entity
-            .getProperty("myFloatList")));
+                .getProperty("myFloatList")));
         model.setMyFloatSet(new HashSet<Float>(doubleListToFloatList(entity
-            .getProperty("myFloatSet"))));
+                .getProperty("myFloatSet"))));
         model.setMyFloatSortedSet(new TreeSet<Float>(
-            doubleListToFloatList(entity.getProperty("myFloatSortedSet"))));
+                doubleListToFloatList(entity.getProperty("myFloatSortedSet"))));
         model.setMyEnumList(stringListToEnumList(SortDirection.class, entity
-            .getProperty("myEnumList")));
+                .getProperty("myEnumList")));
         model.setMyStringList(toList(String.class, entity
-            .getProperty("myStringList")));
+                .getProperty("myStringList")));
         model.setVersion((Long) entity.getProperty("version"));
         model.setMyCipherLobString(decrypt(textToString((Text) entity
-            .getProperty("myCipherLobString"))));
+                .getProperty("myCipherLobString"))));
         model.setMyCipherString(decrypt((java.lang.String) entity
-            .getProperty("myCipherString")));
+                .getProperty("myCipherString")));
         model
-            .setMyCipherText(decrypt((Text) entity.getProperty("myCipherText")));
+                .setMyCipherText(decrypt((Text) entity.getProperty("myCipherText")));
         return model;
     }
 
@@ -514,15 +494,15 @@ public class HogeMeta extends ModelMeta<Hoge> {
         e.setProperty("myEnum", enumToString(m.getMyEnum()));
 
         e.setUnindexedProperty(
-            "myStringText",
-            stringToText(m.getMyStringText()));
+                "myStringText",
+                stringToText(m.getMyStringText()));
         e.setUnindexedProperty("myText", m.getMyText());
         e.setUnindexedProperty("myBytes", bytesToShortBlob(m.getMyBytes()));
         e.setUnindexedProperty("myBytesBlob", bytesToBlob(m.getMyBytesBlob()));
         e.setUnindexedProperty("mySerializable", serializableToShortBlob(m
-            .getMySerializable()));
+                .getMySerializable()));
         e.setUnindexedProperty("mySerializableBlob", serializableToBlob(m
-            .getMySerializableBlob()));
+                .getMySerializableBlob()));
         e.setProperty("myBlob", m.getMyBlob());
         e.setProperty("myShortList", m.getMyShortList());
         e.setProperty("myShortSet", m.getMyShortSet());
@@ -545,7 +525,7 @@ public class HogeMeta extends ModelMeta<Hoge> {
 
         e.setProperty("version", m.getVersion());
         e.setUnindexedProperty("myCipherLobString", stringToText(encrypt(m
-            .getMyCipherLobString())));
+                .getMyCipherLobString())));
         e.setProperty("myCipherString", encrypt(m.getMyCipherString()));
         e.setUnindexedProperty("myCipherText", encrypt(m.getMyCipherText()));
         return e;
@@ -554,7 +534,7 @@ public class HogeMeta extends ModelMeta<Hoge> {
     @Override
     protected Key getKey(Object model) {
         org.slim3.datastore.model.Hoge m =
-            (org.slim3.datastore.model.Hoge) model;
+                (org.slim3.datastore.model.Hoge) model;
         return m.getKey();
     }
 
@@ -583,7 +563,7 @@ public class HogeMeta extends ModelMeta<Hoge> {
 
     @Override
     protected void assignKeyToModelRefIfNecessary(AsyncDatastoreService ds,
-            Object model) throws NullPointerException {
+                                                  Object model) throws NullPointerException {
     }
 
     @Override
@@ -607,15 +587,6 @@ public class HogeMeta extends ModelMeta<Hoge> {
         return false;
     }
 
-    @Override
-    protected void modelToJson(JsonWriter writer, Object model, int maxDepth, int currentDepth) {
-    }
-
-    @Override
-    public Hoge jsonToModel(JsonRootReader reader, int maxDepth, int currentDepth) {
-        return null;
-    }
-    
     @Override
     protected void postGet(Object model) {
         return;

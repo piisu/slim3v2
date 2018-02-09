@@ -15,24 +15,21 @@
  */
 package org.slim3.datastore;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
+import com.google.appengine.api.datastore.AsyncDatastoreService;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.Key;
+import org.junit.Test;
+import org.slim3.datastore.model.Hoge;
 
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Test;
-import org.slim3.datastore.json.JsonRootReader;
-import org.slim3.datastore.json.JsonWriter;
-import org.slim3.datastore.model.Hoge;
-
-import com.google.appengine.api.datastore.AsyncDatastoreService;
-import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.Key;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertThat;
 
 /**
  * @author higa
- * 
  */
 public class CollectionUnindexedAttributeMetaTest {
 
@@ -82,19 +79,9 @@ public class CollectionUnindexedAttributeMetaTest {
 
         @Override
         protected void assignKeyToModelRefIfNecessary(AsyncDatastoreService ds,
-                Object model) throws NullPointerException {
+                                                      Object model) throws NullPointerException {
         }
 
-        @Override
-        protected void modelToJson(JsonWriter writer, Object model, int maxDepth, int currentDepth) {
-        }
-
-        @Override
-        public Hoge jsonToModel(JsonRootReader reader, int maxDepth,
-                int currentDepth) {
-            return null;
-        }
-        
         @Override
         protected void postGet(Object model) {
             return;
@@ -102,15 +89,14 @@ public class CollectionUnindexedAttributeMetaTest {
     };
 
     private CollectionUnindexedAttributeMeta<Hoge, List<Integer>, Integer> myIntegerList =
-        new CollectionUnindexedAttributeMeta<Hoge, List<Integer>, Integer>(
-            meta,
-            "myIntegerList",
-            "myIntegerList",
-            List.class);
+            new CollectionUnindexedAttributeMeta<Hoge, List<Integer>, Integer>(
+                    meta,
+                    "myIntegerList",
+                    "myIntegerList",
+                    List.class);
 
     /**
      * @throws Exception
-     * 
      */
     @Test
     public void equal() throws Exception {
@@ -120,78 +106,71 @@ public class CollectionUnindexedAttributeMetaTest {
 
     /**
      * @throws Exception
-     * 
      */
     @Test
     public void notEqual() throws Exception {
         assertThat(
-            myIntegerList.notEqual(1),
-            is(InMemoryNotEqualCriterion.class));
+                myIntegerList.notEqual(1),
+                is(InMemoryNotEqualCriterion.class));
         assertThat(myIntegerList.notEqual(null), is(notNullValue()));
     }
 
     /**
      * @throws Exception
-     * 
      */
     @Test
     public void lessThan() throws Exception {
         assertThat(
-            myIntegerList.lessThan(1),
-            is(InMemoryLessThanCriterion.class));
+                myIntegerList.lessThan(1),
+                is(InMemoryLessThanCriterion.class));
         assertThat(myIntegerList.lessThan(null), is(notNullValue()));
     }
 
     /**
      * @throws Exception
-     * 
      */
     @Test
     public void lessThanOrEqual() throws Exception {
         assertThat(
-            myIntegerList.lessThanOrEqual(1),
-            is(InMemoryLessThanOrEqualCriterion.class));
+                myIntegerList.lessThanOrEqual(1),
+                is(InMemoryLessThanOrEqualCriterion.class));
         assertThat(myIntegerList.lessThanOrEqual(null), is(notNullValue()));
     }
 
     /**
      * @throws Exception
-     * 
      */
     @Test
     public void greaterThan() throws Exception {
         assertThat(
-            myIntegerList.greaterThan(1),
-            is(InMemoryGreaterThanCriterion.class));
+                myIntegerList.greaterThan(1),
+                is(InMemoryGreaterThanCriterion.class));
         assertThat(myIntegerList.greaterThan(null), is(notNullValue()));
     }
 
     /**
      * @throws Exception
-     * 
      */
     @Test
     public void greaterThanOrEqual() throws Exception {
         assertThat(
-            myIntegerList.greaterThanOrEqual(1),
-            is(InMemoryGreaterThanOrEqualCriterion.class));
+                myIntegerList.greaterThanOrEqual(1),
+                is(InMemoryGreaterThanOrEqualCriterion.class));
         assertThat(myIntegerList.greaterThanOrEqual(null), is(notNullValue()));
     }
 
     /**
      * @throws Exception
-     * 
      */
     @Test
     public void in() throws Exception {
         assertThat(
-            myIntegerList.in(Arrays.asList(1, 2)),
-            is(InMemoryInCriterion.class));
+                myIntegerList.in(Arrays.asList(1, 2)),
+                is(InMemoryInCriterion.class));
     }
 
     /**
      * @throws Exception
-     * 
      */
     @Test
     public void inForVarargs() throws Exception {
@@ -200,23 +179,21 @@ public class CollectionUnindexedAttributeMetaTest {
 
     /**
      * @throws Exception
-     * 
      */
     @Test(expected = NullPointerException.class)
     public void inForNull() throws Exception {
         assertThat(
-            myIntegerList.in((Iterable<Integer>) null),
-            is(notNullValue()));
+                myIntegerList.in((Iterable<Integer>) null),
+                is(notNullValue()));
     }
 
     /**
      * @throws Exception
-     * 
      */
     @Test
     public void isNotNull() throws Exception {
         assertThat(
-            myIntegerList.isNotNull(),
-            is(InMemoryIsNotNullCriterion.class));
+                myIntegerList.isNotNull(),
+                is(InMemoryIsNotNullCriterion.class));
     }
 }

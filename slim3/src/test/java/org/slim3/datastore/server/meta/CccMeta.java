@@ -15,83 +15,80 @@
  */
 package org.slim3.datastore.server.meta;
 
-import org.slim3.datastore.json.JsonRootReader;
-import org.slim3.datastore.json.JsonWriter;
-
 import com.google.appengine.api.datastore.AsyncDatastoreService;
 import com.google.appengine.api.datastore.Key;
 
 //@javax.annotation.Generated(value = { "slim3-gen", "null" }, date = "2009-11-09 15:30:15")
+
 /**
  * @author higa
- * 
  */
 public final class CccMeta extends
         org.slim3.datastore.ModelMeta<org.slim3.datastore.shared.model.Ccc> {
 
     /**
-     * 
+     *
      */
     public CccMeta() {
         super("Aaa", org.slim3.datastore.shared.model.Ccc.class);
     }
 
     /**
-     * 
+     *
      */
     public org.slim3.datastore.CoreAttributeMeta<org.slim3.datastore.shared.model.Ccc, com.google.appengine.api.datastore.Key> key =
-        new org.slim3.datastore.CoreAttributeMeta<org.slim3.datastore.shared.model.Ccc, com.google.appengine.api.datastore.Key>(
-            this,
-            "__key__",
-            "key",
-            com.google.appengine.api.datastore.Key.class);
+            new org.slim3.datastore.CoreAttributeMeta<org.slim3.datastore.shared.model.Ccc, com.google.appengine.api.datastore.Key>(
+                    this,
+                    "__key__",
+                    "key",
+                    com.google.appengine.api.datastore.Key.class);
 
     /**
-     * 
+     *
      */
     public org.slim3.datastore.CoreAttributeMeta<org.slim3.datastore.shared.model.Ccc, java.lang.Integer> schemaVersion =
-        new org.slim3.datastore.CoreAttributeMeta<org.slim3.datastore.shared.model.Ccc, java.lang.Integer>(
-            this,
-            "schemaVersion",
-            "schemaVersion",
-            java.lang.Integer.class);
+            new org.slim3.datastore.CoreAttributeMeta<org.slim3.datastore.shared.model.Ccc, java.lang.Integer>(
+                    this,
+                    "schemaVersion",
+                    "schemaVersion",
+                    java.lang.Integer.class);
 
     /**
-     * 
+     *
      */
     public org.slim3.datastore.CoreAttributeMeta<org.slim3.datastore.shared.model.Ccc, java.lang.Long> version =
-        new org.slim3.datastore.CoreAttributeMeta<org.slim3.datastore.shared.model.Ccc, java.lang.Long>(
-            this,
-            "version",
-            "version",
-            java.lang.Long.class);
+            new org.slim3.datastore.CoreAttributeMeta<org.slim3.datastore.shared.model.Ccc, java.lang.Long>(
+                    this,
+                    "version",
+                    "version",
+                    java.lang.Long.class);
 
     @Override
     protected Key getKey(Object model) {
         org.slim3.datastore.shared.model.Ccc m =
-            (org.slim3.datastore.shared.model.Ccc) model;
+                (org.slim3.datastore.shared.model.Ccc) model;
         return m.getKey();
     }
 
     @Override
     protected void setKey(Object model,
-            com.google.appengine.api.datastore.Key key) {
+                          com.google.appengine.api.datastore.Key key) {
         org.slim3.datastore.shared.model.Ccc m =
-            (org.slim3.datastore.shared.model.Ccc) model;
+                (org.slim3.datastore.shared.model.Ccc) model;
         m.setKey(key);
     }
 
     @Override
     protected long getVersion(Object model) {
         org.slim3.datastore.shared.model.Ccc m =
-            (org.slim3.datastore.shared.model.Ccc) model;
+                (org.slim3.datastore.shared.model.Ccc) model;
         return m.getVersion() != null ? m.getVersion().longValue() : 0L;
     }
 
     @Override
     protected void incrementVersion(Object model) {
         org.slim3.datastore.shared.model.Ccc m =
-            (org.slim3.datastore.shared.model.Ccc) model;
+                (org.slim3.datastore.shared.model.Ccc) model;
         long version = m.getVersion() != null ? m.getVersion().longValue() : 0L;
         m.setVersion(Long.valueOf(version + 1L));
     }
@@ -102,17 +99,17 @@ public final class CccMeta extends
 
     @Override
     protected void assignKeyToModelRefIfNecessary(AsyncDatastoreService ds,
-            Object model) throws NullPointerException {
+                                                  Object model) throws NullPointerException {
     }
 
     @Override
     public org.slim3.datastore.shared.model.Ccc entityToModel(
             com.google.appengine.api.datastore.Entity entity) {
         org.slim3.datastore.shared.model.Ccc model =
-            new org.slim3.datastore.shared.model.Ccc();
+                new org.slim3.datastore.shared.model.Ccc();
         model.setKey(entity.getKey());
         model.setSchemaVersion(longToInteger((java.lang.Long) entity
-            .getProperty("schemaVersion")));
+                .getProperty("schemaVersion")));
         model.setVersion((java.lang.Long) entity.getProperty("version"));
         return model;
     }
@@ -121,7 +118,7 @@ public final class CccMeta extends
     public com.google.appengine.api.datastore.Entity modelToEntity(
             java.lang.Object model) {
         org.slim3.datastore.shared.model.Ccc m =
-            (org.slim3.datastore.shared.model.Ccc) model;
+                (org.slim3.datastore.shared.model.Ccc) model;
         com.google.appengine.api.datastore.Entity entity = null;
         if (m.getKey() != null) {
             entity = new com.google.appengine.api.datastore.Entity(m.getKey());
@@ -143,15 +140,7 @@ public final class CccMeta extends
         return "slim3.schemaVersion";
     }
 
-    @Override
-    protected void modelToJson(JsonWriter writer, Object model, int maxDepth, int currentDepth) {
-    }
 
-    @Override
-    public org.slim3.datastore.shared.model.Ccc jsonToModel(JsonRootReader reader, int maxDepth, int currentDepth) {
-        return null;
-    }
-    
     @Override
     protected void postGet(Object model) {
         return;

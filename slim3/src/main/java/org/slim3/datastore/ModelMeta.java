@@ -15,39 +15,20 @@
  */
 package org.slim3.datastore;
 
-import java.lang.reflect.Array;
+import com.google.appengine.api.datastore.*;
+import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
+import org.slim3.util.*;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.slim3.datastore.json.JsonArrayReader;
-import org.slim3.datastore.json.JsonReader;
-import org.slim3.datastore.json.JsonRootReader;
-import org.slim3.datastore.json.JsonWriter;
-import org.slim3.datastore.json.ModelReader;
-import org.slim3.datastore.json.ModelWriter;
-import org.slim3.util.BeanDesc;
-import org.slim3.util.BeanUtil;
-import org.slim3.util.ByteUtil;
-import org.slim3.util.Cipher;
-import org.slim3.util.CipherFactory;
-
-import com.google.appengine.api.datastore.AsyncDatastoreService;
-import com.google.appengine.api.datastore.Blob;
-import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
-import com.google.appengine.api.datastore.ShortBlob;
-import com.google.appengine.api.datastore.Text;
-
 /**
  * A meta data of model.
- * 
+ *
+ * @param <M> the model type
  * @author higa
- * @param <M>
- *            the model type
  * @since 1.0.0
- * 
  */
 public abstract class ModelMeta<M> {
 
@@ -75,13 +56,10 @@ public abstract class ModelMeta<M> {
 
     /**
      * Constructor.
-     * 
-     * @param kind
-     *            the kind of entity
-     * @param modelClass
-     *            the model class
-     * @throws NullPointerException
-     *             if the modelClass parameter is null
+     *
+     * @param kind       the kind of entity
+     * @param modelClass the model class
+     * @throws NullPointerException if the modelClass parameter is null
      */
     public ModelMeta(String kind, Class<M> modelClass)
             throws NullPointerException {
@@ -90,19 +68,15 @@ public abstract class ModelMeta<M> {
 
     /**
      * Constructor.
-     * 
-     * @param kind
-     *            the kind of entity
-     * @param modelClass
-     *            the model class
-     * @param classHierarchyList
-     *            the list of class hierarchies
-     * @throws NullPointerException
-     *             if the modelClass parameter is null
+     *
+     * @param kind               the kind of entity
+     * @param modelClass         the model class
+     * @param classHierarchyList the list of class hierarchies
+     * @throws NullPointerException if the modelClass parameter is null
      */
     @SuppressWarnings("unchecked")
     public ModelMeta(String kind, Class<M> modelClass,
-            List<String> classHierarchyList) throws NullPointerException {
+                     List<String> classHierarchyList) throws NullPointerException {
         if (kind == null) {
             throw new NullPointerException("The kind parameter is null.");
         }
@@ -115,7 +89,7 @@ public abstract class ModelMeta<M> {
             this.classHierarchyList = Collections.EMPTY_LIST;
         } else {
             this.classHierarchyList =
-                Collections.unmodifiableList(classHierarchyList);
+                    Collections.unmodifiableList(classHierarchyList);
         }
     }
 
@@ -127,7 +101,7 @@ public abstract class ModelMeta<M> {
 
     /**
      * Returns the kind of entity.
-     * 
+     *
      * @return the kind of entity
      */
     public String getKind() {
@@ -136,7 +110,7 @@ public abstract class ModelMeta<M> {
 
     /**
      * Returns the model class.
-     * 
+     *
      * @return the model class
      */
     public Class<M> getModelClass() {
@@ -145,7 +119,7 @@ public abstract class ModelMeta<M> {
 
     /**
      * Returns the list of class hierarchies.
-     * 
+     *
      * @return the list of class hierarchies
      */
     public List<String> getClassHierarchyList() {
@@ -154,481 +128,138 @@ public abstract class ModelMeta<M> {
 
     /**
      * Returns the AND criterion.
-     * 
-     * @param criteria
-     *            the filter criteria
+     *
+     * @param criteria the filter criteria
      * @return the AND criterion
      */
     public FilterCriterion and(FilterCriterion... criteria) {
         return new CompositeCriterion(
-            this,
-            CompositeFilterOperator.AND,
-            criteria);
+                this,
+                CompositeFilterOperator.AND,
+                criteria);
     }
 
     /**
      * Returns the OR criterion.
-     * 
-     * @param criteria
-     *            the filter criteria
+     *
+     * @param criteria the filter criteria
      * @return the OR criterion
      */
     public FilterCriterion or(FilterCriterion... criteria) {
         return new CompositeCriterion(
-            this,
-            CompositeFilterOperator.OR,
-            criteria);
+                this,
+                CompositeFilterOperator.OR,
+                criteria);
     }
 
     /**
      * Returns the schemaVersion property name.
-     * 
+     *
      * @return the schemaVersion property name
      */
     public abstract String getSchemaVersionName();
 
     /**
      * Returns the classHierarchyList property name.
-     * 
+     *
      * @return the classHierarchyList property name
      */
     public abstract String getClassHierarchyListName();
 
     /**
      * Converts the entity to a model.
-     * 
-     * @param entity
-     *            the entity
+     *
+     * @param entity the entity
      * @return a model
      */
     public abstract M entityToModel(Entity entity);
 
     /**
      * Converts the model to an entity.
-     * 
-     * @param model
-     *            the model
+     *
+     * @param model the model
      * @return an entity
      */
     public abstract Entity modelToEntity(Object model);
 
     /**
-     * Converts the model to JSON string assuming maxDepth is 0.
-     * 
-     * @param model
-     *            the model
-     * 
-     * @return JSON string
-     */
-    public String modelToJson(Object model) {
-        return modelToJson(model, 0);
-    }
-
-    /**
-     * Converts the model to JSON string.
-     * 
-     * @param model
-     *            the model
-     * 
-     * @param maxDepth
-     *            the max depth of ModelRef expanding
-     * 
-     * @return JSON string
-     */
-    public String modelToJson(final Object model, int maxDepth) {
-        StringBuilder b = new StringBuilder();
-        JsonWriter w = new JsonWriter(b, new ModelWriter() {
-            @Override
-            public void write(JsonWriter writer, Object model, int maxDepth,
-                    int currentDepth) {
-                invokeModelToJson(
-                    Datastore.getModelMeta(model.getClass()),
-                    writer,
-                    model,
-                    maxDepth,
-                    currentDepth + 1);
-            }
-        });
-        modelToJson(w, model, maxDepth, 0);
-        return b.toString();
-    }
-
-    /**
-     * Converts the models to JSON string.
-     * 
-     * @param models
-     *            models
-     * 
-     * @return JSON string
-     */
-    public String modelsToJson(final Object[] models) {
-        return modelsToJson(models, 0);
-    }
-
-    /**
-     * Converts the models to JSON string.
-     * 
-     * @param models
-     *            models
-     * 
-     * @param maxDepth
-     *            the max depth of ModelRef expanding
-     * 
-     * @return JSON string
-     */
-    public String modelsToJson(final Object[] models, int maxDepth) {
-        int n = models.length;
-        if (n == 0)
-            return "[]";
-        StringBuilder b = new StringBuilder();
-        JsonWriter w = new JsonWriter(b, new ModelWriter() {
-            @Override
-            public void write(JsonWriter writer, Object model, int maxDepth,
-                    int currentDepth) {
-                invokeModelToJson(
-                    Datastore.getModelMeta(model.getClass()),
-                    writer,
-                    model,
-                    maxDepth,
-                    currentDepth + 1);
-            }
-        });
-        b.append("[");
-        modelToJson(w, models[0], maxDepth, 0);
-        for (int i = 1; i < n; i++) {
-            b.append(",");
-            modelToJson(w, models[i], maxDepth, 0);
-        }
-        b.append("]");
-        return b.toString();
-    }
-
-    /**
-     * Converts the models to JSON string.
-     * 
-     * @param models
-     *            models
-     * 
-     * @return JSON string
-     */
-    public String modelsToJson(Iterable<?> models) {
-        return modelsToJson(models, 0);
-    }
-
-    /**
-     * Converts the models to JSON string.
-     * 
-     * @param models
-     *            models
-     * 
-     * @param maxDepth
-     *            the max depth of ModelRef expanding
-     * 
-     * @return JSON string
-     */
-    public String modelsToJson(final Iterable<?> models, int maxDepth) {
-        StringBuilder b = new StringBuilder();
-        JsonWriter w = new JsonWriter(b, new ModelWriter() {
-            @Override
-            public void write(JsonWriter writer, Object model, int maxDepth,
-                    int currentDepth) {
-                invokeModelToJson(
-                    Datastore.getModelMeta(model.getClass()),
-                    writer,
-                    model,
-                    maxDepth,
-                    currentDepth + 1);
-            }
-        });
-        b.append("[");
-        boolean first = true;
-        for (Object o : models) {
-            if (first) {
-                first = false;
-            } else {
-                b.append(",");
-            }
-            modelToJson(w, o, maxDepth, 0);
-        }
-        b.append("]");
-        return b.toString();
-    }
-
-    /**
-     * Converts the model to JSON string.
-     * 
-     * @param writer
-     *            the writer
-     * 
-     * @param model
-     *            the model
-     * 
-     * @param maxDepth
-     *            the max depth
-     * 
-     * @param currentDepth
-     *            the current depth
-     */
-    protected abstract void modelToJson(JsonWriter writer, Object model,
-            int maxDepth, int currentDepth);
-
-    /**
-     * Invoke the modelToJson method.
-     * 
-     * @param meta
-     *            the meta
-     * 
-     * @param writer
-     *            the writer
-     * 
-     * @param model
-     *            the model
-     * 
-     * @param maxDepth
-     *            the max depth
-     * 
-     * @param currentDepth
-     *            the current depth
-     */
-    protected void invokeModelToJson(ModelMeta<?> meta, JsonWriter writer,
-            Object model, int maxDepth, int currentDepth) {
-        meta.modelToJson(writer, model, maxDepth, currentDepth);
-    }
-
-    /**
-     * Converts the JSON string to model.
-     * 
-     * @param json
-     *            the JSON string
-     * 
-     * @return model
-     */
-    public M jsonToModel(String json) {
-        return jsonToModel(json, 0);
-    }
-
-    /**
-     * Converts the JSON string to model.
-     * 
-     * @param json
-     *            the JSON string
-     * 
-     * @param maxDepth
-     *            the max depth
-     * 
-     * @return model
-     */
-    public M jsonToModel(String json, int maxDepth) {
-        return jsonToModel(json, maxDepth, 0);
-    }
-
-    /**
-     * Converts the JSON string to model array.
-     * 
-     * @param json
-     *            the JSON string
-     * 
-     * @return model array
-     */
-    public M[] jsonToModels(String json) {
-        return jsonToModels(json, 0);
-    }
-
-    /**
-     * Converts the JSON string to model array.
-     * 
-     * @param json
-     *            the JSON string
-     * 
-     * @param maxDepth
-     *            the max depth
-     * 
-     * @return model array
-     */
-    @SuppressWarnings("unchecked")
-    public M[] jsonToModels(String json, int maxDepth) {
-        JsonArrayReader ar = new JsonArrayReader(json, new ModelReader() {
-            @Override
-            public <T> T read(JsonReader reader, Class<T> modelClass,
-                    int maxDepth, int currentDepth) {
-                return invokeJsonToModel(
-                    Datastore.getModelMeta(modelClass),
-                    reader,
-                    maxDepth,
-                    currentDepth + 1);
-            }
-        });
-        M[] ret = (M[]) Array.newInstance(this.getModelClass(), ar.length());
-        for (int i = 0; i < ar.length(); i++) {
-            ar.setIndex(i);
-            ret[i] = jsonToModel(ar.newRootReader(), maxDepth, 0);
-        }
-        return ret;
-    }
-
-    /**
-     * Converts the JSON string to model.
-     * 
-     * @param json
-     *            the JSON string
-     * 
-     * @param maxDepth
-     *            the max depth
-     * 
-     * @param currentDepth
-     *            the current depth
-     * 
-     * @return model
-     */
-    protected M jsonToModel(String json, int maxDepth, int currentDepth) {
-        return jsonToModel(new JsonRootReader(json, new ModelReader() {
-            @Override
-            public <T> T read(JsonReader reader, Class<T> modelClass,
-                    int maxDepth, int currentDepth) {
-                return invokeJsonToModel(
-                    Datastore.getModelMeta(modelClass),
-                    reader,
-                    maxDepth,
-                    currentDepth + 1);
-            }
-        }),
-            maxDepth,
-            currentDepth);
-    }
-
-    /**
-     * Converts the JSON string to model.
-     * 
-     * @param reader
-     *            the JSON reader
-     * 
-     * @param maxDepth
-     *            the max depth
-     * 
-     * @param currentDepth
-     *            the current depth
-     * 
-     * @return model
-     */
-    protected abstract M jsonToModel(JsonRootReader reader, int maxDepth,
-            int currentDepth);
-
-    /**
-     * Converts the JSON string to model.
-     * 
-     * @param <T>
-     *            the type of model
-     * 
-     * @param meta
-     *            the model meta
-     * 
-     * @param reader
-     *            the JSON reader
-     * 
-     * @param maxDepth
-     *            the max depth
-     * 
-     * @param currentDepth
-     *            the current depth
-     * 
-     * @return model
-     */
-    protected <T> T invokeJsonToModel(ModelMeta<T> meta, JsonReader reader,
-            int maxDepth, int currentDepth) {
-        return meta.jsonToModel(reader.read(), maxDepth, currentDepth);
-    }
-
-    /**
      * Returns version property value of the model.
-     * 
-     * @param model
-     *            the model
+     *
+     * @param model the model
      * @return a version property value of the model
      */
     protected abstract long getVersion(Object model);
 
     /**
      * Increments the version property value.
-     * 
-     * @param model
-     *            the model
+     *
+     * @param model the model
      */
     protected abstract void incrementVersion(Object model);
 
     /**
      * This method is called before a model is put to datastore.
-     * 
-     * @param model
-     *            the model
+     *
+     * @param model the model
      */
     protected abstract void prePut(Object model);
 
     /**
      * This method is called after a model is get from datastore.
-     * 
-     * @param model
-     *            the model
+     *
+     * @param model the model
      */
     protected abstract void postGet(Object model);
 
     /**
      * Returns a key of the model.
-     * 
-     * @param model
-     *            the model
+     *
+     * @param model the model
      * @return a key of the model
      */
     protected abstract Key getKey(Object model);
 
     /**
      * Sets the key to the model.
-     * 
-     * @param model
-     *            the model
-     * @param key
-     *            the key
+     *
+     * @param model the model
+     * @param key   the key
      */
     protected abstract void setKey(Object model, Key key);
 
     /**
      * Assigns a key to {@link ModelRef} if necessary.
-     * 
-     * @param ds
-     *            the asynchronous datastore service
-     * @param model
-     *            the model
-     * @throws NullPointerException
-     *             if the ds parameter is null or if the model parameter is null
+     *
+     * @param ds    the asynchronous datastore service
+     * @param model the model
+     * @throws NullPointerException if the ds parameter is null or if the model parameter is null
      */
     protected abstract void assignKeyToModelRefIfNecessary(
             AsyncDatastoreService ds, Object model) throws NullPointerException;
 
     /**
      * Validates the kind of the key.
-     * 
-     * @param key
-     *            the key
-     * @throws IllegalArgumentException
-     *             if the kind of the key is different from the kind of this
-     *             model
+     *
+     * @param key the key
+     * @throws IllegalArgumentException if the kind of the key is different from the kind of this
+     *                                  model
      */
     protected void validateKey(Key key) throws IllegalArgumentException {
         if (key != null && !key.getKind().equals(kind)) {
             throw new IllegalArgumentException("The kind("
-                + key.getKind()
-                + ") of the key("
-                + key
-                + ") must be "
-                + kind
-                + ".");
+                    + key.getKind()
+                    + ") of the key("
+                    + key
+                    + ") must be "
+                    + kind
+                    + ".");
         }
     }
 
     /**
      * Converts the long to a primitive short.
-     * 
-     * @param value
-     *            the long
+     *
+     * @param value the long
      * @return a primitive short
      */
     protected short longToPrimitiveShort(Long value) {
@@ -637,9 +268,8 @@ public abstract class ModelMeta<M> {
 
     /**
      * Converts the long to a short.
-     * 
-     * @param value
-     *            the long
+     *
+     * @param value the long
      * @return a short
      */
     protected Short longToShort(Long value) {
@@ -648,9 +278,8 @@ public abstract class ModelMeta<M> {
 
     /**
      * Converts the long to a primitive int.
-     * 
-     * @param value
-     *            the long
+     *
+     * @param value the long
      * @return a primitive int
      */
     protected int longToPrimitiveInt(Long value) {
@@ -659,9 +288,8 @@ public abstract class ModelMeta<M> {
 
     /**
      * Converts the long to an integer.
-     * 
-     * @param value
-     *            the long
+     *
+     * @param value the long
      * @return an integer
      */
     protected Integer longToInteger(Long value) {
@@ -670,9 +298,8 @@ public abstract class ModelMeta<M> {
 
     /**
      * Converts the long to a primitive long.
-     * 
-     * @param value
-     *            the long
+     *
+     * @param value the long
      * @return a primitive long
      */
     protected long longToPrimitiveLong(Long value) {
@@ -681,9 +308,8 @@ public abstract class ModelMeta<M> {
 
     /**
      * Converts the double to a primitive float.
-     * 
-     * @param value
-     *            the double
+     *
+     * @param value the double
      * @return a primitive float
      */
     protected float doubleToPrimitiveFloat(Double value) {
@@ -692,9 +318,8 @@ public abstract class ModelMeta<M> {
 
     /**
      * Converts the double to a float.
-     * 
-     * @param value
-     *            the double
+     *
+     * @param value the double
      * @return a float
      */
     protected Float doubleToFloat(Double value) {
@@ -703,9 +328,8 @@ public abstract class ModelMeta<M> {
 
     /**
      * Converts the double to a primitive double.
-     * 
-     * @param value
-     *            the double
+     *
+     * @param value the double
      * @return a primitive double
      */
     protected double doubleToPrimitiveDouble(Double value) {
@@ -714,9 +338,8 @@ public abstract class ModelMeta<M> {
 
     /**
      * Converts the boolean to a primitive boolean.
-     * 
-     * @param value
-     *            the boolean
+     *
+     * @param value the boolean
      * @return a primitive boolean
      */
     protected boolean booleanToPrimitiveBoolean(Boolean value) {
@@ -725,9 +348,8 @@ public abstract class ModelMeta<M> {
 
     /**
      * Converts the {@link Enum} to a string representation.
-     * 
-     * @param value
-     *            the {@link Enum}
+     *
+     * @param value the {@link Enum}
      * @return a string representation
      */
     protected String enumToString(Enum<?> value) {
@@ -736,13 +358,10 @@ public abstract class ModelMeta<M> {
 
     /**
      * Converts the string to an {@link Enum}.
-     * 
-     * @param <T>
-     *            the enum type
-     * @param clazz
-     *            the enum class
-     * @param value
-     *            the String
+     *
+     * @param <T>   the enum type
+     * @param clazz the enum class
+     * @param value the String
      * @return an {@link Enum}
      */
     protected <T extends Enum<T>> T stringToEnum(Class<T> clazz, String value) {
@@ -751,9 +370,8 @@ public abstract class ModelMeta<M> {
 
     /**
      * Converts the text to a string
-     * 
-     * @param value
-     *            the text
+     *
+     * @param value the text
      * @return a string
      */
     protected String textToString(Text value) {
@@ -762,9 +380,8 @@ public abstract class ModelMeta<M> {
 
     /**
      * Converts the string to a text
-     * 
-     * @param value
-     *            the string
+     *
+     * @param value the string
      * @return a text
      */
     protected Text stringToText(String value) {
@@ -773,9 +390,8 @@ public abstract class ModelMeta<M> {
 
     /**
      * Converts the short blob to an array of bytes.
-     * 
-     * @param value
-     *            the short blob
+     *
+     * @param value the short blob
      * @return an array of bytes
      */
     protected byte[] shortBlobToBytes(ShortBlob value) {
@@ -784,9 +400,8 @@ public abstract class ModelMeta<M> {
 
     /**
      * Converts the array of bytes to a short blob.
-     * 
-     * @param value
-     *            the array of bytes
+     *
+     * @param value the array of bytes
      * @return a short blob
      */
     protected ShortBlob bytesToShortBlob(byte[] value) {
@@ -795,9 +410,8 @@ public abstract class ModelMeta<M> {
 
     /**
      * Converts the blob to an array of bytes.
-     * 
-     * @param value
-     *            the blob
+     *
+     * @param value the blob
      * @return an array of bytes
      */
     protected byte[] blobToBytes(Blob value) {
@@ -806,9 +420,8 @@ public abstract class ModelMeta<M> {
 
     /**
      * Converts the array of bytes to a blob.
-     * 
-     * @param value
-     *            the array of bytes
+     *
+     * @param value the array of bytes
      * @return a blob
      */
     protected Blob bytesToBlob(byte[] value) {
@@ -817,11 +430,9 @@ public abstract class ModelMeta<M> {
 
     /**
      * Converts the short blob to a serializable object.
-     * 
-     * @param <T>
-     *            the type
-     * @param value
-     *            the short blob
+     *
+     * @param <T>   the type
+     * @param value the short blob
      * @return a serializable object
      */
     @SuppressWarnings("unchecked")
@@ -831,24 +442,21 @@ public abstract class ModelMeta<M> {
 
     /**
      * Converts the serializable object to a short blob.
-     * 
-     * @param value
-     *            the serializable object
+     *
+     * @param value the serializable object
      * @return a short blob
      */
     protected ShortBlob serializableToShortBlob(Object value) {
         return value != null
-            ? new ShortBlob(ByteUtil.toByteArray(value))
-            : null;
+                ? new ShortBlob(ByteUtil.toByteArray(value))
+                : null;
     }
 
     /**
      * Converts the blob to a serializable object.
-     * 
-     * @param <T>
-     *            the type
-     * @param value
-     *            the blob
+     *
+     * @param <T>   the type
+     * @param value the blob
      * @return a serializable object
      */
     @SuppressWarnings("unchecked")
@@ -858,9 +466,8 @@ public abstract class ModelMeta<M> {
 
     /**
      * Converts the serializable object to a blob.
-     * 
-     * @param value
-     *            the serializable object
+     *
+     * @param value the serializable object
      * @return a blob
      */
     protected Blob serializableToBlob(Object value) {
@@ -869,13 +476,10 @@ public abstract class ModelMeta<M> {
 
     /**
      * Converts the list to an array list.
-     * 
-     * @param <T>
-     *            the type
-     * @param clazz
-     *            the class
-     * @param value
-     *            the list
+     *
+     * @param <T>   the type
+     * @param clazz the class
+     * @param value the list
      * @return an array list
      */
     @SuppressWarnings("unchecked")
@@ -888,9 +492,8 @@ public abstract class ModelMeta<M> {
 
     /**
      * Converts the list of long to a list of short.
-     * 
-     * @param value
-     *            the list of long
+     *
+     * @param value the list of long
      * @return a list of short
      */
     @SuppressWarnings("unchecked")
@@ -910,9 +513,8 @@ public abstract class ModelMeta<M> {
 
     /**
      * Converts the list of long to a list of integer.
-     * 
-     * @param value
-     *            the list of long
+     *
+     * @param value the list of long
      * @return a list of integer
      */
     @SuppressWarnings("unchecked")
@@ -932,9 +534,8 @@ public abstract class ModelMeta<M> {
 
     /**
      * Converts the list of double to a list of float.
-     * 
-     * @param value
-     *            the list of double
+     *
+     * @param value the list of double
      * @return a list of float
      */
     @SuppressWarnings("unchecked")
@@ -954,9 +555,8 @@ public abstract class ModelMeta<M> {
 
     /**
      * Converts the list of {@link Enum}s to a list of strings.
-     * 
-     * @param value
-     *            the list of {@link Enum}
+     *
+     * @param value the list of {@link Enum}
      * @return a list of strings
      */
     @SuppressWarnings("unchecked")
@@ -974,18 +574,15 @@ public abstract class ModelMeta<M> {
 
     /**
      * Converts the list of strings to a list of {@link Enum}s.
-     * 
-     * @param <T>
-     *            the enum type
-     * @param clazz
-     *            the enum class
-     * @param value
-     *            the list of strings
+     *
+     * @param <T>   the enum type
+     * @param clazz the enum class
+     * @param value the list of strings
      * @return a list of {@link Enum}s
      */
     @SuppressWarnings("unchecked")
     protected <T extends Enum<T>> List<T> stringListToEnumList(Class<T> clazz,
-            Object value) {
+                                                               Object value) {
         List<String> v = (List<String>) value;
         if (v == null) {
             return new ArrayList<T>();
@@ -999,7 +596,7 @@ public abstract class ModelMeta<M> {
 
     /**
      * Returns the bean descriptor.
-     * 
+     *
      * @return the bean descriptor
      */
     protected BeanDesc getBeanDesc() {
@@ -1012,9 +609,8 @@ public abstract class ModelMeta<M> {
 
     /**
      * Determines if the property is cipher.
-     * 
-     * @param propertyName
-     *            the property name
+     *
+     * @param propertyName the property name
      * @return whether property is cipher
      * @since 1.0.6
      */
@@ -1024,9 +620,8 @@ public abstract class ModelMeta<M> {
 
     /**
      * Encrypt the text.
-     * 
-     * @param text
-     *            the text
+     *
+     * @param text the text
      * @return the encrypted text
      * @since 1.0.6
      */
@@ -1037,9 +632,8 @@ public abstract class ModelMeta<M> {
 
     /**
      * Encrypt the text.
-     * 
-     * @param text
-     *            the text
+     *
+     * @param text the text
      * @return the encrypted text
      * @since 1.0.6
      */
@@ -1051,9 +645,8 @@ public abstract class ModelMeta<M> {
 
     /**
      * Decrypt the encrypted text.
-     * 
-     * @param encryptedText
-     *            the encrypted text
+     *
+     * @param encryptedText the encrypted text
      * @return the decrypted text
      * @since 1.0.6
      */
@@ -1064,9 +657,8 @@ public abstract class ModelMeta<M> {
 
     /**
      * Decrypt the encrypted text.
-     * 
-     * @param encryptedText
-     *            the encrypted text
+     *
+     * @param encryptedText the encrypted text
      * @return the decrypted text
      * @since 1.0.6
      */

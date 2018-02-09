@@ -374,7 +374,6 @@ public class ModelMetaDescFactory {
                 MessageCode.SLIM3GEN1015,
                 classElement);
         }
-        modelMetaDesc.createJsonAttributeMetaDescList();
     }
 
     /**

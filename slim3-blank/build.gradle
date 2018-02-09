@@ -1,0 +1,97 @@
+group = 'com.example.appengine'   // Generated output GroupId
+version = '1.0-SNAPSHOT'          // Version in generated output
+
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'org.akhikhl.gretty'
+apply plugin: 'com.google.cloud.tools.appengine'
+apply plugin: "net.ltgt.apt"
+apply plugin: "net.ltgt.apt-idea"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+compileJava.options.encoding = "UTF-8"
+compileTestJava.options.encoding = "UTF-8"
+
+ext {
+    appengineVersion = "1.9.60"
+    slim3Version = "1.0.17-SNAPSHOT"
+}
+
+buildscript {      // Configuration for building
+    repositories {
+        jcenter()      // Bintray's repository - a fast Maven Central mirror & more
+        mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath 'com.google.cloud.tools:appengine-gradle-plugin:+'
+        classpath 'org.akhikhl.gretty:gretty:+'
+        classpath "net.ltgt.gradle:gradle-apt-plugin:0.13"
+    }
+}
+
+repositories {   // repositories for JARs you access in your code
+    maven {
+        url 'https://maven-central.storage.googleapis.com'             // Google's mirror of Maven Central
+    }
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
+    providedCompile "com.google.appengine:appengine:${appengineVersion}"
+
+    // Add your dependencies here.
+    compile "com.google.appengine:appengine-endpoints:${appengineVersion}" //add this line to avoid upper comment
+    compile "com.google.appengine:appengine-endpoints-deps:${appengineVersion}" //works also without this line
+    compile 'javax.servlet:servlet-api:2.5'
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile group: 'com.google.appengine', name: 'appengine-local-runtime', version: appengineVersion
+    testCompile group: 'com.google.appengine', name: 'appengine-api-stubs', version: appengineVersion
+    testCompile group: 'com.google.appengine', name: 'appengine-api-1.0-sdk', version: appengineVersion
+    testCompile group: 'com.google.appengine', name: 'appengine-api-labs', version: appengineVersion
+
+    apt project(":slim3-gen-jsr269")
+    compile project(":slim3")
+
+    //compileOnly 'org.projectlombok:lombok:1.16.20'
+    //apt "org.projectlombok:lombok:1.16.20"
+}
+
+gretty {
+    httpPort = 8080
+    contextPath = '/'
+    servletContainer = 'jetty9'  // What App Engine Flexible uses
+}
+
+appengine {
+    deploy {   // deploy configuration
+        stopPreviousVersion = true  // default - stop the current version
+        promote = true              // default - & make this the current version
+    }
+
+//    run {
+//        jvmFlags = ["-Dappengine.fullscan.seconds=5"]//enable hot reloading
+////        jvmFlags = ['-Xdebug', '-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8000']
+//    }
+}
+
+//ant task
+ant.importBuild 'build.xml'
+
+task updateSlim3Gen << {
+    def file = project.configurations["apt"].files.find { it.name.contains("slim3-gen-js269") }
+    if (file) {
+        copy {
+            from file
+            into outFile
+        }
+    }
+}

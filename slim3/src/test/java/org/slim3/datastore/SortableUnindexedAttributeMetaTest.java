@@ -15,21 +15,17 @@
  */
 package org.slim3.datastore;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
-
-import org.junit.Test;
-import org.slim3.datastore.json.JsonRootReader;
-import org.slim3.datastore.json.JsonWriter;
-import org.slim3.datastore.model.Hoge;
-
 import com.google.appengine.api.datastore.AsyncDatastoreService;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
+import org.junit.Test;
+import org.slim3.datastore.model.Hoge;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 /**
  * @author higa
- * 
  */
 public class SortableUnindexedAttributeMetaTest {
 
@@ -79,19 +75,9 @@ public class SortableUnindexedAttributeMetaTest {
 
         @Override
         protected void assignKeyToModelRefIfNecessary(AsyncDatastoreService ds,
-                Object model) throws NullPointerException {
+                                                      Object model) throws NullPointerException {
         }
 
-        @Override
-        protected void modelToJson(JsonWriter writer, Object model, int maxDepth, int currentDepth) {
-        }
-
-        @Override
-        public Hoge jsonToModel(JsonRootReader reader, int maxDepth,
-                int currentDepth) {
-            return null;
-        }
-        
         @Override
         protected void postGet(Object model) {
             return;
@@ -100,31 +86,29 @@ public class SortableUnindexedAttributeMetaTest {
 
     /**
      * @throws Exception
-     * 
      */
     @Test
     public void asc() throws Exception {
         SortableUnindexedAttributeMeta<Hoge, String> attrMeta =
-            new SortableUnindexedAttributeMeta<Hoge, String>(
-                meta,
-                "myString",
-                "myString",
-                String.class);
+                new SortableUnindexedAttributeMeta<Hoge, String>(
+                        meta,
+                        "myString",
+                        "myString",
+                        String.class);
         assertThat(attrMeta.asc, is(InMemoryAscCriterion.class));
     }
 
     /**
      * @throws Exception
-     * 
      */
     @Test
     public void desc() throws Exception {
         SortableUnindexedAttributeMeta<Hoge, String> attrMeta =
-            new SortableUnindexedAttributeMeta<Hoge, String>(
-                meta,
-                "myString",
-                "myString",
-                String.class);
+                new SortableUnindexedAttributeMeta<Hoge, String>(
+                        meta,
+                        "myString",
+                        "myString",
+                        String.class);
         assertThat(attrMeta.desc, is(InMemoryDescCriterion.class));
     }
 }

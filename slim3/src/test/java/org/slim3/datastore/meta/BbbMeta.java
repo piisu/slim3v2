@@ -15,20 +15,16 @@
  */
 package org.slim3.datastore.meta;
 
-import java.util.Arrays;
-
+import com.google.appengine.api.datastore.AsyncDatastoreService;
+import com.google.appengine.api.datastore.Key;
 import org.slim3.datastore.ModelRef;
-import org.slim3.datastore.json.JsonRootReader;
-import org.slim3.datastore.json.JsonWriter;
 import org.slim3.datastore.model.Bbb;
 import org.slim3.datastore.model.Hoge;
 
-import com.google.appengine.api.datastore.AsyncDatastoreService;
-import com.google.appengine.api.datastore.Key;
+import java.util.Arrays;
 
 /**
  * @author higa
- * 
  */
 public final class BbbMeta extends
         org.slim3.datastore.ModelMeta<org.slim3.datastore.model.Bbb> {
@@ -43,64 +39,64 @@ public final class BbbMeta extends
     }
 
     /**
-     * 
+     *
      */
     public BbbMeta() {
         super("Aaa", org.slim3.datastore.model.Bbb.class, Arrays
-            .asList(Bbb.class.getName()));
+                .asList(Bbb.class.getName()));
     }
 
     /**
-     * 
+     *
      */
     public org.slim3.datastore.CoreAttributeMeta<org.slim3.datastore.model.Bbb, com.google.appengine.api.datastore.Key> key =
-        new org.slim3.datastore.CoreAttributeMeta<org.slim3.datastore.model.Bbb, com.google.appengine.api.datastore.Key>(
-            this,
-            "__key__",
-            "key",
-            com.google.appengine.api.datastore.Key.class);
+            new org.slim3.datastore.CoreAttributeMeta<org.slim3.datastore.model.Bbb, com.google.appengine.api.datastore.Key>(
+                    this,
+                    "__key__",
+                    "key",
+                    com.google.appengine.api.datastore.Key.class);
 
     /**
-     * 
+     *
      */
     public org.slim3.datastore.CoreAttributeMeta<org.slim3.datastore.model.Bbb, java.lang.Integer> schemaVersion =
-        new org.slim3.datastore.CoreAttributeMeta<org.slim3.datastore.model.Bbb, java.lang.Integer>(
-            this,
-            "schemaVersion",
-            "schemaVersion",
-            java.lang.Integer.class);
+            new org.slim3.datastore.CoreAttributeMeta<org.slim3.datastore.model.Bbb, java.lang.Integer>(
+                    this,
+                    "schemaVersion",
+                    "schemaVersion",
+                    java.lang.Integer.class);
 
     /**
-     * 
+     *
      */
     public org.slim3.datastore.CoreAttributeMeta<org.slim3.datastore.model.Bbb, java.lang.Long> version =
-        new org.slim3.datastore.CoreAttributeMeta<org.slim3.datastore.model.Bbb, java.lang.Long>(
-            this,
-            "version",
-            "version",
-            java.lang.Long.class);
+            new org.slim3.datastore.CoreAttributeMeta<org.slim3.datastore.model.Bbb, java.lang.Long>(
+                    this,
+                    "version",
+                    "version",
+                    java.lang.Long.class);
 
     /**
-     * 
+     *
      */
     public org.slim3.datastore.ModelRefAttributeMeta<org.slim3.datastore.model.Bbb, ModelRef<Hoge>, Hoge> hogeRef =
-        new org.slim3.datastore.ModelRefAttributeMeta<org.slim3.datastore.model.Bbb, ModelRef<Hoge>, Hoge>(
-            this,
-            "hogeRef",
-            "hogeRef",
-            ModelRef.class,
-            Hoge.class);
+            new org.slim3.datastore.ModelRefAttributeMeta<org.slim3.datastore.model.Bbb, ModelRef<Hoge>, Hoge>(
+                    this,
+                    "hogeRef",
+                    "hogeRef",
+                    ModelRef.class,
+                    Hoge.class);
 
     /**
-     * 
+     *
      */
     public org.slim3.datastore.ModelRefAttributeMeta<org.slim3.datastore.model.Bbb, ModelRef<Hoge>, Hoge> hoge2Ref =
-        new org.slim3.datastore.ModelRefAttributeMeta<org.slim3.datastore.model.Bbb, ModelRef<Hoge>, Hoge>(
-            this,
-            "hoge2Ref",
-            "hoge2Ref",
-            ModelRef.class,
-            Hoge.class);
+            new org.slim3.datastore.ModelRefAttributeMeta<org.slim3.datastore.model.Bbb, ModelRef<Hoge>, Hoge>(
+                    this,
+                    "hoge2Ref",
+                    "hoge2Ref",
+                    ModelRef.class,
+                    Hoge.class);
 
     @Override
     protected Key getKey(Object model) {
@@ -110,7 +106,7 @@ public final class BbbMeta extends
 
     @Override
     protected void setKey(Object model,
-            com.google.appengine.api.datastore.Key key) {
+                          com.google.appengine.api.datastore.Key key) {
         org.slim3.datastore.model.Bbb m = (org.slim3.datastore.model.Bbb) model;
         m.setKey(key);
     }
@@ -134,7 +130,7 @@ public final class BbbMeta extends
 
     @Override
     protected void assignKeyToModelRefIfNecessary(AsyncDatastoreService ds,
-            Object model) throws NullPointerException {
+                                                  Object model) throws NullPointerException {
 
         org.slim3.datastore.model.Bbb m = (org.slim3.datastore.model.Bbb) model;
         m.getHogeRef().assignKeyIfNecessary(ds);
@@ -145,23 +141,23 @@ public final class BbbMeta extends
     public org.slim3.datastore.model.Bbb entityToModel(
             com.google.appengine.api.datastore.Entity entity) {
         org.slim3.datastore.model.Bbb model =
-            new org.slim3.datastore.model.Bbb();
+                new org.slim3.datastore.model.Bbb();
         model.setKey(entity.getKey());
         model.setSchemaVersion(longToInteger((java.lang.Long) entity
-            .getProperty("schemaVersion")));
+                .getProperty("schemaVersion")));
         model.setVersion((java.lang.Long) entity.getProperty("version"));
         if (model.getHogeRef() == null) {
             throw new NullPointerException("The property(hogeRef) is null.");
         }
         model.getHogeRef().setKey(
-            (com.google.appengine.api.datastore.Key) entity
-                .getProperty("hogeRef"));
+                (com.google.appengine.api.datastore.Key) entity
+                        .getProperty("hogeRef"));
         if (model.getHoge2Ref() == null) {
             throw new NullPointerException("The property(hoge2Ref) is null.");
         }
         model.getHoge2Ref().setKey(
-            (com.google.appengine.api.datastore.Key) entity
-                .getProperty("hoge2Ref"));
+                (com.google.appengine.api.datastore.Key) entity
+                        .getProperty("hoge2Ref"));
         return model;
     }
 
@@ -199,15 +195,6 @@ public final class BbbMeta extends
         return "slim3.schemaVersion";
     }
 
-    @Override
-    protected void modelToJson(JsonWriter writer, Object model, int maxDepth, int currentDepth) {
-    }
-
-    @Override
-    public Bbb jsonToModel(JsonRootReader reader, int maxDepth, int currentDepth) {
-        return null;
-    }
-    
     @Override
     protected void postGet(Object model) {
         return;

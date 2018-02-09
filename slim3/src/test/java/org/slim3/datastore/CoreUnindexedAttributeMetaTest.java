@@ -15,23 +15,20 @@
  */
 package org.slim3.datastore;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
-
-import java.util.Arrays;
-
-import org.junit.Test;
-import org.slim3.datastore.json.JsonRootReader;
-import org.slim3.datastore.json.JsonWriter;
-import org.slim3.datastore.model.Hoge;
-
 import com.google.appengine.api.datastore.AsyncDatastoreService;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
+import org.junit.Test;
+import org.slim3.datastore.model.Hoge;
+
+import java.util.Arrays;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertThat;
 
 /**
  * @author higa
- * 
  */
 public class CoreUnindexedAttributeMetaTest {
 
@@ -81,19 +78,9 @@ public class CoreUnindexedAttributeMetaTest {
 
         @Override
         protected void assignKeyToModelRefIfNecessary(AsyncDatastoreService ds,
-                Object model) throws NullPointerException {
+                                                      Object model) throws NullPointerException {
         }
 
-        @Override
-        protected void modelToJson(JsonWriter writer, Object model, int maxDepth, int currentDepth) {
-        }
-
-        @Override
-        public Hoge jsonToModel(JsonRootReader reader, int maxDepth,
-                int currentDepth) {
-            return null;
-        }
-        
         @Override
         protected void postGet(Object model) {
             return;
@@ -101,15 +88,14 @@ public class CoreUnindexedAttributeMetaTest {
     };
 
     private CoreUnindexedAttributeMeta<Hoge, String> myString =
-        new CoreUnindexedAttributeMeta<Hoge, String>(
-            meta,
-            "myString",
-            "myString",
-            String.class);
+            new CoreUnindexedAttributeMeta<Hoge, String>(
+                    meta,
+                    "myString",
+                    "myString",
+                    String.class);
 
     /**
      * @throws Exception
-     * 
      */
     @Test
     public void equal() throws Exception {
@@ -119,7 +105,6 @@ public class CoreUnindexedAttributeMetaTest {
 
     /**
      * @throws Exception
-     * 
      */
     @Test
     public void notEqual() throws Exception {
@@ -129,7 +114,6 @@ public class CoreUnindexedAttributeMetaTest {
 
     /**
      * @throws Exception
-     * 
      */
     @Test
     public void lessThan() throws Exception {
@@ -139,54 +123,49 @@ public class CoreUnindexedAttributeMetaTest {
 
     /**
      * @throws Exception
-     * 
      */
     @Test
     public void lessThanOrEqual() throws Exception {
         assertThat(
-            myString.lessThanOrEqual("a"),
-            is(InMemoryLessThanOrEqualCriterion.class));
+                myString.lessThanOrEqual("a"),
+                is(InMemoryLessThanOrEqualCriterion.class));
         assertThat(myString.lessThanOrEqual(null), is(notNullValue()));
     }
 
     /**
      * @throws Exception
-     * 
      */
     @Test
     public void greaterThan() throws Exception {
         assertThat(
-            myString.greaterThan("a"),
-            is(InMemoryGreaterThanCriterion.class));
+                myString.greaterThan("a"),
+                is(InMemoryGreaterThanCriterion.class));
         assertThat(myString.greaterThan(null), is(notNullValue()));
     }
 
     /**
      * @throws Exception
-     * 
      */
     @Test
     public void greaterThanOrEqual() throws Exception {
         assertThat(
-            myString.greaterThanOrEqual("a"),
-            is(InMemoryGreaterThanOrEqualCriterion.class));
+                myString.greaterThanOrEqual("a"),
+                is(InMemoryGreaterThanOrEqualCriterion.class));
         assertThat(myString.greaterThanOrEqual(null), is(notNullValue()));
     }
 
     /**
      * @throws Exception
-     * 
      */
     @Test
     public void in() throws Exception {
         assertThat(
-            myString.in(Arrays.asList("a")),
-            is(InMemoryInCriterion.class));
+                myString.in(Arrays.asList("a")),
+                is(InMemoryInCriterion.class));
     }
 
     /**
      * @throws Exception
-     * 
      */
     @Test
     public void inForVarargs() throws Exception {
@@ -195,7 +174,6 @@ public class CoreUnindexedAttributeMetaTest {
 
     /**
      * @throws Exception
-     * 
      */
     @Test(expected = NullPointerException.class)
     public void inForNull() throws Exception {
@@ -204,7 +182,6 @@ public class CoreUnindexedAttributeMetaTest {
 
     /**
      * @throws Exception
-     * 
      */
     @Test
     public void isNotNull() throws Exception {

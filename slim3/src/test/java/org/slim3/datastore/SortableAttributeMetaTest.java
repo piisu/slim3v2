@@ -15,22 +15,18 @@
  */
 package org.slim3.datastore;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
-
-import org.junit.Test;
-import org.slim3.datastore.json.JsonRootReader;
-import org.slim3.datastore.json.JsonWriter;
-import org.slim3.datastore.model.Hoge;
-import org.slim3.tester.AppEngineTestCase;
-
 import com.google.appengine.api.datastore.AsyncDatastoreService;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
+import org.junit.Test;
+import org.slim3.datastore.model.Hoge;
+import org.slim3.tester.AppEngineTestCase;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 /**
  * @author higa
- * 
  */
 public class SortableAttributeMetaTest extends AppEngineTestCase {
 
@@ -80,19 +76,10 @@ public class SortableAttributeMetaTest extends AppEngineTestCase {
 
         @Override
         protected void assignKeyToModelRefIfNecessary(AsyncDatastoreService ds,
-                Object model) throws NullPointerException {
+                                                      Object model) throws NullPointerException {
         }
 
-        @Override
-        protected void modelToJson(JsonWriter writer, Object model, int maxDepth, int currentDepth) {
-        }
 
-        @Override
-        public Hoge jsonToModel(JsonRootReader reader, int maxDepth,
-                int currentDepth) {
-            return null;
-        }
-        
         @Override
         protected void postGet(Object model) {
             return;
@@ -101,31 +88,29 @@ public class SortableAttributeMetaTest extends AppEngineTestCase {
 
     /**
      * @throws Exception
-     * 
      */
     @Test
     public void asc() throws Exception {
         SortableAttributeMeta<Hoge, String> attrMeta =
-            new SortableAttributeMeta<Hoge, String>(
-                meta,
-                "myString",
-                "myString",
-                String.class);
+                new SortableAttributeMeta<Hoge, String>(
+                        meta,
+                        "myString",
+                        "myString",
+                        String.class);
         assertThat(attrMeta.asc, is(AscCriterion.class));
     }
 
     /**
      * @throws Exception
-     * 
      */
     @Test
     public void desc() throws Exception {
         SortableAttributeMeta<Hoge, String> attrMeta =
-            new SortableAttributeMeta<Hoge, String>(
-                meta,
-                "myString",
-                "myString",
-                String.class);
+                new SortableAttributeMeta<Hoge, String>(
+                        meta,
+                        "myString",
+                        "myString",
+                        String.class);
         assertThat(attrMeta.desc, is(DescCriterion.class));
     }
 }

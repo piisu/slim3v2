@@ -71,12 +71,6 @@ public class ModelMetaDesc implements ClassDesc {
     protected final List<AttributeMetaDesc> attributeMetaDescList =
         new ArrayList<AttributeMetaDesc>();
 
-    /**
-     * the list of attribute meta descriptions that is sorted by attribute of
-     * the json
-     */
-    protected List<AttributeMetaDesc> jsonAttributeMetaDescList;
-    
     /** the map of additional data */
     protected final Map<String, Object> dataMap = new HashMap<String, Object>();
 
@@ -255,18 +249,6 @@ public class ModelMetaDesc implements ClassDesc {
     }
 
     /**
-     * Returns the list of attribute meta descriptions that is sorted by
-     * attribute of the json.
-     * 
-     * @return the list of attribute meta descriptions that is sorted by
-     *         attribute of the json
-     */
-    public List<AttributeMetaDesc> getJsonAttributeMetaDescList() {
-        if (jsonAttributeMetaDescList == null) return getAttributeMetaDescList();
-        return Collections.unmodifiableList(jsonAttributeMetaDescList);
-    }
-
-    /**
      * Returns the key attribute meta description.
      * 
      * @return the key attribute meta description
@@ -345,15 +327,4 @@ public class ModelMetaDesc implements ClassDesc {
         this.modelListenerClassName = modelListenerClassName;
     }
 
-    /**
-     * Creates the jsonAttributeMetaDescList
-     */
-    public void createJsonAttributeMetaDescList() {
-        jsonAttributeMetaDescList = new ArrayList<AttributeMetaDesc>(attributeMetaDescList);
-        Collections.sort(jsonAttributeMetaDescList, new Comparator<AttributeMetaDesc>() {
-            public int compare(AttributeMetaDesc desc1, AttributeMetaDesc desc2) {
-                return desc1.json.getOrder() - desc2.json.getOrder();
-            }
-        });
-    }
 }
