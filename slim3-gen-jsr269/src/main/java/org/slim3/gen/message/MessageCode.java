@@ -42,7 +42,7 @@ public enum MessageCode {
     /** */
     SLIM3GEN0009("The property[{0}] has already been set."),
     /** */
-    SLIM3GEN0011("@com.google.gwt.user.client.rpc.RemoteServiceRelativePath is available only to an interface."),
+    SLIM3GEN0011("@deprecated @com.google.gwt.user.client.rpc.RemoteServiceRelativePath is available only to an interface."),
     /** */
     SLIM3GEN0012("The second token[{0}] of the input[{1}] is illegal. It must be \"extends\"."),
     /** */

@@ -126,10 +126,6 @@ public final class ClassConstants {
     public static final String AppEngineTestCase =
         "org.slim3.tester.AppEngineTestCase";
 
-    /** {@code com.google.gwt.user.client.rpc.AsyncCallback} */
-    public static final String AsyncCallback =
-        "com.google.gwt.user.client.rpc.AsyncCallback";
-
     /** {@code com.google.appengine.api.datastore.Entity} */
     public static final String Entity =
         "com.google.appengine.api.datastore.Entity";

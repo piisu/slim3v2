@@ -504,15 +504,6 @@ public class DatastoreUtilTest extends AppEngineTestCase {
      * @throws Exception
      */
     @Test
-    public void createModelMetaWhenGWT() throws Exception {
-        ModelMeta<?> modelMeta = DatastoreUtil.getModelMeta(Ccc.class);
-        assertThat(modelMeta, is(notNullValue()));
-    }
-
-    /**
-     * @throws Exception
-     */
-    @Test
     public void replacePackageName() throws Exception {
         assertThat(
             DatastoreUtil.replacePackageName("abc.model.Hoge", "model", "meta"),

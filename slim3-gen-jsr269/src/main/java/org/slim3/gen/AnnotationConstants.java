@@ -26,10 +26,6 @@ package org.slim3.gen;
  */
 public final class AnnotationConstants {
 
-    /** {@code com.google.gwt.user.client.rpc.RemoteServiceRelativePath} */
-    public static final String RemoteServiceRelativePath =
-        "com.google.gwt.user.client.rpc.RemoteServiceRelativePath";
-
     /** {@code org.slim3.datastore.Model} */
     public static final String Model = "org.slim3.datastore.Model";
 
