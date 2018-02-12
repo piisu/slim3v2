@@ -32,17 +32,24 @@ public class ModelGenerator implements Generator {
     /** the model description */
     protected final ModelDesc modelDesc;
 
+
+    /**
+     * is use lombok?
+     */
+    protected boolean useLombok;
+
     /**
      * Creates a new {@link ModelGenerator}.
      * 
      * @param modelDesc
      *            the model description
      */
-    public ModelGenerator(ModelDesc modelDesc) {
+    public ModelGenerator(ModelDesc modelDesc, boolean useLombok) {
         if (modelDesc == null) {
             throw new NullPointerException("The modelDesc parameter is null.");
         }
         this.modelDesc = modelDesc;
+        this.useLombok = useLombok;
     }
 
     public void generate(Printer p) {
@@ -62,7 +69,14 @@ public class ModelGenerator implements Generator {
             p.println();
             p.println("import %s;", modelDesc.getSuperclassName());
         }
+        if (useLombok) {
+            p.println("import lombok.Data;");
+        }
+
         p.println();
+        if (useLombok) {
+            p.println("@Data");
+        }
         p.println("@Model(%1$s = 1)", AnnotationConstants.schemaVersion);
         if (ClassConstants.Object.equals(modelDesc.getSuperclassName())) {
             p.println("public class %s implements Serializable {", modelDesc
@@ -83,44 +97,46 @@ public class ModelGenerator implements Generator {
             p.println("    @Attribute(version = true)");
             p.println("    private Long version;");
             p.println();
-            p.println("    /**");
-            p.println("     * Returns the key.");
-            p.println("     *");
-            p.println("     * @return the key");
-            p.println("     */");
-            p.println("    public Key getKey() {");
-            p.println("        return key;");
-            p.println("    }");
-            p.println();
-            p.println("    /**");
-            p.println("     * Sets the key.");
-            p.println("     *");
-            p.println("     * @param key");
-            p.println("     *            the key");
-            p.println("     */");
-            p.println("    public void setKey(Key key) {");
-            p.println("        this.key = key;");
-            p.println("    }");
-            p.println();
-            p.println("    /**");
-            p.println("     * Returns the version.");
-            p.println("     *");
-            p.println("     * @return the version");
-            p.println("     */");
-            p.println("    public Long getVersion() {");
-            p.println("        return version;");
-            p.println("    }");
-            p.println();
-            p.println("    /**");
-            p.println("     * Sets the version.");
-            p.println("     *");
-            p.println("     * @param version");
-            p.println("     *            the version");
-            p.println("     */");
-            p.println("    public void setVersion(Long version) {");
-            p.println("        this.version = version;");
-            p.println("    }");
-            p.println();
+            if (!useLombok) {
+                p.println("    /**");
+                p.println("     * Returns the key.");
+                p.println("     *");
+                p.println("     * @return the key");
+                p.println("     */");
+                p.println("    public Key getKey() {");
+                p.println("        return key;");
+                p.println("    }");
+                p.println();
+                p.println("    /**");
+                p.println("     * Sets the key.");
+                p.println("     *");
+                p.println("     * @param key");
+                p.println("     *            the key");
+                p.println("     */");
+                p.println("    public void setKey(Key key) {");
+                p.println("        this.key = key;");
+                p.println("    }");
+                p.println();
+                p.println("    /**");
+                p.println("     * Returns the version.");
+                p.println("     *");
+                p.println("     * @return the version");
+                p.println("     */");
+                p.println("    public Long getVersion() {");
+                p.println("        return version;");
+                p.println("    }");
+                p.println();
+                p.println("    /**");
+                p.println("     * Sets the version.");
+                p.println("     *");
+                p.println("     * @param version");
+                p.println("     *            the version");
+                p.println("     */");
+                p.println("    public void setVersion(Long version) {");
+                p.println("        this.version = version;");
+                p.println("    }");
+                p.println();
+            }
             p.println("    @Override");
             p.println("    public int hashCode() {");
             p.println("        final int prime = 31;");

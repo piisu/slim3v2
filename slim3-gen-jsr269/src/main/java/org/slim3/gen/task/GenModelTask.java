@@ -51,6 +51,11 @@ public class GenModelTask extends AbstractGenJavaFileTask {
     protected String modelClassNameProperty;
 
     /**
+     * is use lombok?
+     */
+    protected boolean useLombok;
+
+    /**
      * Sets the packageName.
      * 
      * @param packageName
@@ -88,6 +93,10 @@ public class GenModelTask extends AbstractGenJavaFileTask {
      */
     public void setModelClassNameProperty(String modelClassNameProperty) {
         this.modelClassNameProperty = modelClassNameProperty;
+    }
+
+    public void setUseLombok(boolean useLombok) {
+        this.useLombok = useLombok;
     }
 
     @Override
@@ -213,7 +222,7 @@ public class GenModelTask extends AbstractGenJavaFileTask {
      * @return a generator
      */
     protected Generator createModelGenerator(ModelDesc modelDesc) {
-        return new ModelGenerator(modelDesc);
+        return new ModelGenerator(modelDesc, useLombok);
     }
 
     /**
