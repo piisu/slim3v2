@@ -2,12 +2,16 @@ package slim3.demo.model;
 
 import java.io.Serializable;
 
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.Setter;
 import org.slim3.datastore.Attribute;
 import org.slim3.datastore.InverseModelRef;
 import org.slim3.datastore.Model;
 
 import com.google.appengine.api.datastore.Key;
 
+@Data
 @Model
 public class Address implements Serializable {
 
@@ -21,69 +25,13 @@ public class Address implements Serializable {
 
     private Integer schemaVersion = 1;
 
+    @Setter(AccessLevel.NONE)
     @Attribute(persistent = false)
     private org.slim3.datastore.InverseModelRef<slim3.demo.model.Employee, slim3.demo.model.Address> employeeRef =
         new org.slim3.datastore.InverseModelRef<slim3.demo.model.Employee, slim3.demo.model.Address>(
             slim3.demo.model.Employee.class,
             "addressRef",
             this);
-
-    /**
-     * Returns the key.
-     * 
-     * @return the key
-     */
-    public Key getKey() {
-        return key;
-    }
-
-    /**
-     * Sets the key.
-     * 
-     * @param key
-     *            the key
-     */
-    public void setKey(Key key) {
-        this.key = key;
-    }
-
-    /**
-     * Returns the version.
-     * 
-     * @return the version
-     */
-    public Long getVersion() {
-        return version;
-    }
-
-    /**
-     * Sets the version.
-     * 
-     * @param version
-     *            the version
-     */
-    public void setVersion(Long version) {
-        this.version = version;
-    }
-
-    /**
-     * Returns the schema version.
-     * 
-     * @return the schema version
-     */
-    public Integer getSchemaVersion() {
-        return schemaVersion;
-    }
-
-    /**
-     * Sets the schema version.
-     * 
-     * @param schemaVersion
-     *            the schema version
-     */
-    public void setSchemaVersion(Integer schemaVersion) {
-        this.schemaVersion = schemaVersion;
-    }
 
     @Override
     public int hashCode() {
@@ -115,10 +63,4 @@ public class Address implements Serializable {
         return true;
     }
 
-    /**
-     * @return the employeeRef
-     */
-    public InverseModelRef<Employee, Address> getEmployeeRef() {
-        return employeeRef;
-    }
 }

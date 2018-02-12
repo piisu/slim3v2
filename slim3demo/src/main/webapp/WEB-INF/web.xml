@@ -15,10 +15,6 @@
     </context-param>
 
     <filter>
-        <filter-name>HotReloadingFilter</filter-name>
-        <filter-class>org.slim3.controller.HotReloadingFilter</filter-class>
-    </filter>
-    <filter>
         <filter-name>DatastoreFilter</filter-name>
         <filter-class>org.slim3.datastore.DatastoreFilter</filter-class>
     </filter>
@@ -27,11 +23,6 @@
         <filter-class>org.slim3.controller.FrontController</filter-class>
     </filter>
 
-    <filter-mapping>
-        <filter-name>HotReloadingFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-        <dispatcher>REQUEST</dispatcher>
-    </filter-mapping>
     <filter-mapping>
         <filter-name>DatastoreFilter</filter-name>
         <url-pattern>/*</url-pattern>

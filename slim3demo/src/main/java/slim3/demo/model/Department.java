@@ -2,12 +2,16 @@ package slim3.demo.model;
 
 import java.io.Serializable;
 
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.Setter;
 import org.slim3.datastore.Attribute;
 import org.slim3.datastore.InverseModelListRef;
 import org.slim3.datastore.Model;
 
 import com.google.appengine.api.datastore.Key;
 
+@Data
 @Model
 public class Department implements Serializable {
 
@@ -21,60 +25,13 @@ public class Department implements Serializable {
 
     private Integer schemaVersion = 1;
 
+    @Setter(AccessLevel.NONE)
     @Attribute(persistent = false)
     private org.slim3.datastore.InverseModelListRef<slim3.demo.model.Employee, slim3.demo.model.Department> employeeListRef =
         new org.slim3.datastore.InverseModelListRef<slim3.demo.model.Employee, slim3.demo.model.Department>(
             slim3.demo.model.Employee.class,
             "departmentRef",
             this);
-
-    /**
-     * Returns the key.
-     * 
-     * @return the key
-     */
-    public Key getKey() {
-        return key;
-    }
-
-    /**
-     * Sets the key.
-     * 
-     * @param key
-     *            the key
-     */
-    public void setKey(Key key) {
-        this.key = key;
-    }
-
-    /**
-     * Returns the version.
-     * 
-     * @return the version
-     */
-    public Long getVersion() {
-        return version;
-    }
-
-    /**
-     * Sets the version.
-     * 
-     * @param version
-     *            the version
-     */
-    public void setVersion(Long version) {
-        this.version = version;
-    }
-
-    /**
-     * Returns the schema version.
-     * 
-     * @return the schema version
-     */
-    public Integer getSchemaVersion() {
-        return schemaVersion;
-    }
-
     /**
      * Sets the schema version.
      * 
