@@ -1,7 +1,7 @@
 allprojects  {
   apply plugin: 'maven'
   group = 'org.slim3'
-  version = '2.0.0-SNAPSHOT'
+  version = '2.0.0-SNAPSHOT1'
 
 
   apply plugin: 'maven'
@@ -21,6 +21,8 @@ subprojects {
   apply plugin: 'java'
   sourceCompatibility = 1.8
   targetCompatibility = 1.8
+  compileJava.options.encoding = "UTF-8"
+  compileTestJava.options.encoding = "UTF-8"
 
   
   repositories {
