@@ -16,6 +16,7 @@ slim3を使ってサービスを2013年から運用しています。きちん�
 - GWT 機能の削除(今使ってるやつおらんやろ(暴言))
 - Hot Reloadingの削除(jetty の HotReloadingあるし)
 - ant gen-modelで生成されるひな形のlombok対応(build.xmlのGenModelTaskにuseLombokプロパティ追加)
+- slim3-gen-jsr269でModelにlistnerが設定されている場合のModelMeta生成バグ修正
 
 # やりたいな
 - Guiceサポート
