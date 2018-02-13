@@ -21,14 +21,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import org.seasar.aptina.unit.AptinaTestCase;
 import org.seasar.aptina.unit.SourceNotGeneratedException;
-import org.slim3.gen.processor.ModelProcessor;
-import org.slim3.test.model.AttributeNotSupportedSampleModel;
-import org.slim3.test.model.AttributeParameterSampleModel;
-import org.slim3.test.model.BasicModel;
-import org.slim3.test.model.AttributeSampleModel;
-import org.slim3.test.model.ImplementComparableModel;
-import org.slim3.test.model.RefAModel;
-import org.slim3.test.model.RefBModel;
+import org.slim3.test.model.*;
 
 /**
  * @author vvakame
@@ -53,6 +46,22 @@ public class ModelProcessorTest extends AptinaTestCase {
             String sourceName = "org.slim3.test.meta.BasicModelMeta";
             @SuppressWarnings("unused")
             String source = getGeneratedSource(sourceName);
+        }
+        assertThat(getCompiledResult(), is(true));
+    }
+    @Test
+    public void testForListnerModel() throws Exception {
+        ModelProcessor processor = new ModelProcessor();
+        addProcessor(processor);
+
+        addCompilationUnit(ListenerModel.class);
+
+        compile();
+        {
+            String sourceName = "org.slim3.test.meta.ListenerModelMeta";
+            @SuppressWarnings("unused")
+            String source = getGeneratedSource(sourceName);
+            System.out.println(source);
         }
         assertThat(getCompiledResult(), is(true));
     }

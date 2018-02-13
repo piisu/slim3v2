@@ -1,7 +1,7 @@
 allprojects  {
   apply plugin: 'maven'
   group = 'org.slim3'
-  version = '2.0.0-SNAPSHOT1'
+  version = '2.0.0-SNAPSHOT2'
 
 
   apply plugin: 'maven'
