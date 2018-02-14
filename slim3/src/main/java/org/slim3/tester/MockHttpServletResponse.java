@@ -19,13 +19,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
@@ -312,17 +306,17 @@ public class MockHttpServletResponse implements HttpServletResponse {
 
     /**
      * Returns the header as {@link Enumeration}.
-     * 
+     *
      * @param name
      *            the name
      * @return the header
      */
-    public Enumeration<String> getHeaders(String name) {
+    public Collection<String> getHeaders(String name) {
         List<String> values = getHeaderList(name);
         if (values == null) {
             values = Collections.emptyList();
         }
-        return Collections.enumeration(values);
+        return values;
     }
 
     /**
@@ -377,11 +371,11 @@ public class MockHttpServletResponse implements HttpServletResponse {
 
     /**
      * Returns the header names.
-     * 
+     *
      * @return the header names
      */
-    public Enumeration<String> getHeaderNames() {
-        return Collections.enumeration(headerMap.keySet());
+    public Collection<String> getHeaderNames() {
+        return headerMap.keySet();
     }
 
     public void setHeader(String name, String value) {
@@ -536,5 +530,14 @@ public class MockHttpServletResponse implements HttpServletResponse {
 
     public Locale getLocale() {
         return locale;
+    }
+
+    public Map<String, List<String>> getHeaderMap() {
+        return headerMap;
+    }
+
+    @Override
+    public void setContentLengthLong(long len) {
+        setHeader("content-length", Long.toString(len));
     }
 }

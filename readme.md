@@ -9,6 +9,8 @@ slim3を使ってサービスを2013年から運用しています。きちん�
 - repackaged なクラスの除去(あれ?意外とslim3側でさらにrepackageしてる?)
 
 # やったこと
+- Java8対応
+- Servlet API 3.1対応
 - appengine最新バージョンへの追従
 - maven/eclipseサポートの終了
 - gradle/ideaサポート
