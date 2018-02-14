@@ -60,7 +60,7 @@ dependencies {
     compile group: 'org.codehaus.jackson', name: 'jackson-mapper-asl', version: '1.9.13'
     compile group: 'javax.jdo', name: 'jdo-api', version: '3.1'
 
-    compileOnly "org.projectlombok:lombok:1.16.20"
+    compile "org.projectlombok:lombok:1.16.20"
     apt "org.projectlombok:lombok:1.16.20"
 
     apt project(":slim3-gen-jsr269")
