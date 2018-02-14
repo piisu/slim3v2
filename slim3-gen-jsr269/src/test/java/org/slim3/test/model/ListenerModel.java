@@ -24,7 +24,7 @@ import org.slim3.datastore.ModelListener;
  * @author vvakame
  * 
  */
-@Model(listener = ListenerModel.Listner.class)
+@Model(listener = ListenerModel.Listener.class)
 public class ListenerModel {
     @Attribute(primaryKey = true)
     Key key;
@@ -44,7 +44,7 @@ public class ListenerModel {
         this.key = key;
     }
 
-    public static class Listner implements ModelListener<ListenerModel> {
+    public static class Listener implements ModelListener<ListenerModel> {
         @Override
         public void prePut(ListenerModel model) {
 
