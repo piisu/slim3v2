@@ -44,6 +44,7 @@ public class ServletContextLocatorTest {
      */
     @Test
     public void test() throws Exception {
+
         ServletContext servletContext = new MockServletContext();
         ServletContextLocator.set(servletContext);
         assertThat(
