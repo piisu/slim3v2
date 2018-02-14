@@ -24,14 +24,7 @@ dependencies {
     testCompile group: 'com.google.appengine', name: 'appengine-api-stubs', version: appengineVersion
     testCompile group: 'com.google.appengine', name: 'appengine-api-1.0-sdk', version: appengineVersion
 
-    ['javax.servlet:javax.servlet-api:3.1.0'
-     , 'javax.servlet.jsp:jsp-api:2.1'
-    ].each {
-        compileOnly it
-        testCompile it
-    }
-
-
-
+    compile group: 'javax.servlet', name: 'servlet-api', version: '2.5'
+    compile group: 'javax.servlet.jsp', name: 'jsp-api', version: '2.1'
     compile group: 'junit', name: 'junit', version: '4.12'
 }

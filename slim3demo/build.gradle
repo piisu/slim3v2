@@ -46,6 +46,9 @@ dependencies {
     providedCompile "com.google.appengine:appengine:${appengineVersion}"
 
     // Add your dependencies here.
+    compile "com.google.appengine:appengine-endpoints:${appengineVersion}" //add this line to avoid upper comment
+    compile "com.google.appengine:appengine-endpoints-deps:${appengineVersion}" //works also without this line
+    compile 'javax.servlet:servlet-api:2.5'
     compile fileTree(include: ['*.jar'], dir: 'libs')
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
@@ -57,11 +60,17 @@ dependencies {
     compile group: 'org.codehaus.jackson', name: 'jackson-mapper-asl', version: '1.9.13'
     compile group: 'javax.jdo', name: 'jdo-api', version: '3.1'
 
-    compile "org.projectlombok:lombok:1.16.20"
+    compileOnly "org.projectlombok:lombok:1.16.20"
     apt "org.projectlombok:lombok:1.16.20"
 
     apt project(":slim3-gen-jsr269")
     compile project(":slim3")
+
+
+
+
+    //compileOnly 'org.projectlombok:lombok:1.16.20'
+    //apt "org.projectlombok:lombok:1.16.20"
 }
 
 gretty {
