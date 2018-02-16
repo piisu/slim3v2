@@ -12,17 +12,17 @@
 <body>
 Source:
 <ul>
-<li><a href="http://code.google.com/p/slim3/source/browse/trunk/slim3demo/src/slim3/demo/controller/blog/IndexController.java">IndexController</a></li>
-<li><a href="http://code.google.com/p/slim3/source/browse/trunk/slim3demo/src/slim3/demo/controller/blog/CreateController.java">CreateController</a></li>
-<li><a href="http://code.google.com/p/slim3/source/browse/trunk/slim3demo/src/slim3/demo/controller/blog/EditController.java">EditController</a></li>
-<li><a href="http://code.google.com/p/slim3/source/browse/trunk/slim3demo/src/slim3/demo/controller/blog/DeleteController.java">DeleteController</a></li>
-<li><a href="http://code.google.com/p/slim3/source/browse/trunk/slim3demo/src/slim3/demo/controller/blog/InsertController.java">InsertController</a></li>
-<li><a href="http://code.google.com/p/slim3/source/browse/trunk/slim3demo/src/slim3/demo/controller/blog/UpdateController.java">UpdateController</a></li>
-<li><a href="http://code.google.com/p/slim3/source/browse/trunk/slim3demo/src/slim3/demo/service/BlogService.java">BlogService</a></li>
-<li><a href="http://code.google.com/p/slim3/source/browse/trunk/slim3demo/src/slim3/demo/model/Blog.java">Blog model</a></li>
-<li><a href="http://code.google.com/p/slim3/source/browse/trunk/slim3demo/war/blog/index.jsp">index.jsp</a></li>
-<li><a href="http://code.google.com/p/slim3/source/browse/trunk/slim3demo/war/blog/create.jsp">create.jsp</a></li>
-<li><a href="http://code.google.com/p/slim3/source/browse/trunk/slim3demo/war/blog/edit.jsp">edit.jsp</a></li>
+<li><a href="https://github.com/piisu/slim3v2/tree/master/slim3demo/src/main/java/slim3/demo/controller/blog/IndexController.java">IndexController</a></li>
+<li><a href="https://github.com/piisu/slim3v2/tree/master/slim3demo/src/main/java/slim3/demo/controller/blog/CreateController.java">CreateController</a></li>
+<li><a href="https://github.com/piisu/slim3v2/tree/master/slim3demo/src/main/java/slim3/demo/controller/blog/EditController.java">EditController</a></li>
+<li><a href="https://github.com/piisu/slim3v2/tree/master/slim3demo/src/main/java/slim3/demo/controller/blog/DeleteController.java">DeleteController</a></li>
+<li><a href="https://github.com/piisu/slim3v2/tree/master/slim3demo/src/main/java/slim3/demo/controller/blog/InsertController.java">InsertController</a></li>
+<li><a href="https://github.com/piisu/slim3v2/tree/master/slim3demo/src/main/java/slim3/demo/controller/blog/UpdateController.java">UpdateController</a></li>
+<li><a href="https://github.com/piisu/slim3v2/tree/master/slim3demo/src/main/java/slim3/demo/service/BlogService.java">BlogService</a></li>
+<li><a href="https://github.com/piisu/slim3v2/tree/master/slim3demo/src/main/java/slim3/demo/model/Blog.java">Blog model</a></li>
+<li><a href="https://github.com/piisu/slim3v2/tree/master/slim3demo/src/main/webapp/blog/index.jsp">index.jsp</a></li>
+<li><a href="https://github.com/piisu/slim3v2/tree/master/slim3demo/src/main/webapp/blog/create.jsp">create.jsp</a></li>
+<li><a href="https://github.com/piisu/slim3v2/tree/master/slim3demo/src/main/webapp/blog/edit.jsp">edit.jsp</a></li>
 </ul>
 <hr />
 
