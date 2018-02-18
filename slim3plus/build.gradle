@@ -1,8 +1,4 @@
-group = 'com.example.appengine'   // Generated output GroupId
-version = '1.0-SNAPSHOT'          // Version in generated output
-
 apply plugin: 'java'
-apply plugin: 'jar'
 apply plugin: 'com.google.cloud.tools.appengine'
 apply plugin: "net.ltgt.apt"
 apply plugin: "net.ltgt.apt-idea"
@@ -38,11 +34,13 @@ repositories {   // repositories for JARs you access in your code
     }
     jcenter()
     mavenCentral()
+    maven {
+        url "https://github.com/piisu/slim3/raw/master/repository/"
+    }
 }
 
 dependencies {
-    providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
-    providedCompile "com.google.appengine:appengine:${appengineVersion}"
+    compileOnly "com.google.appengine:appengine:${appengineVersion}"
 
     // Add your dependencies here.
     compile "com.google.appengine:appengine-endpoints:${appengineVersion}" //add this line to avoid upper comment
@@ -60,6 +58,5 @@ dependencies {
     compileOnly "org.projectlombok:lombok:1.16.20"
     apt "org.projectlombok:lombok:1.16.20"
 
-    apt "org.slim3:slim3-gen-jsr269:${version}"
     compile "org.slim3:slim3:${version}"
 }

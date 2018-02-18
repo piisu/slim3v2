@@ -57,7 +57,7 @@ dependencies {
     testCompile group: 'com.google.appengine', name: 'appengine-api-1.0-sdk', version: appengineVersion
     testCompile group: 'com.google.appengine', name: 'appengine-api-labs', version: appengineVersion
 
-    compile group: 'org.codehaus.jackson', name: 'jackson-mapper-asl', version: '1.9.13'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.4'
     compile group: 'javax.jdo', name: 'jdo-api', version: '3.1'
 
     compileOnly "org.projectlombok:lombok:1.16.20"
