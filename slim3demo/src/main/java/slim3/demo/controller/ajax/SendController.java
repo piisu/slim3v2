@@ -1,6 +1,6 @@
 package slim3.demo.controller.ajax;
 
-import org.codehaus.jackson.map.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slim3.controller.Controller;
 import org.slim3.controller.Navigation;
 import org.slim3.util.BeanUtil;

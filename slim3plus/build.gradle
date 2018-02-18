@@ -1,0 +1,65 @@
+group = 'com.example.appengine'   // Generated output GroupId
+version = '1.0-SNAPSHOT'          // Version in generated output
+
+apply plugin: 'java'
+apply plugin: 'jar'
+apply plugin: 'com.google.cloud.tools.appengine'
+apply plugin: "net.ltgt.apt"
+apply plugin: "net.ltgt.apt-idea"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+compileJava.options.encoding = "UTF-8"
+compileTestJava.options.encoding = "UTF-8"
+
+ext {
+    appengineVersion = "1.9.60"
+}
+
+buildscript {      // Configuration for building
+    repositories {
+        jcenter()      // Bintray's repository - a fast Maven Central mirror & more
+        mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath 'com.google.cloud.tools:appengine-gradle-plugin:+'
+        classpath 'org.akhikhl.gretty:gretty:+'
+        classpath "net.ltgt.gradle:gradle-apt-plugin:0.13"
+    }
+}
+
+repositories {   // repositories for JARs you access in your code
+    maven {
+        url 'https://maven-central.storage.googleapis.com'             // Google's mirror of Maven Central
+    }
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
+    providedCompile "com.google.appengine:appengine:${appengineVersion}"
+
+    // Add your dependencies here.
+    compile "com.google.appengine:appengine-endpoints:${appengineVersion}" //add this line to avoid upper comment
+    compile "com.google.appengine:appengine-endpoints-deps:${appengineVersion}" //works also without this line
+    compile 'javax.servlet:servlet-api:2.5'
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile group: 'com.google.appengine', name: 'appengine-local-runtime', version: appengineVersion
+    testCompile group: 'com.google.appengine', name: 'appengine-api-stubs', version: appengineVersion
+    testCompile group: 'com.google.appengine', name: 'appengine-api-1.0-sdk', version: appengineVersion
+    testCompile group: 'com.google.appengine', name: 'appengine-api-labs', version: appengineVersion
+
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.4'
+    compileOnly "org.projectlombok:lombok:1.16.20"
+    apt "org.projectlombok:lombok:1.16.20"
+
+    apt "org.slim3:slim3-gen-jsr269:${version}"
+    compile "org.slim3:slim3:${version}"
+}
