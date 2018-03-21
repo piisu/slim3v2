@@ -45,7 +45,7 @@ import org.slim3.gen.util.TypeUtil;
  * @since 1.0.0
  * 
  */
-@SupportedSourceVersion(SourceVersion.RELEASE_6)
+@SupportedSourceVersion(SourceVersion.RELEASE_8)
 @SupportedAnnotationTypes("org.slim3.datastore.Model")
 public class ModelProcessor extends AbstractProcessor {
 

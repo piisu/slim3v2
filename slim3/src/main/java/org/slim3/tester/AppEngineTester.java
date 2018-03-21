@@ -468,7 +468,6 @@ public class AppEngineTester implements Delegate<Environment> {
      *             if an exception has occurred
      */
     public void tearDown() throws Exception {
-        DatastoreUtil.clearActiveGlobalTransactions();
         DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
         for (Transaction tx : ds.getActiveTransactions()) {
             tx.rollback();

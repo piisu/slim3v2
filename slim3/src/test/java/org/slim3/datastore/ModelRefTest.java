@@ -63,21 +63,6 @@ public class ModelRefTest extends AppEngineTestCase {
      * @throws Exception
      */
     @Test
-    @SuppressWarnings("deprecation")
-    public void getModelInGtx() throws Exception {
-        Hoge hoge = new Hoge();
-        Datastore.putWithoutTx(hoge);
-        GlobalTransaction gtx = Datastore.beginGlobalTransaction();
-        Hoge hoge2 = new Hoge();
-        gtx.put(hoge2);
-        ref.setKey(hoge.getKey());
-        assertThat(ref.getModel(), is(notNullValue()));
-    }
-
-    /**
-     * @throws Exception
-     */
-    @Test
     public void refresh() throws Exception {
         assertThat(ref.refresh(), is(nullValue()));
         Hoge hoge = new Hoge();

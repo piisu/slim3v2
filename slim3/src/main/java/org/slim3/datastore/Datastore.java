@@ -132,27 +132,6 @@ public final class Datastore {
         return delegate().beginTransaction();
     }
 
-    /**
-     * Use {@link Transaction#commit()} directly.
-     * 
-     * @param tx
-     *            the transaction
-     */
-    @Deprecated
-    public static void commit(Transaction tx) {
-        tx.commit();
-    }
-
-    /**
-     * Use {@link Transaction#rollback()} directly.
-     * 
-     * @param tx
-     *            the transaction
-     */
-    @Deprecated
-    public static void rollback(Transaction tx) {
-        tx.rollback();
-    }
 
     /**
      * Returns the active transactions.
@@ -170,37 +149,6 @@ public final class Datastore {
      */
     public static Transaction getCurrentTransaction() {
         return delegate().getCurrentTransaction();
-    }
-
-    /**
-     * Use {@link #beginTransaction()}.
-     * 
-     * @return a begun global transaction
-     */
-    @Deprecated
-    public static GlobalTransaction beginGlobalTransaction() {
-        return delegate().beginGlobalTransaction();
-    }
-
-    /**
-     * Returns the active global transactions.
-     * 
-     * @return the active global transactions
-     */
-    @Deprecated
-    public static Collection<GlobalTransaction> getActiveGlobalTransactions() {
-        return delegate().getActiveGlobalTransactions();
-    }
-
-    /**
-     * Returns the current global transaction. Returns null if there is no
-     * transaction.
-     * 
-     * @return the current global transaction
-     */
-    @Deprecated
-    public static GlobalTransaction getCurrentGlobalTransaction() {
-        return delegate().getCurrentGlobalTransaction();
     }
 
     /**

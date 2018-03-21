@@ -104,37 +104,6 @@ public class DatastoreDelegate {
     }
 
     /**
-     * Begins a global transaction.
-     * 
-     * @return a begun global transaction
-     */
-    public GlobalTransaction beginGlobalTransaction() {
-        GlobalTransaction gtx =
-            new GlobalTransaction(async.getAsyncDatastoreService());
-        gtx.begin();
-        return gtx;
-    }
-
-    /**
-     * Returns the active global transactions.
-     * 
-     * @return the active global transactions
-     */
-    public Collection<GlobalTransaction> getActiveGlobalTransactions() {
-        return GlobalTransaction.getActiveTransactions();
-    }
-
-    /**
-     * Returns the current global transaction. Returns null if there is no
-     * transaction.
-     * 
-     * @return the current global transaction
-     */
-    public GlobalTransaction getCurrentGlobalTransaction() {
-        return GlobalTransaction.getCurrentTransaction();
-    }
-
-    /**
      * Allocates a key within a namespace defined by the kind.
      * 
      * @param kind

@@ -89,13 +89,6 @@ public class DatastoreDelegateTest extends AppEngineTestCase {
         assertThat(delegate.getCurrentTransaction(), is(notNullValue()));
     }
 
-    /**
-     * @throws Exception
-     */
-    @Test
-    public void beginGlobalTransaction() throws Exception {
-        assertThat(delegate.beginGlobalTransaction(), is(notNullValue()));
-    }
 
     /**
      * @throws Exception

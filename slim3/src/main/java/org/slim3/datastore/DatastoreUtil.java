@@ -92,12 +92,6 @@ public final class DatastoreUtil {
         initialized = true;
     }
 
-    /**
-     * Clears the active transactions.
-     */
-    public static void clearActiveGlobalTransactions() {
-        GlobalTransaction.clearActiveTransactions();
-    }
 
     /**
      * Begins a transaction.
