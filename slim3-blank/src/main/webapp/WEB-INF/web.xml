@@ -15,19 +15,10 @@
     </context-param>
 
     <filter>
-        <filter-name>DatastoreFilter</filter-name>
-        <filter-class>org.slim3.datastore.DatastoreFilter</filter-class>
-    </filter>   
-    <filter>
         <filter-name>FrontController</filter-name>
         <filter-class>org.slim3.controller.FrontController</filter-class>
     </filter>
 
-    <filter-mapping>
-        <filter-name>DatastoreFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-        <dispatcher>REQUEST</dispatcher>
-    </filter-mapping>
     <filter-mapping>
         <filter-name>FrontController</filter-name>
         <url-pattern>/*</url-pattern>
@@ -37,31 +28,11 @@
         <dispatcher>ERROR</dispatcher>
     </filter-mapping>
 
-    <servlet>
-        <servlet-name>GlobalTransactionServlet</servlet-name>
-        <servlet-class>org.slim3.datastore.GlobalTransactionServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>GlobalTransactionServlet</servlet-name>
-        <url-pattern>/slim3/gtx</url-pattern>
-    </servlet-mapping>
-
-    
     <security-constraint>
         <web-resource-collection>
             <url-pattern>*.jsp</url-pattern>
         </web-resource-collection>
         <auth-constraint>
-        </auth-constraint>
-    </security-constraint>
-    <security-constraint>
-        <web-resource-collection>
-            <url-pattern>/slim3/gtx</url-pattern>
-        </web-resource-collection>
-        <auth-constraint>
-            <role-name>admin</role-name>
         </auth-constraint>
     </security-constraint>
 </web-app>
