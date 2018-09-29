@@ -1,5 +1,5 @@
 apply plugin: 'java'
-apply plugin: 'com.google.cloud.tools.appengine'
+//apply plugin: 'com.google.cloud.tools.appengine'
 apply plugin: "net.ltgt.apt"
 apply plugin: "net.ltgt.apt-idea"
 
@@ -22,7 +22,7 @@ buildscript {      // Configuration for building
         }
     }
     dependencies {
-        classpath 'com.google.cloud.tools:appengine-gradle-plugin:+'
+//        classpath 'com.google.cloud.tools:appengine-gradle-plugin:+'
         classpath 'org.akhikhl.gretty:gretty:+'
         classpath "net.ltgt.gradle:gradle-apt-plugin:0.13"
     }

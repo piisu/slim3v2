@@ -73,6 +73,8 @@ gretty {
 
 appengine {
     deploy {   // deploy configuration
+        projectId="slim3-blank"
+        version="1.0"
         stopPreviousVersion = true  // default - stop the current version
         promote = true              // default - & make this the current version
     }
