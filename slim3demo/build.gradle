@@ -82,7 +82,7 @@ gretty {
 appengine {
     deploy {   // deploy configuration
         projectId = "slim3demo"
-        new Date().format("yyyyMMdd't'HHmmss")
+        version = new Date().format("yyyyMMdd't'HHmmss")
         stopPreviousVersion = true  // default - stop the current version
         promote = true              // default - & make this the current version
     }
