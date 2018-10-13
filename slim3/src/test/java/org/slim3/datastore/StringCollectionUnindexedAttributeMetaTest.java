@@ -24,6 +24,7 @@ import org.slim3.datastore.model.Hoge;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.isA;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
@@ -103,7 +104,7 @@ public class StringCollectionUnindexedAttributeMetaTest {
     public void startsWith() throws Exception {
         assertThat(
             myStringList.startsWith("a"),
-            is(InMemoryStartsWithCriterion.class));
+            isA(InMemoryStartsWithCriterion.class));
         assertThat(myStringList.startsWith(null), is(notNullValue()));
     }
 
@@ -115,7 +116,7 @@ public class StringCollectionUnindexedAttributeMetaTest {
     public void endsWith() throws Exception {
         assertThat(
             myStringList.endsWith("a"),
-            is(InMemoryEndsWithCriterion.class));
+            isA(InMemoryEndsWithCriterion.class));
         assertThat(myStringList.endsWith(null), is(notNullValue()));
     }
 
@@ -127,7 +128,7 @@ public class StringCollectionUnindexedAttributeMetaTest {
     public void contains() throws Exception {
         assertThat(
             myStringList.contains("a"),
-            is(InMemoryContainsCriterion.class));
+            isA(InMemoryContainsCriterion.class));
         assertThat(myStringList.contains(null), is(notNullValue()));
     }
 }

@@ -119,8 +119,8 @@ public class ValidatorsTest {
      */
     @Test
     public void required() throws Exception {
-        assertThat(v.required(), is(RequiredValidator.class));
-        assertThat(v.required("hoge"), is(RequiredValidator.class));
+        assertThat(v.required(), isA(RequiredValidator.class));
+        assertThat(v.required("hoge"), isA(RequiredValidator.class));
         parameters.put("aaa", "123");
         assertThat(v.required().validate(parameters, "aaa"), is(nullValue()));
     }
@@ -130,8 +130,8 @@ public class ValidatorsTest {
      */
     @Test
     public void byteType() throws Exception {
-        assertThat(v.byteType(), is(ByteTypeValidator.class));
-        assertThat(v.byteType("hoge"), is(ByteTypeValidator.class));
+        assertThat(v.byteType(), isA(ByteTypeValidator.class));
+        assertThat(v.byteType("hoge"), isA(ByteTypeValidator.class));
         parameters.put("aaa", "123");
         assertThat(v.byteType().validate(parameters, "aaa"), is(nullValue()));
     }
@@ -141,8 +141,8 @@ public class ValidatorsTest {
      */
     @Test
     public void shortType() throws Exception {
-        assertThat(v.shortType(), is(ShortTypeValidator.class));
-        assertThat(v.shortType("hoge"), is(ShortTypeValidator.class));
+        assertThat(v.shortType(), isA(ShortTypeValidator.class));
+        assertThat(v.shortType("hoge"), isA(ShortTypeValidator.class));
         parameters.put("aaa", "123");
         assertThat(v.shortType().validate(parameters, "aaa"), is(nullValue()));
     }
@@ -152,8 +152,8 @@ public class ValidatorsTest {
      */
     @Test
     public void integerType() throws Exception {
-        assertThat(v.integerType(), is(IntegerTypeValidator.class));
-        assertThat(v.integerType("hoge"), is(IntegerTypeValidator.class));
+        assertThat(v.integerType(), isA(IntegerTypeValidator.class));
+        assertThat(v.integerType("hoge"), isA(IntegerTypeValidator.class));
         parameters.put("aaa", "123");
         assertThat(v.integerType().validate(parameters, "aaa"), is(nullValue()));
     }
@@ -163,8 +163,8 @@ public class ValidatorsTest {
      */
     @Test
     public void longType() throws Exception {
-        assertThat(v.longType(), is(LongTypeValidator.class));
-        assertThat(v.longType("hoge"), is(LongTypeValidator.class));
+        assertThat(v.longType(), isA(LongTypeValidator.class));
+        assertThat(v.longType("hoge"), isA(LongTypeValidator.class));
         parameters.put("aaa", "123");
         assertThat(v.longType().validate(parameters, "aaa"), is(nullValue()));
     }
@@ -174,8 +174,8 @@ public class ValidatorsTest {
      */
     @Test
     public void floatType() throws Exception {
-        assertThat(v.floatType(), is(FloatTypeValidator.class));
-        assertThat(v.floatType("hoge"), is(FloatTypeValidator.class));
+        assertThat(v.floatType(), isA(FloatTypeValidator.class));
+        assertThat(v.floatType("hoge"), isA(FloatTypeValidator.class));
         parameters.put("aaa", "123");
         assertThat(v.floatType().validate(parameters, "aaa"), is(nullValue()));
     }
@@ -185,8 +185,8 @@ public class ValidatorsTest {
      */
     @Test
     public void doubleType() throws Exception {
-        assertThat(v.doubleType(), is(DoubleTypeValidator.class));
-        assertThat(v.doubleType("hoge"), is(DoubleTypeValidator.class));
+        assertThat(v.doubleType(), isA(DoubleTypeValidator.class));
+        assertThat(v.doubleType("hoge"), isA(DoubleTypeValidator.class));
         parameters.put("aaa", "123");
         assertThat(v.doubleType().validate(parameters, "aaa"), is(nullValue()));
     }
@@ -196,8 +196,8 @@ public class ValidatorsTest {
      */
     @Test
     public void numberType() throws Exception {
-        assertThat(v.numberType("###"), is(NumberTypeValidator.class));
-        assertThat(v.numberType("###", "hoge"), is(NumberTypeValidator.class));
+        assertThat(v.numberType("###"), isA(NumberTypeValidator.class));
+        assertThat(v.numberType("###", "hoge"), isA(NumberTypeValidator.class));
         parameters.put("aaa", "123");
         assertThat(
             v.numberType("####").validate(parameters, "aaa"),
@@ -209,10 +209,10 @@ public class ValidatorsTest {
      */
     @Test
     public void dateType() throws Exception {
-        assertThat(v.dateType("MM/dd/yyyy"), is(DateTypeValidator.class));
+        assertThat(v.dateType("MM/dd/yyyy"), isA(DateTypeValidator.class));
         assertThat(
             v.dateType("MM/dd/yyyy", "hoge"),
-            is(DateTypeValidator.class));
+            isA(DateTypeValidator.class));
         parameters.put("aaa", "01/01/1970");
         assertThat(
             v.dateType("MM/dd/yyyy").validate(parameters, "aaa"),
@@ -224,8 +224,8 @@ public class ValidatorsTest {
      */
     @Test
     public void minlength() throws Exception {
-        assertThat(v.minlength(3), is(MinlengthValidator.class));
-        assertThat(v.minlength(3, "hoge"), is(MinlengthValidator.class));
+        assertThat(v.minlength(3), isA(MinlengthValidator.class));
+        assertThat(v.minlength(3, "hoge"), isA(MinlengthValidator.class));
         parameters.put("aaa", "xxxx");
         assertThat(v.minlength(3).validate(parameters, "aaa"), is(nullValue()));
     }
@@ -235,8 +235,8 @@ public class ValidatorsTest {
      */
     @Test
     public void maxlength() throws Exception {
-        assertThat(v.maxlength(3), is(MaxlengthValidator.class));
-        assertThat(v.maxlength(3, "hoge"), is(MaxlengthValidator.class));
+        assertThat(v.maxlength(3), isA(MaxlengthValidator.class));
+        assertThat(v.maxlength(3, "hoge"), isA(MaxlengthValidator.class));
         parameters.put("aaa", "xx");
         assertThat(v.maxlength(3).validate(parameters, "aaa"), is(nullValue()));
     }
@@ -246,8 +246,8 @@ public class ValidatorsTest {
      */
     @Test
     public void longRange() throws Exception {
-        assertThat(v.longRange(3, 5), is(LongRangeValidator.class));
-        assertThat(v.longRange(3, 5, "hoge"), is(LongRangeValidator.class));
+        assertThat(v.longRange(3, 5), isA(LongRangeValidator.class));
+        assertThat(v.longRange(3, 5, "hoge"), isA(LongRangeValidator.class));
         parameters.put("aaa", "4");
         assertThat(
             v.longRange(3, 5).validate(parameters, "aaa"),
@@ -259,8 +259,8 @@ public class ValidatorsTest {
      */
     @Test
     public void doubleRange() throws Exception {
-        assertThat(v.doubleRange(3, 5), is(DoubleRangeValidator.class));
-        assertThat(v.doubleRange(3, 5, "hoge"), is(DoubleRangeValidator.class));
+        assertThat(v.doubleRange(3, 5), isA(DoubleRangeValidator.class));
+        assertThat(v.doubleRange(3, 5, "hoge"), isA(DoubleRangeValidator.class));
         parameters.put("aaa", "4.1");
         assertThat(
             v.doubleRange(3, 5).validate(parameters, "aaa"),
@@ -272,8 +272,8 @@ public class ValidatorsTest {
      */
     @Test
     public void regexp() throws Exception {
-        assertThat(v.regexp("abc"), is(RegexpValidator.class));
-        assertThat(v.regexp("abc", "hoge"), is(RegexpValidator.class));
+        assertThat(v.regexp("abc"), isA(RegexpValidator.class));
+        assertThat(v.regexp("abc", "hoge"), isA(RegexpValidator.class));
         parameters.put("aaa", "abc");
         assertThat(v.regexp("abc").validate(parameters, "aaa"), is(nullValue()));
     }

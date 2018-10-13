@@ -24,6 +24,7 @@ import org.slim3.datastore.model.Hoge;
 import java.util.Arrays;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.isA;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
@@ -99,7 +100,7 @@ public class CoreUnindexedAttributeMetaTest {
      */
     @Test
     public void equal() throws Exception {
-        assertThat(myString.equal("a"), is(InMemoryEqualCriterion.class));
+        assertThat(myString.equal("a"), isA(InMemoryEqualCriterion.class));
         assertThat(myString.equal(null), is(notNullValue()));
     }
 
@@ -108,7 +109,7 @@ public class CoreUnindexedAttributeMetaTest {
      */
     @Test
     public void notEqual() throws Exception {
-        assertThat(myString.notEqual("a"), is(InMemoryNotEqualCriterion.class));
+        assertThat(myString.notEqual("a"), isA(InMemoryNotEqualCriterion.class));
         assertThat(myString.notEqual(null), is(notNullValue()));
     }
 
@@ -117,7 +118,7 @@ public class CoreUnindexedAttributeMetaTest {
      */
     @Test
     public void lessThan() throws Exception {
-        assertThat(myString.lessThan("a"), is(InMemoryLessThanCriterion.class));
+        assertThat(myString.lessThan("a"), isA(InMemoryLessThanCriterion.class));
         assertThat(myString.lessThan(null), is(notNullValue()));
     }
 
@@ -128,7 +129,7 @@ public class CoreUnindexedAttributeMetaTest {
     public void lessThanOrEqual() throws Exception {
         assertThat(
                 myString.lessThanOrEqual("a"),
-                is(InMemoryLessThanOrEqualCriterion.class));
+                isA(InMemoryLessThanOrEqualCriterion.class));
         assertThat(myString.lessThanOrEqual(null), is(notNullValue()));
     }
 
@@ -139,7 +140,7 @@ public class CoreUnindexedAttributeMetaTest {
     public void greaterThan() throws Exception {
         assertThat(
                 myString.greaterThan("a"),
-                is(InMemoryGreaterThanCriterion.class));
+                isA(InMemoryGreaterThanCriterion.class));
         assertThat(myString.greaterThan(null), is(notNullValue()));
     }
 
@@ -150,7 +151,7 @@ public class CoreUnindexedAttributeMetaTest {
     public void greaterThanOrEqual() throws Exception {
         assertThat(
                 myString.greaterThanOrEqual("a"),
-                is(InMemoryGreaterThanOrEqualCriterion.class));
+                isA(InMemoryGreaterThanOrEqualCriterion.class));
         assertThat(myString.greaterThanOrEqual(null), is(notNullValue()));
     }
 
@@ -161,7 +162,7 @@ public class CoreUnindexedAttributeMetaTest {
     public void in() throws Exception {
         assertThat(
                 myString.in(Arrays.asList("a")),
-                is(InMemoryInCriterion.class));
+                isA(InMemoryInCriterion.class));
     }
 
     /**
@@ -169,7 +170,7 @@ public class CoreUnindexedAttributeMetaTest {
      */
     @Test
     public void inForVarargs() throws Exception {
-        assertThat(myString.in("a"), is(InMemoryInCriterion.class));
+        assertThat(myString.in("a"), isA(InMemoryInCriterion.class));
     }
 
     /**
@@ -185,6 +186,6 @@ public class CoreUnindexedAttributeMetaTest {
      */
     @Test
     public void isNotNull() throws Exception {
-        assertThat(myString.isNotNull(), is(InMemoryIsNotNullCriterion.class));
+        assertThat(myString.isNotNull(), isA(InMemoryIsNotNullCriterion.class));
     }
 }

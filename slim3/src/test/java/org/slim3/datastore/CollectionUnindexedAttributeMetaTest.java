@@ -25,6 +25,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.isA;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
@@ -100,7 +101,7 @@ public class CollectionUnindexedAttributeMetaTest {
      */
     @Test
     public void equal() throws Exception {
-        assertThat(myIntegerList.equal(1), is(InMemoryEqualCriterion.class));
+        assertThat(myIntegerList.equal(1), isA(InMemoryEqualCriterion.class));
         assertThat(myIntegerList.equal(null), is(notNullValue()));
     }
 
@@ -111,7 +112,7 @@ public class CollectionUnindexedAttributeMetaTest {
     public void notEqual() throws Exception {
         assertThat(
                 myIntegerList.notEqual(1),
-                is(InMemoryNotEqualCriterion.class));
+                isA(InMemoryNotEqualCriterion.class));
         assertThat(myIntegerList.notEqual(null), is(notNullValue()));
     }
 
@@ -122,7 +123,7 @@ public class CollectionUnindexedAttributeMetaTest {
     public void lessThan() throws Exception {
         assertThat(
                 myIntegerList.lessThan(1),
-                is(InMemoryLessThanCriterion.class));
+                isA(InMemoryLessThanCriterion.class));
         assertThat(myIntegerList.lessThan(null), is(notNullValue()));
     }
 
@@ -133,7 +134,7 @@ public class CollectionUnindexedAttributeMetaTest {
     public void lessThanOrEqual() throws Exception {
         assertThat(
                 myIntegerList.lessThanOrEqual(1),
-                is(InMemoryLessThanOrEqualCriterion.class));
+                isA(InMemoryLessThanOrEqualCriterion.class));
         assertThat(myIntegerList.lessThanOrEqual(null), is(notNullValue()));
     }
 
@@ -144,7 +145,7 @@ public class CollectionUnindexedAttributeMetaTest {
     public void greaterThan() throws Exception {
         assertThat(
                 myIntegerList.greaterThan(1),
-                is(InMemoryGreaterThanCriterion.class));
+                isA(InMemoryGreaterThanCriterion.class));
         assertThat(myIntegerList.greaterThan(null), is(notNullValue()));
     }
 
@@ -155,7 +156,7 @@ public class CollectionUnindexedAttributeMetaTest {
     public void greaterThanOrEqual() throws Exception {
         assertThat(
                 myIntegerList.greaterThanOrEqual(1),
-                is(InMemoryGreaterThanOrEqualCriterion.class));
+                isA(InMemoryGreaterThanOrEqualCriterion.class));
         assertThat(myIntegerList.greaterThanOrEqual(null), is(notNullValue()));
     }
 
@@ -166,7 +167,7 @@ public class CollectionUnindexedAttributeMetaTest {
     public void in() throws Exception {
         assertThat(
                 myIntegerList.in(Arrays.asList(1, 2)),
-                is(InMemoryInCriterion.class));
+                isA(InMemoryInCriterion.class));
     }
 
     /**
@@ -174,7 +175,7 @@ public class CollectionUnindexedAttributeMetaTest {
      */
     @Test
     public void inForVarargs() throws Exception {
-        assertThat(myIntegerList.in(1, 2), is(InMemoryInCriterion.class));
+        assertThat(myIntegerList.in(1, 2), isA(InMemoryInCriterion.class));
     }
 
     /**
@@ -194,6 +195,6 @@ public class CollectionUnindexedAttributeMetaTest {
     public void isNotNull() throws Exception {
         assertThat(
                 myIntegerList.isNotNull(),
-                is(InMemoryIsNotNullCriterion.class));
+                isA(InMemoryIsNotNullCriterion.class));
     }
 }

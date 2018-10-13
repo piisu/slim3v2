@@ -16,6 +16,7 @@
 package org.slim3.datastore;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.isA;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
@@ -38,7 +39,7 @@ public class CollectionAttributeMetaTest {
      */
     @Test
     public void equal() throws Exception {
-        assertThat(meta.myIntegerList.equal(1), is(EqualCriterion.class));
+        assertThat(meta.myIntegerList.equal(1), isA(EqualCriterion.class));
         assertThat(meta.myIntegerList.equal(null), is(notNullValue()));
     }
 
@@ -48,7 +49,7 @@ public class CollectionAttributeMetaTest {
      */
     @Test
     public void notEqual() throws Exception {
-        assertThat(meta.myIntegerList.notEqual(1), is(NotEqualCriterion.class));
+        assertThat(meta.myIntegerList.notEqual(1), isA(NotEqualCriterion.class));
         assertThat(meta.myIntegerList.notEqual(null), is(notNullValue()));
     }
 
@@ -58,7 +59,7 @@ public class CollectionAttributeMetaTest {
      */
     @Test
     public void lessThan() throws Exception {
-        assertThat(meta.myIntegerList.lessThan(1), is(LessThanCriterion.class));
+        assertThat(meta.myIntegerList.lessThan(1), isA(LessThanCriterion.class));
         assertThat(meta.myIntegerList.lessThan(null), is(notNullValue()));
     }
 
@@ -70,7 +71,7 @@ public class CollectionAttributeMetaTest {
     public void lessThanOrEqual() throws Exception {
         assertThat(
             meta.myIntegerList.lessThanOrEqual(1),
-            is(LessThanOrEqualCriterion.class));
+            isA(LessThanOrEqualCriterion.class));
         assertThat(meta.myIntegerList.lessThanOrEqual(null), is(notNullValue()));
     }
 
@@ -82,7 +83,7 @@ public class CollectionAttributeMetaTest {
     public void greaterThan() throws Exception {
         assertThat(
             meta.myIntegerList.greaterThan(1),
-            is(GreaterThanCriterion.class));
+            isA(GreaterThanCriterion.class));
         assertThat(meta.myIntegerList.greaterThan(null), is(notNullValue()));
     }
 
@@ -94,7 +95,7 @@ public class CollectionAttributeMetaTest {
     public void greaterThanOrEqual() throws Exception {
         assertThat(
             meta.myIntegerList.greaterThanOrEqual(1),
-            is(GreaterThanOrEqualCriterion.class));
+            isA(GreaterThanOrEqualCriterion.class));
         assertThat(
             meta.myIntegerList.greaterThanOrEqual(null),
             is(notNullValue()));
@@ -108,7 +109,7 @@ public class CollectionAttributeMetaTest {
     public void in() throws Exception {
         assertThat(
             meta.myIntegerList.in(Arrays.asList(1, 2)),
-            is(InCriterion.class));
+            isA(InCriterion.class));
     }
 
     /**
@@ -117,7 +118,7 @@ public class CollectionAttributeMetaTest {
      */
     @Test
     public void inForVarargs() throws Exception {
-        assertThat(meta.myIntegerList.in(1, 2), is(InCriterion.class));
+        assertThat(meta.myIntegerList.in(1, 2), isA(InCriterion.class));
     }
 
     /**
@@ -137,6 +138,6 @@ public class CollectionAttributeMetaTest {
      */
     @Test
     public void isNotNull() throws Exception {
-        assertThat(meta.myIntegerList.isNotNull(), is(IsNotNullCriterion.class));
+        assertThat(meta.myIntegerList.isNotNull(), isA(IsNotNullCriterion.class));
     }
 }

@@ -37,7 +37,7 @@ public class CoreAttributeMetaTest {
      */
     @Test
     public void equal() throws Exception {
-        assertThat(meta.myString.equal("a"), is(EqualCriterion.class));
+        assertThat(meta.myString.equal("a"), isA(EqualCriterion.class));
         assertThat(meta.myString.equal(null), is(notNullValue()));
     }
 
@@ -69,7 +69,7 @@ public class CoreAttributeMetaTest {
     public void lessThanOrEqual() throws Exception {
         assertThat(
             meta.myString.lessThanOrEqual("a"),
-            is(LessThanOrEqualCriterion.class));
+            isA(LessThanOrEqualCriterion.class));
         assertThat(meta.myString.lessThanOrEqual(null), is(notNullValue()));
     }
 
@@ -81,7 +81,7 @@ public class CoreAttributeMetaTest {
     public void greaterThan() throws Exception {
         assertThat(
             meta.myString.greaterThan("a"),
-            is(GreaterThanCriterion.class));
+            isA(GreaterThanCriterion.class));
         assertThat(meta.myString.greaterThan(null), is(notNullValue()));
     }
 
@@ -93,7 +93,7 @@ public class CoreAttributeMetaTest {
     public void greaterThanOrEqual() throws Exception {
         assertThat(
             meta.myString.greaterThanOrEqual("a"),
-            is(GreaterThanOrEqualCriterion.class));
+            isA(GreaterThanOrEqualCriterion.class));
         assertThat(meta.myString.greaterThanOrEqual(null), is(notNullValue()));
     }
 
@@ -132,6 +132,6 @@ public class CoreAttributeMetaTest {
      */
     @Test
     public void isNotNull() throws Exception {
-        assertThat(meta.myString.isNotNull(), is(IsNotNullCriterion.class));
+        assertThat(meta.myString.isNotNull(), isA(IsNotNullCriterion.class));
     }
 }

@@ -37,7 +37,7 @@ public class StringCollectionAttributeMetaTest {
     public void startsWith() throws Exception {
         assertThat(
             meta.myStringList.startsWith("a"),
-            is(StartsWithCriterion.class));
+            isA(StartsWithCriterion.class));
         assertThat(meta.myStringList.startsWith(null), is(notNullValue()));
     }
 
@@ -47,7 +47,7 @@ public class StringCollectionAttributeMetaTest {
      */
     @Test
     public void endsWith() throws Exception {
-        assertThat(meta.myStringList.endsWith("a"), is(InMemoryEndsWithCriterion.class));
+        assertThat(meta.myStringList.endsWith("a"), isA(InMemoryEndsWithCriterion.class));
         assertThat(meta.myStringList.endsWith(null), is(notNullValue()));
     }
 
@@ -57,7 +57,7 @@ public class StringCollectionAttributeMetaTest {
      */
     @Test
     public void contains() throws Exception {
-        assertThat(meta.myStringList.contains("a"), is(InMemoryContainsCriterion.class));
+        assertThat(meta.myStringList.contains("a"), isA(InMemoryContainsCriterion.class));
         assertThat(meta.myStringList.contains(null), is(notNullValue()));
     }
 }

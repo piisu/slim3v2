@@ -21,7 +21,7 @@ import com.google.appengine.api.datastore.Key;
 import org.junit.Test;
 import org.slim3.datastore.model.Hoge;
 
-import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.isA;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -95,7 +95,7 @@ public class SortableUnindexedAttributeMetaTest {
                         "myString",
                         "myString",
                         String.class);
-        assertThat(attrMeta.asc, is(InMemoryAscCriterion.class));
+        assertThat(attrMeta.asc, isA(InMemoryAscCriterion.class));
     }
 
     /**
@@ -109,6 +109,6 @@ public class SortableUnindexedAttributeMetaTest {
                         "myString",
                         "myString",
                         String.class);
-        assertThat(attrMeta.desc, is(InMemoryDescCriterion.class));
+        assertThat(attrMeta.desc, isA(InMemoryDescCriterion.class));
     }
 }

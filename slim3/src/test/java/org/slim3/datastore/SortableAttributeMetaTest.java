@@ -23,6 +23,7 @@ import org.slim3.datastore.model.Hoge;
 import org.slim3.tester.AppEngineTestCase;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.isA;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -97,7 +98,7 @@ public class SortableAttributeMetaTest extends AppEngineTestCase {
                         "myString",
                         "myString",
                         String.class);
-        assertThat(attrMeta.asc, is(AscCriterion.class));
+        assertThat(attrMeta.asc, isA(AscCriterion.class));
     }
 
     /**
@@ -111,6 +112,6 @@ public class SortableAttributeMetaTest extends AppEngineTestCase {
                         "myString",
                         "myString",
                         String.class);
-        assertThat(attrMeta.desc, is(DescCriterion.class));
+        assertThat(attrMeta.desc, isA(DescCriterion.class));
     }
 }

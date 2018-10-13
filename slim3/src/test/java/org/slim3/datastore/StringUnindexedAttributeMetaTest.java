@@ -94,7 +94,7 @@ public class StringUnindexedAttributeMetaTest {
     public void startsWith() throws Exception {
         assertThat(
                 myString.startsWith("a"),
-                is(InMemoryStartsWithCriterion.class));
+                isA(InMemoryStartsWithCriterion.class));
         assertThat(myString.startsWith(null), is(not(nullValue())));
     }
 
@@ -103,7 +103,7 @@ public class StringUnindexedAttributeMetaTest {
      */
     @Test
     public void endsWith() throws Exception {
-        assertThat(myString.endsWith("a"), is(InMemoryEndsWithCriterion.class));
+        assertThat(myString.endsWith("a"), isA(InMemoryEndsWithCriterion.class));
         assertThat(myString.endsWith(null), is(notNullValue()));
     }
 
@@ -112,7 +112,7 @@ public class StringUnindexedAttributeMetaTest {
      */
     @Test
     public void contains() throws Exception {
-        assertThat(myString.contains("a"), is(InMemoryContainsCriterion.class));
+        assertThat(myString.contains("a"), isA(InMemoryContainsCriterion.class));
         assertThat(myString.contains(null), is(not(nullValue())));
     }
 }

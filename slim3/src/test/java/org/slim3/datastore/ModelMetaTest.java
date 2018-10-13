@@ -17,7 +17,7 @@ package org.slim3.datastore;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
-import static org.junit.matchers.JUnitMatchers.hasItem;
+import static org.hamcrest.CoreMatchers.hasItem;
 
 import java.util.ArrayList;
 import java.util.Arrays;
