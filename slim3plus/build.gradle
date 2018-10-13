@@ -55,8 +55,14 @@ dependencies {
     testCompile group: 'com.google.appengine', name: 'appengine-api-labs', version: appengineVersion
 
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.4'
-    compileOnly "org.projectlombok:lombok:1.16.20"
-    apt "org.projectlombok:lombok:1.16.20"
+    compile "org.projectlombok:lombok:1.16.20"
 
+    compile group: 'com.google.inject', name: 'guice', version: '4.1.0'
+
+    apt "org.projectlombok:lombok:1.16.20"
+    apt project(":slim3-gen-jsr269")
     compile "org.slim3:slim3:${version}"
 }
+
+//ant task
+ant.importBuild 'build.xml'
