@@ -1,5 +1,7 @@
 package org.slim3plus.tq;
 
+import com.google.inject.Module;
+
 import java.lang.annotation.*;
 
 @Retention(RetentionPolicy.RUNTIME)
