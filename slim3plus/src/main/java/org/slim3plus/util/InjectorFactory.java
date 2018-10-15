@@ -44,7 +44,10 @@ public class InjectorFactory {
     }
 
     private static Injector createInjector(ServletContext servletContext) {
-        Module module = createModule(servletContext);
+        return createInjector(createModule(servletContext));
+    }
+
+    private static Injector createInjector(Module module) {
         return Guice.createInjector(module);
     }
 
