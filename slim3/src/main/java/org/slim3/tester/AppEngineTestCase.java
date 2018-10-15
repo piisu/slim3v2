@@ -53,4 +53,20 @@ public abstract class AppEngineTestCase {
     public void tearDown() throws Exception {
         tester.tearDown();
     }
+
+    /**
+     * Returns the appropriate instance.
+     * @param clazz class
+     * @param <T> class type
+     * @return The appropriate instance
+     */
+    protected <T> T getInstance(Class<T> clazz) {
+        try {
+            return (T)clazz.newInstance();
+        } catch (InstantiationException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
