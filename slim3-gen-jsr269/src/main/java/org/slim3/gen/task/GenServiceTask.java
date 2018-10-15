@@ -114,7 +114,7 @@ public class GenServiceTask extends AbstractGenJavaFileTask {
      * @throws IOException
      * @throws XPathExpressionException
      */
-    private ServiceDesc createServiceDesc() throws IOException,
+    protected ServiceDesc createServiceDesc() throws IOException,
             XPathExpressionException {
         ClassNameBuilder nameBuilder = new ClassNameBuilder();
         nameBuilder.append(getServiceBasePackageName());

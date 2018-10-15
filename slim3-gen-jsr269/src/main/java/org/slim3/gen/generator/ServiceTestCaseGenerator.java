@@ -70,7 +70,7 @@ public class ServiceTestCaseGenerator implements Generator {
         }
         p.println(" {");
         p.println();
-        p.println("    private %1$s service = new %1$s();", serviceDesc
+        p.println("    private %1$s service = getInstance(%1$s.class);", serviceDesc
             .getSimpleName());
         p.println();
         p.println("    @%s", ClassUtil.getSimpleName(AnnotationConstants.Test));
