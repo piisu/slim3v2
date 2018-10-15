@@ -44,17 +44,17 @@ public class InjectorFactory {
     }
 
     private static Injector createInjector(ServletContext servletContext) {
-        return createInjector(createModule(servletContext));
+        return Guice.createInjector(createAppModule(servletContext));
     }
 
-    private static Injector createInjector(Module module) {
-        return Guice.createInjector(module);
-    }
-
-    private static Module createModule(ServletContext servletContext) {
+    private static Module createAppModule(ServletContext servletContext) {
         String rootPackageName =
                 servletContext
                         .getInitParameter(ControllerConstants.ROOT_PACKAGE_KEY);
+        return createAppModule(rootPackageName);
+    }
+
+    private static Module createAppModule(String rootPackageName) {
         if (StringUtil.isEmpty(rootPackageName)) {
             throw new IllegalStateException("The context-param("
                     + ControllerConstants.ROOT_PACKAGE_KEY

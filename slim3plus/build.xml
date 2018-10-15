@@ -39,7 +39,7 @@
 
 	<target name="gen-service">
         <input message="Input a service name. (ex.  FooService -> root.service.FooService,  bar.FooService -> root.service.bar.FooService)" addproperty="serviceDefinition"/>
-        <gen-service srcdir="${srcDir}" testdir="${testDir}" wardir="${warDir}" serviceDefinition="${serviceDefinition}"/>
+        <gen-service srcdir="${srcDir}" testdir="${testDir}" wardir="${warDir}" serviceDefinition="${serviceDefinition}" testcasesuperclassname="org.slim3plus.tester.PlusAppEngineTestCase"/>
     </target>
 	
 	<target name="gen-gwt-service">
