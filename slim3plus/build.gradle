@@ -1,3 +1,4 @@
+
 apply plugin: 'java'
 //apply plugin: 'com.google.cloud.tools.appengine'
 apply plugin: "net.ltgt.apt"
@@ -43,8 +44,8 @@ dependencies {
     compileOnly "com.google.appengine:appengine:${appengineVersion}"
 
     // Add your dependencies here.
-    compile "com.google.appengine:appengine-endpoints:${appengineVersion}" //add this line to avoid upper comment
-    compile "com.google.appengine:appengine-endpoints-deps:${appengineVersion}" //works also without this line
+    //compile "com.google.appengine:appengine-endpoints:${appengineVersion}" //add this line to avoid upper comment
+    //compile "com.google.appengine:appengine-endpoints-deps:${appengineVersion}" //works also without this line
     compile 'javax.servlet:servlet-api:2.5'
     compile fileTree(include: ['*.jar'], dir: 'libs')
 
@@ -56,12 +57,13 @@ dependencies {
 
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.4'
     compile "org.projectlombok:lombok:1.16.20"
+    apt "org.projectlombok:lombok:1.16.20"
 
     compile group: 'com.google.inject', name: 'guice', version: '4.1.0'
+    compile project(":slim3")
 
-    apt "org.projectlombok:lombok:1.16.20"
     apt project(":slim3-gen-jsr269")
-    compile "org.slim3:slim3:${version}"
+
 }
 
 //ant task
