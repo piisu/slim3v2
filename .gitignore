@@ -100,3 +100,4 @@ classes/
 !/repository/**/*.jar
 !/slim3demo/lib/*.jar
 !/slim3-blank/lib/*.jar
+!/slim3plus/lib/*.jar
