@@ -14,8 +14,8 @@ public @interface Cacheable {
 
     /***
      * キャッシュの有効期限(秒)
-     * @return
+     * @return キャッシュの有効期限
      */
-    int expiration() default -1;
+    int expiration() default 7 * 24 * 60 * 60;
 
 }
