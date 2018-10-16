@@ -6,7 +6,6 @@ import com.google.appengine.api.taskqueue.Queue;
 import com.google.appengine.api.taskqueue.QueueFactory;
 import com.google.appengine.api.taskqueue.TaskHandle;
 import com.google.appengine.api.taskqueue.TaskOptions;
-import lombok.extern.java.Log;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.slim3.datastore.Datastore;
