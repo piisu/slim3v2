@@ -8,14 +8,11 @@ import org.slim3.datastore.Datastore;
 import org.slim3.datastore.Model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 @Data
 @Model(schemaVersion = 1)
-public class MapReduce implements Serializable {
+public class MapWorker implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -24,6 +21,43 @@ public class MapReduce implements Serializable {
 
     @Attribute(version = true)
     private Long version;
+
+    /**
+     * Returns the key.
+     *
+     * @return the key
+     */
+    @JsonIgnore
+    public Key getKey() {
+        return key;
+    }
+
+    /**
+     * Sets the key.
+     *
+     * @param key the key
+     */
+    public void setKey(Key key) {
+        this.key = key;
+    }
+
+    /**
+     * Returns the version.
+     *
+     * @return the version
+     */
+    public Long getVersion() {
+        return version;
+    }
+
+    /**
+     * Sets the version.
+     *
+     * @param version the version
+     */
+    public void setVersion(Long version) {
+        this.version = version;
+    }
 
     @Override
     public int hashCode() {
@@ -44,7 +78,7 @@ public class MapReduce implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        MapReduce other = (MapReduce) obj;
+        MapWorker other = (MapWorker) obj;
         if (key == null) {
             if (other.key != null) {
                 return false;
@@ -55,40 +89,26 @@ public class MapReduce implements Serializable {
         return true;
     }
 
+
+    public static Key createKey(Key mapReduceKey, int index) {
+        return Datastore.createKey(MapWorker.class,
+                String.format("/%d/%d", mapReduceKey.getId(), index));
+    }
+
     @Attribute(lob = true)
     private Class<? extends MapReduceTask<?>> taskClass;
 
-    private int workerCount;
-
     private boolean complete;
-
-    private Date startDate;
-
-    private Date endDate;
-
-    private boolean cancel;
 
     @Attribute(lob = true)
     private Map<String, Object> params;
 
     @Attribute(lob = true)
-    MapperContext context;
+    private KeyRange keyRange;
 
-    @Attribute(persistent = false)
-    private transient List<Key> workerKeys;
+    @Attribute(lob = true)
+    private KeyRange processingKeyRange;
 
-    @JsonIgnore
-    public List<Key> getWorkerKeys() {
-        if (workerKeys == null && 0 < workerCount) {
-            workerKeys = new ArrayList<>(workerCount);
-            for (int i = 0; i < workerCount; i++) {
-                workerKeys.add(MapWorker.createKey(key, i));
-            }
-        }
-        return workerKeys;
-    }
-
-    public String getKeyString() {
-        return Datastore.keyToString(getKey());
-    }
+    @Attribute(lob = true)
+    private MapperContext context = new MapperContext();
 }
