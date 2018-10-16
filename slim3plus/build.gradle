@@ -54,16 +54,23 @@ dependencies {
     testCompile group: 'com.google.appengine', name: 'appengine-api-stubs', version: appengineVersion
     testCompile group: 'com.google.appengine', name: 'appengine-api-1.0-sdk', version: appengineVersion
     testCompile group: 'com.google.appengine', name: 'appengine-api-labs', version: appengineVersion
+    testCompile group: 'com.google.appengine', name: 'appengine-testing', version: appengineVersion
+
+    compile group: 'com.google.appengine.tools' ,name:'appengine-gcs-client', version: '0.7'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
+    compile group: 'commons-io', name: 'commons-io', version: '2.6'
 
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.4'
-    compile "org.projectlombok:lombok:1.16.20"
-    apt "org.projectlombok:lombok:1.16.20"
+
 
     compile group: 'com.google.inject', name: 'guice', version: '4.1.0'
-    compile project(":slim3")
+
+
+    apt "org.projectlombok:lombok:1.16.20"
+    compile "org.projectlombok:lombok:1.16.20"
 
     apt project(":slim3-gen-jsr269")
-
+    compile project(":slim3")
 }
 
 //ant task
