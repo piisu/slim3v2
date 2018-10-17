@@ -20,7 +20,9 @@ dependencies {
 
     compile group: 'com.google.appengine', name: 'appengine-api-1.0-sdk', version: appengineVersion
     compile group: 'com.google.appengine', name: 'appengine-api-labs', version: appengineVersion
+    compileOnly group: 'com.google.appengine', name: 'appengine-testing', version: appengineVersion
     testCompile group: 'com.google.appengine', name: 'appengine-testing', version: appengineVersion
+    compileOnly group: 'com.google.appengine', name: 'appengine-api-stubs', version: appengineVersion
     testCompile group: 'com.google.appengine', name: 'appengine-api-stubs', version: appengineVersion
     testCompile group: 'com.google.appengine', name: 'appengine-api-1.0-sdk', version: appengineVersion
 

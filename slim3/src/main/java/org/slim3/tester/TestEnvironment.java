@@ -18,6 +18,7 @@ package org.slim3.tester;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.appengine.tools.development.LocalEnvironment;
 import org.slim3.util.AppEngineUtil;
 import org.slim3.util.StringUtil;
 
@@ -32,7 +33,7 @@ import com.google.apphosting.api.ApiProxy.Environment;
  * @since 1.0.0
  * 
  */
-public class TestEnvironment implements ApiProxy.Environment {
+public class TestEnvironment extends LocalEnvironment {
 
     /**
      * The application identifier.
@@ -63,28 +64,30 @@ public class TestEnvironment implements ApiProxy.Environment {
      * The remaining millisecond.
      */
     protected long remainingMillis;
-    
-    /**
-     * The environment attributes.
-     */
-    protected Map<String, Object> attributes = new HashMap<String, Object>();
 
     /**
      * Constructor.
      */
     public TestEnvironment() {
+        super("Unit Tests", "test", "1.0", 1, null, null);
         attributes.put("com.google.appengine.server_url_key", "dummy");
+    }
+
+    public void setAttributes(Map<String, Object> attributes) {
+        this.attributes.clear();
+        this.attributes.putAll(attributes);
     }
 
     /**
      * Constructor.
-     * 
+     *
      * @param other
      *            the other environment
      * @throws NullPointerException
      *             if the other parameter is null
      */
     public TestEnvironment(Environment other) throws NullPointerException {
+        this();
         if (other == null) {
             throw new NullPointerException(
                 "The other parameter must not be null.");
@@ -94,7 +97,8 @@ public class TestEnvironment implements ApiProxy.Environment {
         authDomain = other.getAuthDomain();
         email = other.getEmail();
         admin = other.isAdmin();
-        attributes = other.getAttributes();
+        attributes.clear();
+        attributes.putAll(other.getAttributes());
     }
 
     /**
@@ -127,7 +131,7 @@ public class TestEnvironment implements ApiProxy.Environment {
 
     /**
      * Sets the application identifier.
-     * 
+     *
      * @param appId
      *            the application identifier
      */
@@ -142,7 +146,7 @@ public class TestEnvironment implements ApiProxy.Environment {
 
     /**
      * Sets the version identifier.
-     * 
+     *
      * @param versionId
      *            the version identifier
      */
@@ -151,9 +155,6 @@ public class TestEnvironment implements ApiProxy.Environment {
         this.versionId = versionId;
     }
 
-    public String getRequestNamespace() {
-        return NamespaceManager.get();
-    }
 
     public String getAuthDomain() {
         return authDomain;
@@ -161,7 +162,7 @@ public class TestEnvironment implements ApiProxy.Environment {
 
     /**
      * Sets the authority domain.
-     * 
+     *
      * @param authDomain
      *            the authority domain
      */
@@ -204,21 +205,6 @@ public class TestEnvironment implements ApiProxy.Environment {
         this.admin = admin;
     }
 
-    public Map<String, Object> getAttributes() {
-        return attributes;
-    }
-
-    /**
-     * Sets the attributes.
-     * 
-     * @param attributes
-     *            the attributes
-     */
-    public void setAttributes(Map<String, Object> attributes) {
-        assertNotProduction();
-        this.attributes = attributes;
-    }
-
     /**
      * Asserts that the current environment is not production.
      * 
@@ -236,10 +222,10 @@ public class TestEnvironment implements ApiProxy.Environment {
     public long getRemainingMillis() {
         return remainingMillis;
     }
-    
+
     /**
      * Sets the remaining millisecond.
-     * 
+     *
      * @param remainingMillis the remaining millisecond
      */
     public void setRemainingMillis(long remainingMillis) {

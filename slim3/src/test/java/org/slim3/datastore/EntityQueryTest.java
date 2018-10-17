@@ -21,6 +21,7 @@ import static org.junit.Assert.*;
 import java.util.Iterator;
 
 import org.junit.Test;
+import org.junit.experimental.theories.Theories;
 import org.slim3.tester.AppEngineTestCase;
 
 import com.google.appengine.api.datastore.AsyncDatastoreService;
@@ -38,6 +39,11 @@ public class EntityQueryTest extends AppEngineTestCase {
 
     private AsyncDatastoreService ds =
         DatastoreServiceFactory.getAsyncDatastoreService();
+
+    @Override
+    public void setUp() throws Exception {
+        super.setUp();
+    }
 
     /**
      * @throws Exception

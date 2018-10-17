@@ -18,11 +18,11 @@ package org.slim3.tester;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.concurrent.Future;
 
+import com.google.appengine.api.taskqueue.dev.QueueStateInfo;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,7 +38,6 @@ import com.google.appengine.api.mail.MailServicePb.MailMessage;
 import com.google.appengine.api.taskqueue.Queue;
 import com.google.appengine.api.taskqueue.QueueFactory;
 import com.google.appengine.api.taskqueue.TaskOptions;
-import com.google.appengine.api.taskqueue.TaskQueuePb.TaskQueueAddRequest;
 import com.google.appengine.api.urlfetch.HTTPRequest;
 import com.google.appengine.api.urlfetch.HTTPResponse;
 import com.google.appengine.api.urlfetch.URLFetchService;
@@ -74,53 +73,6 @@ public class AppEngineTesterTest {
      * 
      */
     @Test
-    public void getLibDir() throws Exception {
-        File libDir = AppEngineTester.getLibDir();
-        System.out.println(libDir);
-        assertThat(libDir.exists(), is(true));
-        assertThat(libDir.isDirectory(), is(true));
-    }
-
-    /**
-     * @throws Exception
-     * 
-     */
-    @Test
-    public void getLocalRuntimeJar() throws Exception {
-        File libDir = AppEngineTester.getLibDir();
-        File implDir = new File(libDir, AppEngineTester.IMPL_DIR_NAME);
-        if (implDir.exists()) {
-            URL url =
-                AppEngineTester.getLibraryURL(
-                    implDir,
-                    AppEngineTester.LOCAL_RUNTIME_LIB_NAME);
-            assertThat(url, is(notNullValue()));
-        }
-    }
-
-    /**
-     * @throws Exception
-     * 
-     */
-    @Test
-    public void getApiStubsJar() throws Exception {
-        File libDir = AppEngineTester.getLibDir();
-        File implDir = new File(libDir, AppEngineTester.IMPL_DIR_NAME);
-        if (implDir.exists()) {
-            URL url =
-                AppEngineTester.getLibraryURL(
-                    implDir,
-                    AppEngineTester.API_STUBS_LIB_NAME);
-            System.out.println(url);
-            assertThat(url, is(notNullValue()));
-        }
-    }
-
-    /**
-     * @throws Exception
-     * 
-     */
-    @Test
     public void getCount() throws Exception {
         DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
         ds.put(new Entity("Hoge"));
@@ -143,7 +95,7 @@ public class AppEngineTesterTest {
      */
     @Test
     public void environment() throws Exception {
-        assertThat(tester.environment, is(notNullValue()));
+        assertThat(tester.getEnvironment(), is(notNullValue()));
     }
 
     /**
@@ -162,8 +114,8 @@ public class AppEngineTesterTest {
         message.setSubject(subject);
         message.setTextBody(body);
         MailServiceFactory.getMailService().sendToAdmins(message);
-        assertThat(tester.mailMessages.size(), is(1));
-        MailMessage mes = tester.mailMessages.get(0);
+        assertThat(tester.getSentMessages().size(), is(1));
+        MailMessage mes = tester.getSentMessages().get(0);
         assertThat(mes.getTo(0), is(to));
         assertThat(mes.getSender(), is(sender));
         assertThat(mes.getSubject(), is(subject));
@@ -179,8 +131,8 @@ public class AppEngineTesterTest {
         Queue queue = QueueFactory.getDefaultQueue();
         queue
             .add(TaskOptions.Builder.withUrl("/tqHandler").param("key", "aaa"));
-        assertThat(tester.tasks.size(), is(1));
-        TaskQueueAddRequest task = tester.tasks.get(0);
+        assertThat(tester.getDefaultTaskInfo().size(), is(1));
+        QueueStateInfo.TaskStateInfo task = tester.getDefaultTaskInfo().get(0);
         assertThat(task.getUrl(), is("/tqHandler"));
         assertThat(task.getBody(), is("key=aaa"));
     }
@@ -194,8 +146,8 @@ public class AppEngineTesterTest {
         Queue queue = QueueFactory.getQueue("test-queue");
         queue
             .add(TaskOptions.Builder.withUrl("/tqHandler").param("key", "aaa"));
-        assertThat(tester.tasks.size(), is(1));
-        TaskQueueAddRequest task = tester.tasks.get(0);
+        assertThat(tester.getTaskInfo("test-queue").size(), is(1));
+        QueueStateInfo.TaskStateInfo task = tester.getTaskInfo("test-queue").get(0);
         assertThat(task.getUrl(), is("/tqHandler"));
         assertThat(task.getBody(), is("key=aaa"));
     }
