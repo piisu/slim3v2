@@ -15,6 +15,7 @@
  */
 package org.slim3.tester;
 
+import java.lang.reflect.Field;
 import java.util.*;
 import java.util.concurrent.Future;
 
@@ -29,6 +30,7 @@ import com.google.appengine.repackaged.com.google.protobuf.ByteString;
 import com.google.appengine.tools.development.ApiProxyLocal;
 import com.google.appengine.tools.development.Clock;
 import com.google.appengine.tools.development.LocalRpcService;
+import com.google.appengine.tools.development.UrlFetchTestApiProxyWrapper;
 import com.google.appengine.tools.development.testing.*;
 import org.slim3.datastore.DatastoreUtil;
 
@@ -73,99 +75,17 @@ public class AppEngineTester {
         return ApiProxy.getCurrentEnvironment();
     }
 
+    private UrlFetchTestApiProxyWrapper urlFetchTestApiProxyWrapper;
+
     public void setUp() throws Exception {
         helper.setUp();
         final ApiProxyLocal delegate = (ApiProxyLocal)ApiProxy.getDelegate();
-        ApiProxy.setDelegate(new ApiProxyLocal() {
-            @Override
-            public void setProperty(String property, String value) {
-                delegate.setProperty(property, value);
-            }
+        UrlFetchTestApiProxyWrapper urlFetchTestApiProxyWrapper = new UrlFetchTestApiProxyWrapper(delegate);
+        ApiProxy.setDelegate(urlFetchTestApiProxyWrapper);
 
-            @Override
-            public void setProperties(Map<String, String> properties) {
-                delegate.setProperties(properties);
-            }
-
-            @Override
-            public void appendProperties(Map<String, String> properties) {
-                delegate.appendProperties(properties);
-            }
-
-            @Override
-            public void stop() {
-                delegate.stop();
-            }
-
-            @Override
-            public LocalRpcService getService(String pkg) {
-                return delegate.getService(pkg);
-            }
-
-            @Override
-            public Clock getClock() {
-                return delegate.getClock();
-            }
-
-            @Override
-            public void setClock(Clock clock) {
-                delegate.setClock(clock);
-            }
-
-            private byte[] executeUrlFetchHandler(byte[] bytes) throws ApiProxy.ApiProxyException {
-                try {
-                    final URLFetchServicePb.URLFetchRequest requestPb =
-                            URLFetchServicePb.URLFetchRequest.parseFrom(bytes);
-                    return  URLFetchServicePb.URLFetchResponse
-                            .newBuilder()
-                            .setContent(
-                                    ByteString.copyFrom(urlFetchHandler
-                                            .getContent(requestPb)))
-                            .setStatusCode(urlFetchHandler.getStatusCode(requestPb))
-                            .build()
-                            .toByteArray();
-                } catch (Exception e) {
-                    ThrowableUtil.wrapAndThrow(e);
-                }
-                return null;
-            }
-
-            @Override
-            public byte[] makeSyncCall(Environment environment, String s, String m, byte[] bytes) throws ApiProxy.ApiProxyException {
-                if (s.equals("urlfetch")
-                        && m.equals("Fetch")
-                        && urlFetchHandler != null) {
-                    return executeUrlFetchHandler(bytes);
-                }
-                return delegate.makeSyncCall(environment, s, m, bytes);
-            }
-
-            @Override
-            public Future<byte[]> makeAsyncCall(Environment environment, String s, String m, byte[] bytes, ApiProxy.ApiConfig apiConfig) {
-                if (s.equals("urlfetch")
-                        && m.equals("Fetch")
-                        && urlFetchHandler != null) {
-                    return Futures.immediateFuture(executeUrlFetchHandler(bytes));
-                }
-
-                return delegate.makeAsyncCall(environment, s, m, bytes, apiConfig);
-            }
-
-            @Override
-            public void log(Environment environment, ApiProxy.LogRecord logRecord) {
-                delegate.log(environment, logRecord);
-            }
-
-            @Override
-            public void flushLogs(Environment environment) {
-                delegate.flushLogs(environment);
-            }
-
-            @Override
-            public List<Thread> getRequestThreads(Environment environment) {
-                return delegate.getRequestThreads(environment);
-            }
-        });
+        Field f = LocalServiceTestHelper.class.getDeclaredField("apiProxyLocal");
+        f.setAccessible(true);
+        f.set(null, urlFetchTestApiProxyWrapper);
 
     }
 
@@ -176,7 +96,6 @@ public class AppEngineTester {
             tx.rollback();
         }
     }
-    protected URLFetchHandler urlFetchHandler;
 
     public List<QueueStateInfo.TaskStateInfo> getDefaultTaskInfo() {
         return getTaskInfo(QueueFactory.getDefaultQueue().getQueueName());
@@ -200,7 +119,7 @@ public class AppEngineTester {
      *            the {@link URLFetchHandler}
      */
     public void setUrlFetchHandler(URLFetchHandler urlFetchHandler) {
-        this.urlFetchHandler = urlFetchHandler;
+        urlFetchTestApiProxyWrapper.setUrlFetchHandler(urlFetchHandler);
     }
 
     /**
