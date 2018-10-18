@@ -3,6 +3,7 @@ package org.slim3plus.cache;
 import org.slim3.memcache.Memcache;
 
 import javax.inject.Singleton;
+import java.util.Date;
 
 /**
  * Created by katsume on 2018/04/03.
@@ -30,7 +31,7 @@ public class MemcacheCache implements LowLevelCache {
         }
         if (expiration != null) {
             Memcache.put(key, value
-                    , com.google.appengine.api.memcache.Expiration.byDeltaSeconds(expiration.getSecondsValue()));
+                    , com.google.appengine.api.memcache.Expiration.onDate(new Date(expiration.getMilliSeconds())));
         } else {
             Memcache.put(key, value);
         }
