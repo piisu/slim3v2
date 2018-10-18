@@ -46,8 +46,8 @@ dependencies {
     providedCompile "com.google.appengine:appengine:${appengineVersion}"
 
     // Add your dependencies here.
-    compile "com.google.appengine:appengine-endpoints:${appengineVersion}" //add this line to avoid upper comment
-    compile "com.google.appengine:appengine-endpoints-deps:${appengineVersion}" //works also without this line
+    //compile "com.google.appengine:appengine-endpoints:${appengineVersion}" //add this line to avoid upper comment
+    //compile "com.google.appengine:appengine-endpoints-deps:${appengineVersion}" //works also without this line
     compile 'javax.servlet:servlet-api:2.5'
     compile fileTree(include: ['*.jar'], dir: 'libs')
 
