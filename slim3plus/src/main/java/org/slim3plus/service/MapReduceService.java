@@ -3,9 +3,8 @@ package org.slim3plus.service;
 import com.google.appengine.api.datastore.*;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.taskqueue.TaskHandle;
-import com.google.inject.Inject;
+
 import com.google.inject.Injector;
-import com.google.inject.Singleton;
 import org.slim3.datastore.Datastore;
 import org.slim3.datastore.DatastoreUtil;
 import org.slim3.datastore.EntityQuery;
@@ -20,6 +19,8 @@ import org.slim3plus.tq.Deferred;
 import org.slim3plus.tx.Tx;
 import org.slim3plus.util.QueryResult;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.util.*;
 import java.util.concurrent.Future;
 import java.util.logging.Logger;
