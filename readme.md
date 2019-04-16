@@ -32,7 +32,7 @@ slim3を使ってサービスを2013年から運用しています。きちん�
 # slim3-demo
 下記コマンドを実行することですぐにデモを試すことができます
 ```gradle
-./gradlew slim3-demo:appengineRun
+./gradlew slim3demo:appengineRun
 
 ```
 
