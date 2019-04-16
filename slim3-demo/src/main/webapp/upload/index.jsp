@@ -12,15 +12,15 @@
 <body>
 Source:
 <ul>
-<li><a href="https://github.com/piisu/slim3v2/tree/master/slim3demo/src/main/java/slim3/demo/controller/upload/IndexController.java">IndexController</a></li>
-<li><a href="https://github.com/piisu/slim3v2/tree/master/slim3demo/src/main/java/slim3/demo/controller/upload/UploadController.java">UploadController</a></li>
-<li><a href="https://github.com/piisu/slim3v2/tree/master/slim3demo/src/main/java/slim3/demo/controller/upload/DownloadController.java">DownloadController</a></li>
-<li><a href="https://github.com/piisu/slim3v2/tree/master/slim3demo/src/main/java/slim3/demo/controller/upload/ShowController.java">ShowController</a></li>
-<li><a href="https://github.com/piisu/slim3v2/tree/master/slim3demo/src/main/java/slim3/demo/controller/upload/DeleteController.java">DeleteController</a></li>
-<li><a href="https://github.com/piisu/slim3v2/tree/master/slim3demo/src/main/java/slim3/demo/service/UploadService.java">UploadService</a></li>
-<li><a href="https://github.com/piisu/slim3v2/tree/master/slim3demo/src/main/java/slim3/demo/model/UploadedData.java">UploadedData model</a></li>
-<li><a href="https://github.com/piisu/slim3v2/tree/master/slim3demo/src/main/java/slim3/demo/model/UploadedDataFragment.java">UploadedDataFragment model</a></li>
-<li><a href="https://github.com/piisu/slim3v2/tree/master/slim3demo/src/main/webapp/upload/index.jsp">index.jsp</a></li>
+<li><a href="https://github.com/piisu/slim3v2/tree/master/slim3-demo/src/main/java/slim3/demo/controller/upload/IndexController.java">IndexController</a></li>
+<li><a href="https://github.com/piisu/slim3v2/tree/master/slim3-demo/src/main/java/slim3/demo/controller/upload/UploadController.java">UploadController</a></li>
+<li><a href="https://github.com/piisu/slim3v2/tree/master/slim3-demo/src/main/java/slim3/demo/controller/upload/DownloadController.java">DownloadController</a></li>
+<li><a href="https://github.com/piisu/slim3v2/tree/master/slim3-demo/src/main/java/slim3/demo/controller/upload/ShowController.java">ShowController</a></li>
+<li><a href="https://github.com/piisu/slim3v2/tree/master/slim3-demo/src/main/java/slim3/demo/controller/upload/DeleteController.java">DeleteController</a></li>
+<li><a href="https://github.com/piisu/slim3v2/tree/master/slim3-demo/src/main/java/slim3/demo/service/UploadService.java">UploadService</a></li>
+<li><a href="https://github.com/piisu/slim3v2/tree/master/slim3-demo/src/main/java/slim3/demo/model/UploadedData.java">UploadedData model</a></li>
+<li><a href="https://github.com/piisu/slim3v2/tree/master/slim3-demo/src/main/java/slim3/demo/model/UploadedDataFragment.java">UploadedDataFragment model</a></li>
+<li><a href="https://github.com/piisu/slim3v2/tree/master/slim3-demo/src/main/webapp/upload/index.jsp">index.jsp</a></li>
 </ul>
 <hr />
 
