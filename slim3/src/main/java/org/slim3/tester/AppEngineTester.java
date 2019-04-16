@@ -80,7 +80,7 @@ public class AppEngineTester {
     public void setUp() throws Exception {
         helper.setUp();
         final ApiProxyLocal delegate = (ApiProxyLocal)ApiProxy.getDelegate();
-        UrlFetchTestApiProxyWrapper urlFetchTestApiProxyWrapper = new UrlFetchTestApiProxyWrapper(delegate);
+        urlFetchTestApiProxyWrapper = new UrlFetchTestApiProxyWrapper(delegate);
         ApiProxy.setDelegate(urlFetchTestApiProxyWrapper);
 
         Field f = LocalServiceTestHelper.class.getDeclaredField("apiProxyLocal");
