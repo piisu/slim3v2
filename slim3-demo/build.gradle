@@ -5,8 +5,7 @@ apply plugin: 'java'
 apply plugin: 'war'
 apply plugin: 'org.akhikhl.gretty'
 apply plugin: 'com.google.cloud.tools.appengine'
-apply plugin: "net.ltgt.apt"
-apply plugin: "net.ltgt.apt-idea"
+
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -29,7 +28,6 @@ buildscript {      // Configuration for building
     dependencies {
         classpath 'com.google.cloud.tools:appengine-gradle-plugin:+'
         classpath 'org.akhikhl.gretty:gretty:+'
-        classpath "net.ltgt.gradle:gradle-apt-plugin:0.13"
     }
 }
 
@@ -57,13 +55,15 @@ dependencies {
     testCompile group: 'com.google.appengine', name: 'appengine-api-1.0-sdk', version: appengineVersion
     testCompile group: 'com.google.appengine', name: 'appengine-api-labs', version: appengineVersion
 
+    testCompile group: 'com.google.appengine', name: 'appengine-testing', version: appengineVersion
+
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.4'
     compile group: 'javax.jdo', name: 'jdo-api', version: '3.1'
 
     compileOnly "org.projectlombok:lombok:1.16.20"
-    apt "org.projectlombok:lombok:1.16.20"
+    annotationProcessor "org.projectlombok:lombok:1.16.20"
 
-    apt project(":slim3-gen-jsr269")
+    annotationProcessor project(":slim3-gen-jsr269")
     compile project(":slim3")
 
 
