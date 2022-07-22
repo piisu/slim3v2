@@ -51,6 +51,24 @@ public class WebConfigTest {
         assertThat(webConfig.getRootPackageName(), is("aaa.bbb"));
     }
 
+    @Test
+    public void testGetRootPackageName_javaee_3_1() throws Exception {
+        String path =
+                getClass().getPackage().getName().replace(".", "/")
+                        + "/"
+                        + "web_javaee_3_1.xml";
+        final File webXml = getFile(path);
+        WebConfig webConfig = new WebConfig(new File("dummy")) {
+
+            @Override
+            protected File createWebXml() {
+                return webXml;
+            }
+        };
+        assertThat(webConfig.getRootPackageName(), is("aaa.bbb"));
+    }
+
+
     /**
      * 
      * @throws Exception
