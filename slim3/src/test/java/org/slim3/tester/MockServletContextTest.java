@@ -23,20 +23,20 @@ import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.servlet.RequestDispatcher;
+import jakarta.servlet.RequestDispatcher;
 
 import org.junit.Test;
 
 /**
  * @author higa
- * 
+ *
  */
 public class MockServletContextTest {
 
     private MockServletContext servletContext = new MockServletContext();
 
     /**
-     * 
+     *
      */
     @Test
     public void resourcePaths() {
@@ -50,7 +50,7 @@ public class MockServletContextTest {
 
     /**
      * @throws Exception
-     * 
+     *
      */
     @Test
     public void resource() throws Exception {
@@ -62,7 +62,7 @@ public class MockServletContextTest {
 
     /**
      * @throws Exception
-     * 
+     *
      */
     @Test
     public void realPath() throws Exception {
@@ -74,7 +74,7 @@ public class MockServletContextTest {
 
     /**
      * @throws Exception
-     * 
+     *
      */
     @Test
     public void attribute() throws Exception {
@@ -86,7 +86,7 @@ public class MockServletContextTest {
 
     /**
      * @throws Exception
-     * 
+     *
      */
     @Test
     public void setAttributeForNull() throws Exception {
@@ -98,7 +98,7 @@ public class MockServletContextTest {
 
     /**
      * @throws Exception
-     * 
+     *
      */
     @Test
     public void getAttributeNames() throws Exception {
@@ -112,7 +112,7 @@ public class MockServletContextTest {
 
     /**
      * @throws Exception
-     * 
+     *
      */
     @Test
     public void initParameter() throws Exception {
@@ -124,7 +124,7 @@ public class MockServletContextTest {
 
     /**
      * @throws Exception
-     * 
+     *
      */
     @Test
     public void setInitParameterForNull() throws Exception {
@@ -136,7 +136,7 @@ public class MockServletContextTest {
 
     /**
      * @throws Exception
-     * 
+     *
      */
     @Test
     public void getInitParameterNames() throws Exception {
@@ -150,7 +150,7 @@ public class MockServletContextTest {
 
     /**
      * @throws Exception
-     * 
+     *
      */
     @Test
     public void getRequestDispatcher() throws Exception {

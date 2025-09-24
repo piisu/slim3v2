@@ -27,22 +27,31 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletInputStream;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletInputStream;
+import jakarta.servlet.AsyncContext;
+import jakarta.servlet.DispatcherType;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.ServletConnection;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpUpgradeHandler;
+import jakarta.servlet.http.Part;
+import jakarta.servlet.http.PushBuilder;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.slim3.util.ArrayMap;
 import org.slim3.util.StringUtil;
 
 /**
  * A mock implementation for {@link HttpServletRequest}.
- * 
+ *
  * @author higa
  * @since 1.0.0
- * 
+ *
  */
 public class MockHttpServletRequest implements HttpServletRequest {
 
@@ -210,7 +219,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
     /**
      * Constructor.
-     * 
+     *
      * @param servletContext
      *            the servlet context
      * @throws NullPointerException
@@ -231,7 +240,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
     /**
      * Sets the authority type.
-     * 
+     *
      * @param authType
      *            the authority type
      */
@@ -245,7 +254,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
     /**
      * Adds the cookie.
-     * 
+     *
      * @param cookie
      *            the cookie
      */
@@ -285,7 +294,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
     /**
      * Sets the header.
-     * 
+     *
      * @param name
      *            the name
      * @param value
@@ -299,7 +308,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
     /**
      * Sets the date header.
-     * 
+     *
      * @param name
      *            the name
      * @param value
@@ -311,7 +320,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
     /**
      * Sets the int header.
-     * 
+     *
      * @param name
      *            the name
      * @param value
@@ -323,7 +332,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
     /**
      * Adds the header.
-     * 
+     *
      * @param name
      *            the name
      * @param value
@@ -340,7 +349,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
     /**
      * Adds the date header.
-     * 
+     *
      * @param name
      *            the name
      * @param value
@@ -352,7 +361,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
     /**
      * Adds the int header.
-     * 
+     *
      * @param name
      *            the name
      * @param value
@@ -364,7 +373,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
     /**
      * Return the list for header.
-     * 
+     *
      * @param name
      *            the name
      * @return the list for header
@@ -379,7 +388,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
     /**
      * Sets the method.
-     * 
+     *
      * @param method
      *            the method
      */
@@ -393,7 +402,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
     /**
      * Sets the path information.
-     * 
+     *
      * @param pathInfo
      *            the path information
      */
@@ -407,7 +416,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
     /**
      * Sets the translated path.
-     * 
+     *
      * @param pathTranslated
      *            the translated path
      */
@@ -425,7 +434,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
     /**
      * Sets the query string.
-     * 
+     *
      * @param queryString
      *            the query string
      */
@@ -457,7 +466,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
     /**
      * Sets the user principal.
-     * 
+     *
      * @param userPrincipal
      *            the user principal
      */
@@ -471,7 +480,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
     /**
      * Sets the requested session identifier.
-     * 
+     *
      * @param requestedSessionId
      *            the requested session identifier
      */
@@ -508,7 +517,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
     /**
      * Sets the servlet path.
-     * 
+     *
      * @param servletPath
      *            the servlet path
      */
@@ -581,7 +590,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
     /**
      * Sets the content length.
-     * 
+     *
      * @param contentLength
      *            the content length
      */
@@ -595,7 +604,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
     /**
      * Sets the content type.
-     * 
+     *
      * @param contentType
      */
     public void setContentType(String contentType) {
@@ -608,7 +617,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
     /**
      * Sets the input stream.
-     * 
+     *
      * @param inputStream
      *            the input stream
      */
@@ -638,7 +647,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
     /**
      * Adds the request parameter.
-     * 
+     *
      * @param name
      *            the name
      * @param value
@@ -658,7 +667,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
     /**
      * Adds the request parameter.
-     * 
+     *
      * @param name
      *            the name
      * @param values
@@ -682,7 +691,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
     /**
      * Sets the request parameter.
-     * 
+     *
      * @param name
      *            the name
      * @param value
@@ -694,7 +703,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
     /**
      * Sets the request parameter.
-     * 
+     *
      * @param name
      *            the name
      * @param values
@@ -706,10 +715,10 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
     /**
      * Removes the request parameter.
-     * 
+     *
      * @param name
      *            the name
-     * 
+     *
      */
     public void removeParameter(String name) {
         parameterMap.remove(name);
@@ -721,7 +730,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
     /**
      * Sets the protocol.
-     * 
+     *
      * @param protocol
      *            the protocol
      */
@@ -735,7 +744,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
     /**
      * Sets the scheme.
-     * 
+     *
      * @param scheme
      *            the scheme
      */
@@ -749,7 +758,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
     /**
      * Sets the server name.
-     * 
+     *
      * @param serverName
      *            the server name
      */
@@ -763,7 +772,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
     /**
      * Sets the server port.
-     * 
+     *
      * @param serverPort
      *            the server port
      */
@@ -777,7 +786,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
     /**
      * Sets the buffered reader.
-     * 
+     *
      * @param reader
      *            the buffered reader
      */
@@ -791,7 +800,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
     /**
      * Sets the remote address.
-     * 
+     *
      * @param remoteAddr
      *            the remote address
      */
@@ -805,7 +814,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
     /**
      * Sets the remote host.
-     * 
+     *
      * @param remoteHost
      *            the remote host
      */
@@ -819,7 +828,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
     /**
      * Sets the local address.
-     * 
+     *
      * @param localAddr
      *            the local address
      */
@@ -833,7 +842,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
     /**
      * Sets the local name.
-     * 
+     *
      * @param localName
      *            the local name
      */
@@ -847,7 +856,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
     /**
      * Sets the local port.
-     * 
+     *
      * @param localPort
      *            the local port
      */
@@ -861,7 +870,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
     /**
      * Sets the remote port.
-     * 
+     *
      * @param remotePort
      *            the remote port
      */
@@ -878,7 +887,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
     /**
      * Adds the locale.
-     * 
+     *
      * @param locale
      *            the locale
      */
@@ -896,7 +905,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
     /**
      * Sets the secure flag.
-     * 
+     *
      * @param secure
      *            the secure flag
      */
@@ -910,5 +919,107 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
     public String getRealPath(String path) {
         return servletContext.getRealPath(path);
+    }
+
+    @Override
+    public ServletContext getServletContext() {
+        return servletContext;
+    }
+
+    @Override
+    public boolean isAsyncStarted() {
+        return false;
+    }
+
+    @Override
+    public boolean isAsyncSupported() {
+        return false;
+    }
+
+    @Override
+    public AsyncContext getAsyncContext() {
+        throw new IllegalStateException("Async not started");
+    }
+
+    @Override
+    public AsyncContext startAsync() throws IllegalStateException {
+        throw new IllegalStateException("Async not supported in mock");
+    }
+
+    @Override
+    public AsyncContext startAsync(ServletRequest servletRequest, ServletResponse servletResponse) throws IllegalStateException {
+        throw new IllegalStateException("Async not supported in mock");
+    }
+
+    @Override
+    public DispatcherType getDispatcherType() {
+        return DispatcherType.REQUEST;
+    }
+
+    @Override
+    public ServletConnection getServletConnection() {
+        return null;
+    }
+
+    @Override
+    public String getRequestId() {
+        return "REQ-" + Integer.toUnsignedString(System.identityHashCode(this), 16);
+    }
+
+    @Override
+    public String getProtocolRequestId() {
+        return getRequestId();
+    }
+
+    @Override
+    public String changeSessionId() {
+        HttpSession s = getSession(true);
+        if (s instanceof MockHttpSession) {
+            String newId = String.valueOf(System.nanoTime());
+            ((MockHttpSession) s).setId(newId);
+            return newId;
+        }
+        return s != null ? s.getId() : null;
+    }
+
+    @Override
+    public <T extends HttpUpgradeHandler> T upgrade(Class<T> httpUpgradeHandlerClass) throws IOException, jakarta.servlet.ServletException {
+        throw new jakarta.servlet.ServletException("Upgrade not supported in MockHttpServletRequest");
+    }
+
+    // ---- Servlet 3.0+ methods (stubs) ----
+    @Override
+    public boolean authenticate(HttpServletResponse response) throws IOException, jakarta.servlet.ServletException {
+        return true;
+    }
+
+    @Override
+    public void login(String username, String password) throws jakarta.servlet.ServletException {
+        // no-op for mock
+    }
+
+    @Override
+    public void logout() throws jakarta.servlet.ServletException {
+        // no-op for mock
+    }
+
+    @Override
+    public java.util.Collection<Part> getParts() throws IOException, jakarta.servlet.ServletException {
+        return java.util.Collections.emptyList();
+    }
+
+    @Override
+    public Part getPart(String name) throws IOException, jakarta.servlet.ServletException {
+        return null;
+    }
+
+    @Override
+    public long getContentLengthLong() {
+        return getContentLength();
+    }
+
+    @Override
+    public PushBuilder newPushBuilder() {
+        return null;
     }
 }

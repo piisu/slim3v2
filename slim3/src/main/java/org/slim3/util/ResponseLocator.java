@@ -15,14 +15,14 @@
  */
 package org.slim3.util;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * The locator for {@link HttpServletResponse}.
- * 
+ *
  * @author higa
  * @since 1.0.0
- * 
+ *
  */
 public final class ResponseLocator {
 
@@ -31,7 +31,7 @@ public final class ResponseLocator {
 
     /**
      * Returns the response attached to the current thread.
-     * 
+     *
      * @return the response attached to the current thread
      */
     public static HttpServletResponse get() {
@@ -40,7 +40,7 @@ public final class ResponseLocator {
 
     /**
      * Sets the response to the current thread.
-     * 
+     *
      * @param response
      *            the response
      */

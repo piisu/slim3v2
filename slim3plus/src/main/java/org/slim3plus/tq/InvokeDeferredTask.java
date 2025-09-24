@@ -7,8 +7,8 @@ import com.google.inject.Injector;
 import org.slim3.util.ServletContextLocator;
 import org.slim3plus.util.InjectorFactory;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 

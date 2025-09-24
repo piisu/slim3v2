@@ -15,20 +15,20 @@
  */
 package org.slim3.controller.router;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * A router of request.
- * 
+ *
  * @author higa
  * @since 1.0.0
- * 
+ *
  */
 public interface Router {
 
     /**
      * Routes the path.
-     * 
+     *
      * @param request
      *            the request
      * @param path
@@ -43,7 +43,7 @@ public interface Router {
 
     /**
      * Determines if a file specified by the path is static.
-     * 
+     *
      * @param path
      *            the path
      * @return whether a file specified by the path is static

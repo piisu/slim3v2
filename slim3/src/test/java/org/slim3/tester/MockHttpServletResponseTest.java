@@ -20,13 +20,13 @@ import static org.junit.Assert.*;
 
 import java.io.Writer;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.junit.Test;
 
 /**
  * @author higa
- * 
+ *
  */
 public class MockHttpServletResponseTest {
 
@@ -46,7 +46,7 @@ public class MockHttpServletResponseTest {
 
     /**
      * @throws Exception
-     * 
+     *
      */
     @Test
     public void header() throws Exception {
@@ -56,7 +56,7 @@ public class MockHttpServletResponseTest {
 
     /**
      * @throws Exception
-     * 
+     *
      */
     @Test
     public void intHeader() throws Exception {
@@ -67,7 +67,7 @@ public class MockHttpServletResponseTest {
 
     /**
      * @throws Exception
-     * 
+     *
      */
     @Test
     public void dateHeader() throws Exception {
@@ -78,7 +78,7 @@ public class MockHttpServletResponseTest {
 
     /**
      * @throws Exception
-     * 
+     *
      */
     @Test
     public void getStatus() throws Exception {
@@ -87,7 +87,7 @@ public class MockHttpServletResponseTest {
 
     /**
      * @throws Exception
-     * 
+     *
      */
     @Test
     public void setRedirect() throws Exception {

@@ -17,9 +17,9 @@ package org.slim3.tester;
 
 import java.io.IOException;
 
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.FilterConfig;
+import jakarta.servlet.ServletException;
 
 import org.slim3.controller.Controller;
 import org.slim3.controller.ControllerConstants;
@@ -30,10 +30,10 @@ import org.slim3.controller.validator.Errors;
 
 /**
  * A tester for Slim3 Controller.
- * 
+ *
  * @author higa
  * @since 1.0.0
- * 
+ *
  */
 public class ControllerTester extends ServletTester {
 
@@ -59,7 +59,7 @@ public class ControllerTester extends ServletTester {
 
     /**
      * Constructor.
-     * 
+     *
      * @param testClass
      *            the test class
      * @throws NullPointerException
@@ -91,7 +91,7 @@ public class ControllerTester extends ServletTester {
 
     /**
      * Starts the request process.
-     * 
+     *
      * @param path
      *            the request path
      * @throws NullPointerException
@@ -167,7 +167,7 @@ public class ControllerTester extends ServletTester {
 
     /**
      * Returns the destination path.
-     * 
+     *
      * @return the destination path
      */
     @Override
@@ -181,7 +181,7 @@ public class ControllerTester extends ServletTester {
 
     /**
      * Returns the controller.
-     * 
+     *
      * @param <T>
      *            the controller type
      * @return the controller
@@ -193,7 +193,7 @@ public class ControllerTester extends ServletTester {
 
     /**
      * Returns the error messages.
-     * 
+     *
      * @return the error messages
      */
     public Errors getErrors() {

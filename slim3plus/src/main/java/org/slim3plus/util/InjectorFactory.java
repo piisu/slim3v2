@@ -7,7 +7,7 @@ import org.slim3.controller.ControllerConstants;
 import org.slim3.controller.router.Router;
 import org.slim3.util.*;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 
 public class InjectorFactory {
     /**
@@ -21,7 +21,7 @@ public class InjectorFactory {
      * @return a injector
      */
     public static synchronized Injector getInjector() {
-        ServletContext servletContext = getServletContext();
+               ServletContext servletContext = getServletContext();
         Injector injector = (Injector) servletContext.getAttribute(INJECTOR_KEY);
         if (injector == null) {
             injector = createInjector(servletContext);

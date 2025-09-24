@@ -26,14 +26,14 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * {@link HttpServletRequest} acts as {link Map}.
- * 
+ *
  * @author higa
  * @since 1.0.0
- * 
+ *
  */
 public class RequestMap extends HashMap<String, Object> {
 
@@ -46,7 +46,7 @@ public class RequestMap extends HashMap<String, Object> {
 
     /**
      * Constructor.
-     * 
+     *
      * @param request
      *            the request
      */
@@ -188,7 +188,7 @@ public class RequestMap extends HashMap<String, Object> {
 
         /**
          * Constructor.
-         * 
+         *
          * @param key
          *            the key
          * @param value

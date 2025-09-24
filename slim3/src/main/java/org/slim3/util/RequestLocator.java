@@ -15,14 +15,14 @@
  */
 package org.slim3.util;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * The locator for {@link HttpServletRequest}.
- * 
+ *
  * @author higa
  * @since 1.0.0
- * 
+ *
  */
 public final class RequestLocator {
 
@@ -31,7 +31,7 @@ public final class RequestLocator {
 
     /**
      * Returns the request attached to the current thread.
-     * 
+     *
      * @return the request attached to the current thread
      */
     public static HttpServletRequest get() {
@@ -40,7 +40,7 @@ public final class RequestLocator {
 
     /**
      * Sets the request to the current thread.
-     * 
+     *
      * @param request
      *            the request
      */

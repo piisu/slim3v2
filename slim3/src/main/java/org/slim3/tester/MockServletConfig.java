@@ -21,15 +21,15 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletContext;
 
 /**
  * A mock implementation for {@link ServletConfig}.
- * 
+ *
  * @author higa
  * @since 1.0.0
- * 
+ *
  */
 public class MockServletConfig implements ServletConfig, Serializable {
 
@@ -53,7 +53,7 @@ public class MockServletConfig implements ServletConfig, Serializable {
 
     /**
      * Constructor.
-     * 
+     *
      * @param servletContext
      *            the servlet context
      * @throws NullPointerException
@@ -77,7 +77,7 @@ public class MockServletConfig implements ServletConfig, Serializable {
 
     /**
      * Sets the servlet name.
-     * 
+     *
      * @param servletName
      *            the servlet name
      */
@@ -95,7 +95,7 @@ public class MockServletConfig implements ServletConfig, Serializable {
 
     /**
      * Sets the initial parameter
-     * 
+     *
      * @param name
      *            the initial parameter name
      * @param value
@@ -107,7 +107,7 @@ public class MockServletConfig implements ServletConfig, Serializable {
 
     /**
      * Removes the initial parameter.
-     * 
+     *
      * @param name
      *            the parameter name
      */

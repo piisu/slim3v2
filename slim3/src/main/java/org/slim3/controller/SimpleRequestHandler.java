@@ -15,20 +15,20 @@
  */
 package org.slim3.controller;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * A simple {@link RequestHandler}.
- * 
+ *
  * @author higa
  * @since 1.0.6
- * 
+ *
  */
 public class SimpleRequestHandler extends RequestHandler {
 
     /**
      * Constructor.
-     * 
+     *
      * @param request
      *            the request
      */

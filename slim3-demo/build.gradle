@@ -33,7 +33,7 @@ repositories {   // repositories for JARs you access in your code
 }
 
 dependencies {
-    compileOnly 'javax.servlet:javax.servlet-api:3.1.0'
+    //compileOnly 'javax.servlet:javax.servlet-api:3.1.0'
     compileOnly "com.google.appengine:appengine:${appengineVersion}"
 
     // Add your dependencies here.

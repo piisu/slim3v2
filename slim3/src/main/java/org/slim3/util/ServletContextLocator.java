@@ -15,14 +15,14 @@
  */
 package org.slim3.util;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 
 /**
  * The locator for {@link ServletContext}.
- * 
+ *
  * @author higa
  * @since 1.0.0
- * 
+ *
  */
 public final class ServletContextLocator {
 
@@ -30,7 +30,7 @@ public final class ServletContextLocator {
 
     /**
      * Returns the servlet context.
-     * 
+     *
      * @return the servlet context
      */
     public static ServletContext get() {
@@ -39,7 +39,7 @@ public final class ServletContextLocator {
 
     /**
      * Sets the servlet context.
-     * 
+     *
      * @param servletContext
      *            the servlet context
      */

@@ -21,13 +21,13 @@ import java.io.UnsupportedEncodingException;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.slim3.controller.upload.MultipartStream.ItemInputStream;
 
 /**
  * High level API for processing file uploads.
- * 
+ *
  * @author <a href="mailto:Rafal.Krzewski@e-point.pl">Rafal Krzewski</a>
  * @author <a href="mailto:dlr@collab.net">Daniel Rall</a>
  * @author <a href="mailto:jvanzyl@apache.org">Jason van Zyl</a>
@@ -36,7 +36,7 @@ import org.slim3.controller.upload.MultipartStream.ItemInputStream;
  * @author Sean C. Sullivan
  * @author higa
  * @since 1.0.0
- * 
+ *
  */
 public class FileUpload {
     // ----------------------------------------------------- Manifest constants
@@ -105,17 +105,17 @@ public class FileUpload {
      * Utility method that determines whether the request contains multipart
      * content.
      * </p>
-     * 
+     *
      * <p>
      * <strong>NOTE:</strong>This method will be moved to the
      * <code>ServletFileUpload</code> class after the FileUpload 1.1 release.
      * Unfortunately, since this method is static, it is not possible to provide
      * its replacement until this method is removed.
      * </p>
-     * 
+     *
      * @param request
      *            the request.
-     * 
+     *
      * @return <code>true</code> if the request is multipart; <code>false</code>
      *         otherwise.
      */
@@ -133,12 +133,12 @@ public class FileUpload {
     /**
      * Returns the maximum allowed size of a complete request, as opposed to
      * {@link #getFileSizeMax()}.
-     * 
+     *
      * @return The maximum allowed size, in bytes. The default value of -1
      *         indicates, that there is no limit.
-     * 
+     *
      * @see #setSizeMax(long)
-     * 
+     *
      */
     public long getSizeMax() {
         return sizeMax;
@@ -147,13 +147,13 @@ public class FileUpload {
     /**
      * Sets the maximum allowed size of a complete request, as opposed to
      * {@link #setFileSizeMax(long)}.
-     * 
+     *
      * @param sizeMax
      *            The maximum allowed size, in bytes. The default value of -1
      *            indicates, that there is no limit.
-     * 
+     *
      * @see #getSizeMax()
-     * 
+     *
      */
     public void setSizeMax(long sizeMax) {
         this.sizeMax = sizeMax;
@@ -162,7 +162,7 @@ public class FileUpload {
     /**
      * Returns the maximum allowed size of a single uploaded file, as opposed to
      * {@link #getSizeMax()}.
-     * 
+     *
      * @see #setFileSizeMax(long)
      * @return Maximum size of a single uploaded file.
      */
@@ -173,7 +173,7 @@ public class FileUpload {
     /**
      * Sets the maximum allowed size of a single uploaded file, as opposed to
      * {@link #getSizeMax()}.
-     * 
+     *
      * @see #getFileSizeMax()
      * @param fileSizeMax
      *            Maximum size of a single uploaded file.
@@ -187,7 +187,7 @@ public class FileUpload {
      * individual part. When not specified, or <code>null</code>, the request
      * encoding is used. If that is also not specified, or <code>null</code>,
      * the platform default encoding is used.
-     * 
+     *
      * @return The encoding used to read part headers.
      */
     public String getHeaderEncoding() {
@@ -199,7 +199,7 @@ public class FileUpload {
      * individual part. When not specified, or <code>null</code>, the request
      * encoding is used. If that is also not specified, or <code>null</code>,
      * the platform default encoding is used.
-     * 
+     *
      * @param encoding
      *            The encoding used to read part headers.
      */
@@ -210,13 +210,13 @@ public class FileUpload {
     /**
      * Processes an <a href="http://www.ietf.org/rfc/rfc1867.txt">RFC 1867</a>
      * compliant <code>multipart/form-data</code> stream.
-     * 
+     *
      * @param request
      *            The request.
-     * 
+     *
      * @return An iterator to instances of <code>FileItemStream</code> parsed
      *         from the request, in the order that they were transmitted.
-     * 
+     *
      * @throws FileUploadException
      *             if there are problems reading/parsing the request or storing
      *             files.
@@ -232,11 +232,11 @@ public class FileUpload {
 
     /**
      * Retrieves the boundary from the <code>Content-type</code> header.
-     * 
+     *
      * @param contentType
      *            The value of the content type header from which to extract the
      *            boundary value.
-     * 
+     *
      * @return The boundary, as a byte array.
      */
     protected byte[] getBoundary(String contentType) {
@@ -261,10 +261,10 @@ public class FileUpload {
 
     /**
      * Retrieves the file name from the <code>Content-disposition</code> header.
-     * 
+     *
      * @param headers
      *            The HTTP headers object.
-     * 
+     *
      * @return The file name for the current <code>encapsulation</code>.
      */
     protected String getFileName(FileItemHeaders headers) {
@@ -273,7 +273,7 @@ public class FileUpload {
 
     /**
      * Returns the given content-disposition headers file name.
-     * 
+     *
      * @param pContentDisposition
      *            The content-disposition headers value.
      * @return The file name
@@ -307,10 +307,10 @@ public class FileUpload {
     /**
      * Retrieves the field name from the <code>Content-disposition</code>
      * header.
-     * 
+     *
      * @param headers
      *            A <code>Map</code> containing the HTTP request headers.
-     * 
+     *
      * @return The field name for the current <code>encapsulation</code>.
      */
     protected String getFieldName(FileItemHeaders headers) {
@@ -319,7 +319,7 @@ public class FileUpload {
 
     /**
      * Returns the field name, which is given by the content-disposition header.
-     * 
+     *
      * @param pContentDisposition
      *            The content-dispositions header value.
      * @return The field jake
@@ -343,15 +343,15 @@ public class FileUpload {
     /**
      * <p>
      * Parses the <code>header-part</code> and returns as key/value pairs.
-     * 
+     *
      * <p>
      * If there are multiple headers of the same names, the name will map to a
      * comma-separated list containing the values.
-     * 
+     *
      * @param headerPart
      *            The <code>header-part</code> of the current
      *            <code>encapsulation</code>.
-     * 
+     *
      * @return A <code>Map</code> containing the parsed HTTP request headers.
      */
     protected FileItemHeaders getParsedHeaders(String headerPart) {
@@ -389,7 +389,7 @@ public class FileUpload {
 
     /**
      * Skips bytes until the end of the current line.
-     * 
+     *
      * @param headerPart
      *            The headers, which are being parsed.
      * @param end
@@ -413,7 +413,7 @@ public class FileUpload {
 
     /**
      * Reads the next header line.
-     * 
+     *
      * @param headers
      *            String with all headers.
      * @param header
@@ -469,7 +469,7 @@ public class FileUpload {
 
             /**
              * Creates a new instance.
-             * 
+             *
              * @param pName
              *            The items file name, or null.
              * @param pFieldName
@@ -520,7 +520,7 @@ public class FileUpload {
 
             /**
              * Returns the items content type, or null.
-             * 
+             *
              * @return Content type, if known, or null.
              */
             public String getContentType() {
@@ -529,7 +529,7 @@ public class FileUpload {
 
             /**
              * Returns the items field name.
-             * 
+             *
              * @return Field name.
              */
             public String getFieldName() {
@@ -538,7 +538,7 @@ public class FileUpload {
 
             /**
              * Returns the items file name.
-             * 
+             *
              * @return File name, if known, or null.
              */
             public String getFileName() {
@@ -547,7 +547,7 @@ public class FileUpload {
 
             /**
              * Returns, whether this is a form field.
-             * 
+             *
              * @return True, if the item is a form field, otherwise false.
              */
             public boolean isFormField() {
@@ -557,7 +557,7 @@ public class FileUpload {
             /**
              * Returns an input stream, which may be used to read the items
              * contents.
-             * 
+             *
              * @return Opened input stream.
              * @throws IOException
              *             An I/O error occurred.
@@ -572,7 +572,7 @@ public class FileUpload {
 
             /**
              * Closes the file item.
-             * 
+             *
              * @throws IOException
              *             An I/O error occurred.
              */
@@ -582,7 +582,7 @@ public class FileUpload {
 
             /**
              * Returns the file item headers.
-             * 
+             *
              * @return The items header object
              */
             public FileItemHeaders getHeaders() {
@@ -591,7 +591,7 @@ public class FileUpload {
 
             /**
              * Sets the file item headers.
-             * 
+             *
              * @param pHeaders
              *            The items header object
              */
@@ -637,7 +637,7 @@ public class FileUpload {
 
         /**
          * Creates a new instance.
-         * 
+         *
          * @param ctx
          *            The request context.
          * @throws FileUploadException
@@ -721,7 +721,7 @@ public class FileUpload {
 
         /**
          * Called for finding the nex item, if any.
-         * 
+         *
          * @return True, if an next item was found, otherwise false.
          * @throws IOException
          *             An I/O error occurred.
@@ -799,7 +799,7 @@ public class FileUpload {
 
         /**
          * Returns the content length.
-         * 
+         *
          * @param pHeaders
          *            the headers
          * @return the content length
@@ -815,7 +815,7 @@ public class FileUpload {
         /**
          * Returns, whether another instance of {@link FileItemStream} is
          * available.
-         * 
+         *
          * @throws FileUploadException
          *             Parsing or processing the file item failed.
          * @throws IOException
@@ -835,7 +835,7 @@ public class FileUpload {
 
         /**
          * Returns the next available {@link FileItemStream}.
-         * 
+         *
          * @throws java.util.NoSuchElementException
          *             No more items are available. Use {@link #hasNext()} to
          *             prevent this exception.

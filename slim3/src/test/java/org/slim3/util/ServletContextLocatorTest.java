@@ -18,7 +18,7 @@ package org.slim3.util;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 
 import org.junit.After;
 import org.junit.Test;
@@ -26,7 +26,7 @@ import org.slim3.tester.MockServletContext;
 
 /**
  * @author higa
- * 
+ *
  */
 public class ServletContextLocatorTest {
 
@@ -40,7 +40,7 @@ public class ServletContextLocatorTest {
 
     /**
      * @throws Exception
-     * 
+     *
      */
     @Test
     public void test() throws Exception {

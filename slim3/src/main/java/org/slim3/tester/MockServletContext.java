@@ -18,6 +18,7 @@ package org.slim3.tester;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -25,16 +26,24 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.Servlet;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.Servlet;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.Filter;
+import jakarta.servlet.SessionCookieConfig;
+import jakarta.servlet.SessionTrackingMode;
+import jakarta.servlet.ServletRegistration;
+import jakarta.servlet.FilterRegistration;
 
+import jakarta.servlet.descriptor.JspConfigDescriptor;
 import org.slim3.util.WrapRuntimeException;
+
+import java.util.EventListener;
 
 /**
  * A mock implementation for {@link ServletContext}.
- * 
+ *
  * @author higa
  * @since 1.0.0
  */
@@ -45,12 +54,12 @@ public class MockServletContext implements ServletContext, Serializable {
     /**
      * Major Version
      */
-    public static final int MAJOR_VERSION = 2;
+    public static final int MAJOR_VERSION = 6;
 
     /**
      * Minor Version
      */
-    public static final int MINOR_VERSION = 4;
+    public static final int MINOR_VERSION = 1;
 
     /**
      * The servlet context name.
@@ -131,7 +140,7 @@ public class MockServletContext implements ServletContext, Serializable {
 
     /**
      * Adds the resource paths.
-     * 
+     *
      * @param path
      *            the path
      * @param resourcePaths
@@ -147,7 +156,7 @@ public class MockServletContext implements ServletContext, Serializable {
 
     /**
      * Adds the URL resource.
-     * 
+     *
      * @param path
      *            the path
      * @param url
@@ -176,7 +185,7 @@ public class MockServletContext implements ServletContext, Serializable {
 
     /**
      * Returns the latest request dispatcher.
-     * 
+     *
      * @return the latest request dispatcher
      */
     public MockRequestDispatcher getLatestRequestDispatcher() {
@@ -219,7 +228,7 @@ public class MockServletContext implements ServletContext, Serializable {
 
     /**
      * Adds the real path.
-     * 
+     *
      * @param path
      *            the context relative path
      * @param realPath
@@ -235,7 +244,7 @@ public class MockServletContext implements ServletContext, Serializable {
 
     /**
      * Sets the server information.
-     * 
+     *
      * @param serverInfo
      *            the server information
      */
@@ -253,19 +262,20 @@ public class MockServletContext implements ServletContext, Serializable {
 
     /**
      * Sets the initial parameter.
-     * 
+     *
      * @param name
      *            the parameter name
      * @param value
      *            the value
      */
-    public void setInitParameter(String name, String value) {
+    public boolean setInitParameter(String name, String value) {
         initParameterMap.put(name, value);
+        return true;
     }
 
     /**
      * Removes the initial parameter.
-     * 
+     *
      * @param name
      *            the parameter name
      */
@@ -295,7 +305,7 @@ public class MockServletContext implements ServletContext, Serializable {
 
     /**
      * Sets the servlet context name.
-     * 
+     *
      * @param servletContextName
      *            the servlet context name
      */
@@ -309,11 +319,205 @@ public class MockServletContext implements ServletContext, Serializable {
 
     /**
      * Sets the context path.
-     * 
+     *
      * @param contextPath
      *            the context path
      */
     public void setContextPath(String contextPath) {
         this.contextPath = contextPath;
+    }
+
+    private String responseCharacterEncoding;
+    private String requestCharacterEncoding;
+
+    @Override
+    public void setResponseCharacterEncoding(String encoding) {
+        this.responseCharacterEncoding = encoding;
+    }
+
+    @Override
+    public void setResponseCharacterEncoding(Charset encoding) {
+        this.responseCharacterEncoding = encoding.name();
+    }
+
+    @Override
+    public String getResponseCharacterEncoding() {
+        return responseCharacterEncoding;
+    }
+
+    @Override
+    public void setRequestCharacterEncoding(Charset encoding) {
+        this.requestCharacterEncoding = encoding.name();
+    }
+
+    @Override
+    public void setRequestCharacterEncoding(String requestCharacterEncoding) {
+        this.requestCharacterEncoding = requestCharacterEncoding;
+    }
+
+    @Override
+    public String getRequestCharacterEncoding() {
+        return requestCharacterEncoding;
+    }
+
+
+    @Override
+    public int getEffectiveMajorVersion() {
+        return MAJOR_VERSION;
+    }
+
+    @Override
+    public int getEffectiveMinorVersion() {
+        return MINOR_VERSION;
+    }
+
+    private int sessionTimeout;
+
+    @Override
+    public void setSessionTimeout(int sessionTimeout) {
+        this.sessionTimeout = sessionTimeout;
+    }
+
+    @Override
+    public int getSessionTimeout() {
+        return sessionTimeout;
+    }
+
+    @Override
+    public String getVirtualServerName() {
+        return "virtual-server-name";
+    }
+
+    @Override
+    public void declareRoles(String... roleNames) {
+
+    }
+
+    @Override
+    public ClassLoader getClassLoader() {
+        return Thread.currentThread().getContextClassLoader();
+    }
+
+    @Override
+    public JspConfigDescriptor getJspConfigDescriptor() {
+        return null;
+    }
+
+    // ---- Servlet 3.0+ registration APIs (stubbed for testing) ----
+    @Override
+    public ServletRegistration.Dynamic addServlet(String servletName, String className) {
+        return null;
+    }
+
+    @Override
+    public ServletRegistration.Dynamic addServlet(String servletName, Servlet servlet) {
+        return null;
+    }
+
+    @Override
+    public ServletRegistration.Dynamic addServlet(String servletName, Class<? extends Servlet> servletClass) {
+        return null;
+    }
+
+    @Override
+    public ServletRegistration.Dynamic addJspFile(String servletName, String jspFile) {
+        return null;
+    }
+
+    @Override
+    public <T extends Servlet> T createServlet(Class<T> clazz) throws ServletException {
+        try {
+            return clazz.getDeclaredConstructor().newInstance();
+        } catch (Exception e) {
+            throw new ServletException(e);
+        }
+    }
+
+    @Override
+    public ServletRegistration getServletRegistration(String servletName) {
+        return null;
+    }
+
+    @Override
+    public Map<String, ? extends ServletRegistration> getServletRegistrations() {
+        return Collections.emptyMap();
+    }
+
+    @Override
+    public FilterRegistration.Dynamic addFilter(String filterName, String className) {
+        return null;
+    }
+
+    @Override
+    public FilterRegistration.Dynamic addFilter(String filterName, Filter filter) {
+        return null;
+    }
+
+    @Override
+    public FilterRegistration.Dynamic addFilter(String filterName, Class<? extends Filter> filterClass) {
+        return null;
+    }
+
+    @Override
+    public <T extends Filter> T createFilter(Class<T> clazz) throws ServletException {
+        try {
+            return clazz.getDeclaredConstructor().newInstance();
+        } catch (Exception e) {
+            throw new ServletException(e);
+        }
+    }
+
+    @Override
+    public FilterRegistration getFilterRegistration(String filterName) {
+        return null;
+    }
+
+    @Override
+    public Map<String, ? extends FilterRegistration> getFilterRegistrations() {
+        return Collections.emptyMap();
+    }
+
+    @Override
+    public SessionCookieConfig getSessionCookieConfig() {
+        return null;
+    }
+
+    @Override
+    public void setSessionTrackingModes(Set<SessionTrackingMode> sessionTrackingModes) {
+        // no-op for mock
+    }
+
+    @Override
+    public Set<SessionTrackingMode> getDefaultSessionTrackingModes() {
+        return Collections.emptySet();
+    }
+
+    @Override
+    public Set<SessionTrackingMode> getEffectiveSessionTrackingModes() {
+        return Collections.emptySet();
+    }
+
+    @Override
+    public void addListener(String className) {
+        // no-op
+    }
+
+    @Override
+    public <T extends EventListener> void addListener(T t) {
+        // no-op
+    }
+
+    @Override
+    public void addListener(Class<? extends EventListener> listenerClass) {
+        // no-op
+    }
+
+    @Override
+    public <T extends EventListener> T createListener(Class<T> clazz) throws ServletException {
+        try {
+            return clazz.getDeclaredConstructor().newInstance();
+        } catch (Exception e) {
+            throw new ServletException(e);
+        }
     }
 }

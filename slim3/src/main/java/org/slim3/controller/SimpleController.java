@@ -15,14 +15,14 @@
  */
 package org.slim3.controller;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * A {@link Controller} not to process request parameters.
- * 
+ *
  * @author higa
  * @since 1.0.6
- * 
+ *
  */
 public abstract class SimpleController extends Controller {
 

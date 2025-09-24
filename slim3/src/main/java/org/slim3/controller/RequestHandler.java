@@ -17,14 +17,14 @@ package org.slim3.controller;
 
 import java.util.Enumeration;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * This class handles the request.
- * 
+ *
  * @author higa
  * @since 1.0.0
- * 
+ *
  */
 public class RequestHandler {
 
@@ -40,7 +40,7 @@ public class RequestHandler {
 
     /**
      * Constructor.
-     * 
+     *
      * @param request
      *            the request
      */
@@ -53,7 +53,7 @@ public class RequestHandler {
 
     /**
      * Handles the request.
-     * 
+     *
      */
     @SuppressWarnings("unchecked")
     public void handle() {
@@ -75,7 +75,7 @@ public class RequestHandler {
 
     /**
      * Normalizes the value.
-     * 
+     *
      * @param value
      *            the value
      * @return the normalized value
@@ -86,7 +86,7 @@ public class RequestHandler {
 
     /**
      * Normalizes the values.
-     * 
+     *
      * @param values
      *            the values
      * @return the normalized values

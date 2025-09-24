@@ -21,15 +21,15 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * A mock implementation for {@link HttpSession}.
- * 
+ *
  * @author higa
  * @since 1.0.0
- * 
+ *
  */
 public class MockHttpSession implements HttpSession, Serializable {
 
@@ -77,7 +77,7 @@ public class MockHttpSession implements HttpSession, Serializable {
 
     /**
      * Constructor.
-     * 
+     *
      * @param servletContext
      *            the servlet context
      * @throws NullPointerException
@@ -102,7 +102,7 @@ public class MockHttpSession implements HttpSession, Serializable {
 
     /**
      * Sets the identifier.
-     * 
+     *
      * @param id
      *            the identifier
      */
@@ -148,11 +148,6 @@ public class MockHttpSession implements HttpSession, Serializable {
         attributeMap.remove(name);
     }
 
-    @SuppressWarnings("deprecation")
-    public javax.servlet.http.HttpSessionContext getSessionContext() {
-        return null;
-    }
-
     public Object getValue(String name) {
         return getAttribute(name);
     }
@@ -184,7 +179,7 @@ public class MockHttpSession implements HttpSession, Serializable {
 
     /**
      * Sets the new flag.
-     * 
+     *
      * @param newFlag
      *            the new flag
      */
@@ -194,7 +189,7 @@ public class MockHttpSession implements HttpSession, Serializable {
 
     /**
      * Determines if this session is valid.
-     * 
+     *
      * @return whether this session is valid.
      */
     public boolean isValid() {

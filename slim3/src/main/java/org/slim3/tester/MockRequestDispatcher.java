@@ -17,17 +17,17 @@ package org.slim3.tester;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
 
 /**
  * A mock implementation for {@link RequestDispatcher}.
- * 
+ *
  * @author higa
  * @since 1.0.0
- * 
+ *
  */
 public class MockRequestDispatcher implements RequestDispatcher {
 
@@ -48,7 +48,7 @@ public class MockRequestDispatcher implements RequestDispatcher {
 
     /**
      * Constructor.
-     * 
+     *
      * @param path
      *            the path
      */
@@ -58,7 +58,7 @@ public class MockRequestDispatcher implements RequestDispatcher {
 
     /**
      * Returns the path.
-     * 
+     *
      * @return the path
      */
     public String getPath() {
@@ -79,7 +79,7 @@ public class MockRequestDispatcher implements RequestDispatcher {
 
     /**
      * Returns the request.
-     * 
+     *
      * @return the request
      */
     public ServletRequest getRequest() {
@@ -88,7 +88,7 @@ public class MockRequestDispatcher implements RequestDispatcher {
 
     /**
      * Returns the response.
-     * 
+     *
      * @return the response
      */
     public ServletResponse getResponse() {

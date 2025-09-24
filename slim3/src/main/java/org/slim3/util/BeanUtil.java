@@ -19,14 +19,14 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * A utility class for bean.
- * 
+ *
  * @author higa
  * @since 1.0.0
- * 
+ *
  */
 public final class BeanUtil {
 
@@ -53,13 +53,13 @@ public final class BeanUtil {
 
     /**
      * Returns the bean descriptor.
-     * 
+     *
      * @param beanClass
      *            the bean class
      * @return the bean descriptor
      * @throws NullPointerException
      *             if the beanClass parameter is null
-     * 
+     *
      */
     public static BeanDesc getBeanDesc(Class<?> beanClass)
             throws NullPointerException {
@@ -84,7 +84,7 @@ public final class BeanUtil {
      * where the property names are the same. Even if the property type of the
      * source is different from the one of the destination, the value is
      * converted appropriately.
-     * 
+     *
      * @param src
      *            the source
      * @param dest
@@ -99,7 +99,7 @@ public final class BeanUtil {
      * where the property names are the same. Even if the property type of the
      * source is different from the one of the destination, the value is
      * converted appropriately.
-     * 
+     *
      * @param src
      *            the source
      * @param dest
@@ -155,7 +155,7 @@ public final class BeanUtil {
      * where the property names are the same. Even if the property type of the
      * source is different from the one of the destination, the value is
      * converted appropriately.
-     * 
+     *
      * @param src
      *            the source
      * @param dest
@@ -171,7 +171,7 @@ public final class BeanUtil {
      * where the property names are the same. Even if the property type of the
      * source is different from the one of the destination, the value is
      * converted appropriately.
-     * 
+     *
      * @param src
      *            the source
      * @param dest
@@ -217,7 +217,7 @@ public final class BeanUtil {
      * where the property names are the same. Even if the property type of the
      * source is different from the one of the destination, the value is
      * converted appropriately.
-     * 
+     *
      * @param src
      *            the source
      * @param dest
@@ -233,7 +233,7 @@ public final class BeanUtil {
      * where the property names are the same. Even if the property type of the
      * source is different from the one of the destination, the value is
      * converted appropriately.
-     * 
+     *
      * @param src
      *            the source
      * @param dest
@@ -286,7 +286,7 @@ public final class BeanUtil {
      * where the property names are the same. Even if the property type of the
      * source is different from the one of the destination, the value is
      * converted appropriately.
-     * 
+     *
      * @param src
      *            the source
      * @param dest
@@ -302,7 +302,7 @@ public final class BeanUtil {
      * where the property names are the same. Even if the property type of the
      * source is different from the one of the destination, the value is
      * converted appropriately.
-     * 
+     *
      * @param src
      *            the source
      * @param dest
@@ -344,7 +344,7 @@ public final class BeanUtil {
      * where the property names are the same. Even if the property type of the
      * source is different from the one of the destination, the value is
      * converted appropriately.
-     * 
+     *
      * @param src
      *            the source
      * @param dest
@@ -359,7 +359,7 @@ public final class BeanUtil {
      * where the property names are the same. Even if the property type of the
      * source is different from the one of the destination, the value is
      * converted appropriately.
-     * 
+     *
      * @param src
      *            the source
      * @param dest
@@ -382,7 +382,7 @@ public final class BeanUtil {
      * where the property names are the same. Even if the property type of the
      * source is different from the one of the destination, the value is
      * converted appropriately.
-     * 
+     *
      * @param src
      *            the source
      * @param dest
@@ -397,7 +397,7 @@ public final class BeanUtil {
      * where the property names are the same. Even if the property type of the
      * source is different from the one of the destination, the value is
      * converted appropriately.
-     * 
+     *
      * @param src
      *            the source
      * @param dest
@@ -406,7 +406,7 @@ public final class BeanUtil {
      *            the copy options
      * @throws NullPointerException
      *             if the dest parameter is null
-     * 
+     *
      */
     public static void copy(Object src, HttpServletRequest dest,
             CopyOptions options) throws NullPointerException {

@@ -18,16 +18,16 @@ package org.slim3.controller.router;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.slim3.util.RequestUtil;
 
 /**
  * An implementation class for {@link Router}.
- * 
+ *
  * @author higa
  * @since 1.0.0
- * 
+ *
  */
 public class RouterImpl implements Router {
 
@@ -38,7 +38,7 @@ public class RouterImpl implements Router {
 
     /**
      * Adds {@link Routing}.
-     * 
+     *
      * @param from
      *            the "from" path
      * @param to

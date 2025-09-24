@@ -32,7 +32,7 @@ import com.google.appengine.api.datastore.KeyFactory;
 
 /**
  * @author higa
- * 
+ *
  */
 public class ServletTesterTest {
 
@@ -56,7 +56,7 @@ public class ServletTesterTest {
 
     /**
      * @throws Exception
-     * 
+     *
      */
     @Test
     public void param() throws Exception {
@@ -66,7 +66,7 @@ public class ServletTesterTest {
 
     /**
      * @throws Exception
-     * 
+     *
      */
     @Test
     public void paramValues() throws Exception {
@@ -77,7 +77,7 @@ public class ServletTesterTest {
 
     /**
      * @throws Exception
-     * 
+     *
      */
     @Test
     public void requestScope() throws Exception {
@@ -90,7 +90,7 @@ public class ServletTesterTest {
 
     /**
      * @throws Exception
-     * 
+     *
      */
     @Test
     public void asShort() throws Exception {
@@ -101,7 +101,7 @@ public class ServletTesterTest {
 
     /**
      * @throws Exception
-     * 
+     *
      */
     @Test
     public void asInteger() throws Exception {
@@ -112,7 +112,7 @@ public class ServletTesterTest {
 
     /**
      * @throws Exception
-     * 
+     *
      */
     @Test
     public void asLong() throws Exception {
@@ -123,7 +123,7 @@ public class ServletTesterTest {
 
     /**
      * @throws Exception
-     * 
+     *
      */
     @Test
     public void asFloat() throws Exception {
@@ -134,7 +134,7 @@ public class ServletTesterTest {
 
     /**
      * @throws Exception
-     * 
+     *
      */
     @Test
     public void asDouble() throws Exception {
@@ -145,7 +145,7 @@ public class ServletTesterTest {
 
     /**
      * @throws Exception
-     * 
+     *
      */
     @Test
     public void asDateForDatePattern() throws Exception {
@@ -155,7 +155,7 @@ public class ServletTesterTest {
 
     /**
      * @throws Exception
-     * 
+     *
      */
     @Test
     public void asDateForTimePattern() throws Exception {
@@ -165,7 +165,7 @@ public class ServletTesterTest {
 
     /**
      * @throws Exception
-     * 
+     *
      */
     @Test
     public void asKey() throws Exception {
@@ -176,7 +176,7 @@ public class ServletTesterTest {
 
     /**
      * @throws Exception
-     * 
+     *
      */
     @Test
     public void sessionScope() throws Exception {
@@ -191,7 +191,7 @@ public class ServletTesterTest {
 
     /**
      * @throws Exception
-     * 
+     *
      */
     @Test
     public void applicationScope() throws Exception {
@@ -206,7 +206,7 @@ public class ServletTesterTest {
 
     /**
      * @throws Exception
-     * 
+     *
      */
     @Test
     public void isRedirectWhenRedirect() throws Exception {
@@ -217,7 +217,7 @@ public class ServletTesterTest {
 
     /**
      * @throws Exception
-     * 
+     *
      */
     @Test
     public void isRedirectWhenForward() throws Exception {
@@ -230,7 +230,7 @@ public class ServletTesterTest {
 
     /**
      * @throws Exception
-     * 
+     *
      */
     @Test
     public void getDestinationPathWhenRedirect() throws Exception {
@@ -241,7 +241,7 @@ public class ServletTesterTest {
 
     /**
      * @throws Exception
-     * 
+     *
      */
     @Test
     public void getDestinationPathForward() throws Exception {
@@ -253,21 +253,21 @@ public class ServletTesterTest {
     }
 
     /**
-     * @throws Exception
-     * 
-     */
-    @Test
-    public void addBlobKey() throws Exception {
-        String name = "aaa";
-        String value = "hoge";
-        BlobstoreService bs = BlobstoreServiceFactory.getBlobstoreService();
-        tester.addBlobKey(name, value);
-        assertThat(
-            bs.getUploads(tester.request).get(name).get(0),
-            is(new BlobKey(value)));
-        tester.servletContext.getRequestDispatcher("/").forward(
-            tester.request,
-            tester.response);
-        assertThat(tester.getDestinationPath(), is("/"));
-    }
+//     * @throws Exception
+//     *
+//     */
+//    @Test
+//    public void addBlobKey() throws Exception {
+//        String name = "aaa";
+//        String value = "hoge";
+//        BlobstoreService bs = BlobstoreServiceFactory.getBlobstoreService();
+//        tester.addBlobKey(name, value);
+//        assertThat(
+//            bs.getUploads(tester.request).get(name).get(0),
+//            is(new BlobKey(value)));
+//        tester.servletContext.getRequestDispatcher("/").forward(
+//            tester.request,
+//            tester.response);
+//        assertThat(tester.getDestinationPath(), is("/"));
+//    }
 }

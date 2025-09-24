@@ -15,7 +15,7 @@
  */
 package org.slim3.controller.router;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 
 import org.slim3.controller.ControllerConstants;
 import org.slim3.util.ClassUtil;
@@ -26,10 +26,10 @@ import org.slim3.util.StringUtil;
 
 /**
  * A factory for {@link Router}.
- * 
+ *
  * @author higa
  * @since 1.0.0
- * 
+ *
  */
 public final class RouterFactory {
 
@@ -42,7 +42,7 @@ public final class RouterFactory {
 
     /**
      * Returns a router.
-     * 
+     *
      * @return a router
      */
     public static synchronized Router getRouter() {

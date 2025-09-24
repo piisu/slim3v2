@@ -19,7 +19,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.slim3.controller.ControllerConstants;
 import org.slim3.util.ArrayMap;
@@ -28,10 +28,10 @@ import org.slim3.util.RequestMap;
 /**
  * A class to control validation process. The error messages of validation are
  * stored in application[_locale].properties.
- * 
+ *
  * @author higa
  * @since 1.0.0
- * 
+ *
  */
 public class Validators {
 
@@ -53,7 +53,7 @@ public class Validators {
 
     /**
      * Constructor.
-     * 
+     *
      * @param request
      *            the request
      */
@@ -63,7 +63,7 @@ public class Validators {
 
     /**
      * Constructor.
-     * 
+     *
      * @param parameters
      *            the parameters
      * @throws NullPointerException
@@ -85,7 +85,7 @@ public class Validators {
 
     /**
      * Adds the validators.
-     * 
+     *
      * @param name
      *            the parameter name
      * @param validators
@@ -106,7 +106,7 @@ public class Validators {
 
     /**
      * Validates input values.
-     * 
+     *
      * @return whether input values are valid. Returns true if input values are
      *         valid.
      */
@@ -128,7 +128,7 @@ public class Validators {
 
     /**
      * Returns the error messages.
-     * 
+     *
      * @return the error messages
      */
     public Errors getErrors() {
@@ -138,7 +138,7 @@ public class Validators {
     /**
      * Returns {@link RequiredValidator}. The key of error message is
      * "validator.required".
-     * 
+     *
      * @return {@link RequiredValidator}
      */
     public RequiredValidator required() {
@@ -147,7 +147,7 @@ public class Validators {
 
     /**
      * Returns {@link RequiredValidator}.
-     * 
+     *
      * @param message
      *            the error message
      * @return {@link RequiredValidator}
@@ -159,7 +159,7 @@ public class Validators {
     /**
      * Returns {@link ByteTypeValidator}. The key of error message is
      * "validator.byteType".
-     * 
+     *
      * @return {@link ByteTypeValidator}
      */
     public ByteTypeValidator byteType() {
@@ -168,7 +168,7 @@ public class Validators {
 
     /**
      * Returns {@link ByteTypeValidator}.
-     * 
+     *
      * @param message
      *            the error message
      * @return {@link ByteTypeValidator}
@@ -180,7 +180,7 @@ public class Validators {
     /**
      * Returns {@link ShortTypeValidator}. The key of error message is
      * "validator.shortType".
-     * 
+     *
      * @return {@link ShortTypeValidator}
      */
     public ShortTypeValidator shortType() {
@@ -189,7 +189,7 @@ public class Validators {
 
     /**
      * Returns {@link ShortTypeValidator}.
-     * 
+     *
      * @param message
      *            the error message
      * @return {@link ShortTypeValidator}
@@ -201,7 +201,7 @@ public class Validators {
     /**
      * Returns {@link IntegerTypeValidator}. The key of error message is
      * "validator.integerType".
-     * 
+     *
      * @return {@link IntegerTypeValidator}
      */
     public IntegerTypeValidator integerType() {
@@ -210,7 +210,7 @@ public class Validators {
 
     /**
      * Returns {@link IntegerTypeValidator}.
-     * 
+     *
      * @param message
      *            the error message
      * @return {@link IntegerTypeValidator}
@@ -222,7 +222,7 @@ public class Validators {
     /**
      * Returns {@link LongTypeValidator}. The key of error message is
      * "validator.longType".
-     * 
+     *
      * @return {@link LongTypeValidator}
      */
     public LongTypeValidator longType() {
@@ -231,7 +231,7 @@ public class Validators {
 
     /**
      * Returns {@link LongTypeValidator}.
-     * 
+     *
      * @param message
      *            the error message
      * @return {@link LongTypeValidator}
@@ -243,7 +243,7 @@ public class Validators {
     /**
      * Returns {@link FloatTypeValidator}. The key of error message is
      * "validator.floatType".
-     * 
+     *
      * @return {@link FloatTypeValidator}
      */
     public FloatTypeValidator floatType() {
@@ -252,7 +252,7 @@ public class Validators {
 
     /**
      * Returns {@link FloatTypeValidator}.
-     * 
+     *
      * @param message
      *            the error message
      * @return {@link FloatTypeValidator}
@@ -264,7 +264,7 @@ public class Validators {
     /**
      * Returns {@link DoubleTypeValidator}. The key of error message is
      * "validator.doubleType".
-     * 
+     *
      * @return {@link DoubleTypeValidator}
      */
     public DoubleTypeValidator doubleType() {
@@ -273,7 +273,7 @@ public class Validators {
 
     /**
      * Returns {@link DoubleTypeValidator}.
-     * 
+     *
      * @param message
      *            the error message
      * @return {@link DoubleTypeValidator}
@@ -285,10 +285,10 @@ public class Validators {
     /**
      * Returns {@link NumberTypeValidator}. The key of error message is
      * "validator.numberType".
-     * 
+     *
      * @param pattern
      *            the pattern of {@link DecimalFormat}
-     * 
+     *
      * @return {@link NumberTypeValidator}
      */
     public NumberTypeValidator numberType(String pattern) {
@@ -297,12 +297,12 @@ public class Validators {
 
     /**
      * Returns {@link NumberTypeValidator}.
-     * 
+     *
      * @param pattern
      *            the pattern of {@link DecimalFormat}
      * @param message
      *            the error message
-     * 
+     *
      * @return {@link NumberTypeValidator}
      */
     public NumberTypeValidator numberType(String pattern, String message) {
@@ -312,10 +312,10 @@ public class Validators {
     /**
      * Returns {@link DateTypeValidator}. The key of error message is
      * "validator.dateType".
-     * 
+     *
      * @param pattern
      *            the pattern of {@link SimpleDateFormat}
-     * 
+     *
      * @return {@link DateTypeValidator}
      */
     public DateTypeValidator dateType(String pattern) {
@@ -324,7 +324,7 @@ public class Validators {
 
     /**
      * Returns {@link DateTypeValidator}.
-     * 
+     *
      * @param pattern
      *            the pattern of {@link SimpleDateFormat}
      * @param message
@@ -338,10 +338,10 @@ public class Validators {
     /**
      * Returns {@link MinlengthValidator}. The key of error message is
      * "validator.minlength".
-     * 
+     *
      * @param minlength
      *            the minimum length
-     * 
+     *
      * @return {@link MinlengthValidator}
      */
     public MinlengthValidator minlength(int minlength) {
@@ -350,7 +350,7 @@ public class Validators {
 
     /**
      * Returns {@link MinlengthValidator}.
-     * 
+     *
      * @param minlength
      *            the minimum length
      * @param message
@@ -364,10 +364,10 @@ public class Validators {
     /**
      * Returns {@link MaxlengthValidator}. The key of error message is
      * "validator.maxlength".
-     * 
+     *
      * @param maxlength
      *            the maximum length
-     * 
+     *
      * @return {@link MaxlengthValidator}
      */
     public MaxlengthValidator maxlength(int maxlength) {
@@ -376,7 +376,7 @@ public class Validators {
 
     /**
      * Returns {@link MaxlengthValidator}.
-     * 
+     *
      * @param maxlength
      *            the maximum length
      * @param message
@@ -390,7 +390,7 @@ public class Validators {
     /**
      * Returns {@link LongRangeValidator}. The key of error message is
      * "validator.range".
-     * 
+     *
      * @param minimum
      *            the minimum value
      * @param maximum
@@ -403,7 +403,7 @@ public class Validators {
 
     /**
      * Returns {@link LongRangeValidator}.
-     * 
+     *
      * @param minimum
      *            the minimum value
      * @param maximum
@@ -420,7 +420,7 @@ public class Validators {
     /**
      * Returns {@link DoubleRangeValidator}. The key of error message is
      * "validator.range".
-     * 
+     *
      * @param minimum
      *            the minimum value
      * @param maximum
@@ -433,7 +433,7 @@ public class Validators {
 
     /**
      * Returns {@link DoubleRangeValidator}.
-     * 
+     *
      * @param minimum
      *            the minimum value
      * @param maximum
@@ -450,7 +450,7 @@ public class Validators {
     /**
      * Returns {@link RegexpValidator}. The key of error message is
      * "validator.regexp".
-     * 
+     *
      * @param pattern
      *            the pattern for regular expression
      * @return {@link RegexpValidator}
@@ -463,7 +463,7 @@ public class Validators {
 
     /**
      * Returns {@link RegexpValidator}.
-     * 
+     *
      * @param pattern
      *            the pattern for regular expression
      * @param message

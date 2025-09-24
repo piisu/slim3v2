@@ -15,11 +15,11 @@
  */
 package org.slim3.util;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * A utility class for {@link HttpServletRequest}.
- * 
+ *
  * @author higa
  * @version 3.0
  */
@@ -27,7 +27,7 @@ public final class RequestUtil {
 
     /**
      * Returns the path of the request.
-     * 
+     *
      * @param request
      *            the request
      * @return the path
@@ -45,7 +45,7 @@ public final class RequestUtil {
 
     /**
      * Returns the extension.
-     * 
+     *
      * @param path
      *            the path
      * @return the extension

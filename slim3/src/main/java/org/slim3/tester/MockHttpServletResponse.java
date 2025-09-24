@@ -26,17 +26,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Collection;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * A mock implementation for {@link MockHttpServletResponse}.
- * 
+ *
  * @author higa
  * @since 1.0.0
- * 
+ *
  */
 public class MockHttpServletResponse implements HttpServletResponse {
 
@@ -119,7 +120,7 @@ public class MockHttpServletResponse implements HttpServletResponse {
 
     /**
      * Returns the cookies.
-     * 
+     *
      * @return the cookies
      */
     public Cookie[] getCookies() {
@@ -152,7 +153,7 @@ public class MockHttpServletResponse implements HttpServletResponse {
 
     /**
      * Returns the status.
-     * 
+     *
      * @return the status
      */
     public int getStatus() {
@@ -172,7 +173,7 @@ public class MockHttpServletResponse implements HttpServletResponse {
 
     /**
      * Returns the response status message.
-     * 
+     *
      * @param status
      *            the status
      * @return the response status message
@@ -281,7 +282,7 @@ public class MockHttpServletResponse implements HttpServletResponse {
 
     /**
      * Returns the message.
-     * 
+     *
      * @return the message
      */
     public String getMessage() {
@@ -299,11 +300,20 @@ public class MockHttpServletResponse implements HttpServletResponse {
     public void sendRedirect(String path) throws IOException {
         setStatus(SC_MOVED_TEMPORARILY);
         redirectPath = path;
+        setHeader("Location", path);
+    }
+
+    @Override
+    public void sendRedirect(String location, int status, boolean useEncodedSessionId) throws IOException {
+        setStatus(status);
+        redirectPath = location;
+        setHeader("Location", location);
+        // This mock ignores useEncodedSessionId as session encoding is not simulated
     }
 
     /**
      * Returns the redirect path.
-     * 
+     *
      * @return the redirect path
      */
     public String getRedirectPath() {
@@ -312,22 +322,22 @@ public class MockHttpServletResponse implements HttpServletResponse {
 
     /**
      * Returns the header as {@link Enumeration}.
-     * 
+     *
      * @param name
      *            the name
      * @return the header
      */
-    public Enumeration<String> getHeaders(String name) {
+    public Collection<String> getHeaders(String name) {
         List<String> values = getHeaderList(name);
         if (values == null) {
             values = Collections.emptyList();
         }
-        return Collections.enumeration(values);
+        return values;
     }
 
     /**
      * Returns the header as string.
-     * 
+     *
      * @param name
      *            the name
      * @return the header
@@ -342,7 +352,7 @@ public class MockHttpServletResponse implements HttpServletResponse {
 
     /**
      * Returns the header as date.
-     * 
+     *
      * @param name
      *            the name
      * @return the header
@@ -354,7 +364,7 @@ public class MockHttpServletResponse implements HttpServletResponse {
 
     /**
      * Returns the header as int.
-     * 
+     *
      * @param name
      *            the name
      * @return the header
@@ -366,7 +376,7 @@ public class MockHttpServletResponse implements HttpServletResponse {
 
     /**
      * Returns the header as list.
-     * 
+     *
      * @param name
      *            the name
      * @return the header
@@ -377,11 +387,11 @@ public class MockHttpServletResponse implements HttpServletResponse {
 
     /**
      * Returns the header names.
-     * 
+     *
      * @return the header names
      */
-    public Enumeration<String> getHeaderNames() {
-        return Collections.enumeration(headerMap.keySet());
+    public Collection<String> getHeaderNames() {
+        return headerMap.keySet();
     }
 
     public void setHeader(String name, String value) {
@@ -417,7 +427,7 @@ public class MockHttpServletResponse implements HttpServletResponse {
 
     /**
      * Returns the content length.
-     * 
+     *
      * @return the content length
      */
     public int getContentLength() {
@@ -426,6 +436,19 @@ public class MockHttpServletResponse implements HttpServletResponse {
 
     public void setContentLength(int contentLength) {
         setIntHeader("content-length", contentLength);
+    }
+
+    @Override
+    public void setContentLengthLong(long len) {
+        if (len > Integer.MAX_VALUE) {
+            // Cap at Integer.MAX_VALUE for this mock; servlet containers typically allow long but header is string
+            setHeader("content-length", String.valueOf(len));
+        } else if (len < 0) {
+            // Negative unspecified; remove header
+            headerMap.remove("content-length");
+        } else {
+            setIntHeader("content-length", (int) len);
+        }
     }
 
     public String getContentType() {
@@ -473,7 +496,7 @@ public class MockHttpServletResponse implements HttpServletResponse {
 
     /**
      * Returns the output as array of bytes.
-     * 
+     *
      * @return the output
      * @throws IOException
      *             if {@link IOException} is encountered
@@ -485,7 +508,7 @@ public class MockHttpServletResponse implements HttpServletResponse {
 
     /**
      * Returns the output as string.
-     * 
+     *
      * @return the output
      * @throws IOException
      *             if {@link IOException} is encountered

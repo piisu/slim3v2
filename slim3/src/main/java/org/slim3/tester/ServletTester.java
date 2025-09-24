@@ -25,11 +25,11 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import org.slim3.util.BooleanUtil;
 import org.slim3.util.DateUtil;
@@ -51,10 +51,10 @@ import com.google.appengine.api.datastore.KeyFactory;
 
 /**
  * A test case for Servlet environment.
- * 
+ *
  * @author higa
  * @since 1.0.0
- * 
+ *
  */
 public class ServletTester extends AppEngineTester {
 
@@ -141,7 +141,7 @@ public class ServletTester extends AppEngineTester {
 
     /**
      * Returns the request parameter.
-     * 
+     *
      * @param name
      *            the parameter name
      * @return the parameter value
@@ -158,7 +158,7 @@ public class ServletTester extends AppEngineTester {
 
     /**
      * Sets the request parameter.
-     * 
+     *
      * @param name
      *            the parameter name
      * @param value
@@ -177,7 +177,7 @@ public class ServletTester extends AppEngineTester {
 
     /**
      * Returns the request parameter.
-     * 
+     *
      * @param name
      *            the parameter name
      * @return the parameter value
@@ -194,7 +194,7 @@ public class ServletTester extends AppEngineTester {
 
     /**
      * Returns the request attribute value as short.
-     * 
+     *
      * @param name
      *            the attribute name
      * @return the short attribute value
@@ -211,7 +211,7 @@ public class ServletTester extends AppEngineTester {
 
     /**
      * Returns the request attribute value as short.
-     * 
+     *
      * @param name
      *            the attribute name
      * @param pattern
@@ -231,7 +231,7 @@ public class ServletTester extends AppEngineTester {
 
     /**
      * Returns the request attribute value as integer.
-     * 
+     *
      * @param name
      *            the attribute name
      * @return the integer attribute value
@@ -248,7 +248,7 @@ public class ServletTester extends AppEngineTester {
 
     /**
      * Returns the request attribute value as integer.
-     * 
+     *
      * @param name
      *            the attribute name
      * @param pattern
@@ -270,7 +270,7 @@ public class ServletTester extends AppEngineTester {
 
     /**
      * Returns the request attribute value as long.
-     * 
+     *
      * @param name
      *            the attribute name
      * @return the long attribute value
@@ -287,7 +287,7 @@ public class ServletTester extends AppEngineTester {
 
     /**
      * Returns the request attribute value as long.
-     * 
+     *
      * @param name
      *            the attribute name
      * @param pattern
@@ -307,7 +307,7 @@ public class ServletTester extends AppEngineTester {
 
     /**
      * Returns the request attribute value as float.
-     * 
+     *
      * @param name
      *            the attribute name
      * @return the float attribute value
@@ -324,7 +324,7 @@ public class ServletTester extends AppEngineTester {
 
     /**
      * Returns the request attribute value as float.
-     * 
+     *
      * @param name
      *            the attribute name
      * @param pattern
@@ -344,7 +344,7 @@ public class ServletTester extends AppEngineTester {
 
     /**
      * Returns the request attribute value as double.
-     * 
+     *
      * @param name
      *            the attribute name
      * @return the double attribute value
@@ -361,7 +361,7 @@ public class ServletTester extends AppEngineTester {
 
     /**
      * Returns the request attribute value as double.
-     * 
+     *
      * @param name
      *            the attribute name
      * @param pattern
@@ -382,7 +382,7 @@ public class ServletTester extends AppEngineTester {
 
     /**
      * Returns the request attribute value as string.
-     * 
+     *
      * @param name
      *            the attribute name
      * @return the string attribute value
@@ -399,7 +399,7 @@ public class ServletTester extends AppEngineTester {
 
     /**
      * Returns the request attribute value as boolean.
-     * 
+     *
      * @param name
      *            the attribute name
      * @return the boolean attribute value
@@ -416,7 +416,7 @@ public class ServletTester extends AppEngineTester {
 
     /**
      * Returns the request attribute value as date.
-     * 
+     *
      * @param name
      *            the attribute name
      * @param pattern
@@ -436,7 +436,7 @@ public class ServletTester extends AppEngineTester {
 
     /**
      * Returns the request attribute value as {@link Key}.
-     * 
+     *
      * @param name
      *            the attribute name
      * @return the request attribute value as {@link Key}
@@ -460,7 +460,7 @@ public class ServletTester extends AppEngineTester {
 
     /**
      * Sets the request parameter.
-     * 
+     *
      * @param name
      *            the parameter name
      * @param value
@@ -479,7 +479,7 @@ public class ServletTester extends AppEngineTester {
 
     /**
      * Returns the request attribute.
-     * 
+     *
      * @param <T>
      *            the return type
      * @param name
@@ -499,7 +499,7 @@ public class ServletTester extends AppEngineTester {
 
     /**
      * Sets the request attribute.
-     * 
+     *
      * @param name
      *            the attribute name
      * @param value
@@ -518,7 +518,7 @@ public class ServletTester extends AppEngineTester {
 
     /**
      * Returns the session attribute.
-     * 
+     *
      * @param <T>
      *            the return type
      * @param name
@@ -542,7 +542,7 @@ public class ServletTester extends AppEngineTester {
 
     /**
      * Sets the session attribute.
-     * 
+     *
      * @param name
      *            the attribute name
      * @param value
@@ -561,7 +561,7 @@ public class ServletTester extends AppEngineTester {
 
     /**
      * Returns the servlet context attribute.
-     * 
+     *
      * @param <T>
      *            the return type
      * @param name
@@ -582,7 +582,7 @@ public class ServletTester extends AppEngineTester {
 
     /**
      * Sets the servlet context attribute.
-     * 
+     *
      * @param name
      *            the attribute name
      * @param value
@@ -601,7 +601,7 @@ public class ServletTester extends AppEngineTester {
 
     /**
      * Determines if the test result is "redirect".
-     * 
+     *
      * @return whether the test result is "redirect"
      */
     public boolean isRedirect() {
@@ -610,7 +610,7 @@ public class ServletTester extends AppEngineTester {
 
     /**
      * Returns the destination path.
-     * 
+     *
      * @return the destination path
      */
     public String getDestinationPath() {
@@ -627,7 +627,7 @@ public class ServletTester extends AppEngineTester {
 
     /**
      * Adds a blob key.
-     * 
+     *
      * @param name
      *            the blob key name
      * @param value

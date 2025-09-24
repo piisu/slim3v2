@@ -18,11 +18,12 @@ package org.slim3.tester;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import javax.servlet.ServletOutputStream;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.WriteListener;
 
 /**
  * An implementation for {@link ServletOutputStream}.
- * 
+ *
  * @author higa
  * @since 1.0.0
  */
@@ -35,7 +36,7 @@ public class MockServletOutputStream extends ServletOutputStream {
 
     /**
      * Constructor.
-     * 
+     *
      * @param outputStream
      *            the original output stream
      * @throws NullPointerException
@@ -53,6 +54,17 @@ public class MockServletOutputStream extends ServletOutputStream {
     @Override
     public void write(int b) throws IOException {
         outputStream.write(b);
+    }
+
+    @Override
+    public boolean isReady() {
+        // Always ready for synchronous mock
+        return true;
+    }
+
+    @Override
+    public void setWriteListener(WriteListener writeListener) {
+        // This mock does not support non-blocking IO; no-op
     }
 
 }

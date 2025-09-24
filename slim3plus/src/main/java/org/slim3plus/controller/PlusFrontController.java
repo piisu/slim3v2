@@ -4,8 +4,8 @@ import org.slim3.controller.Controller;
 import org.slim3.controller.FrontController;
 import org.slim3plus.util.InjectorFactory;
 
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
+import jakarta.servlet.FilterConfig;
+import jakarta.servlet.ServletException;
 import java.lang.reflect.Modifier;
 
 public class PlusFrontController extends FrontController {

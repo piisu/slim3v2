@@ -17,18 +17,18 @@ package org.slim3.tester;
 
 import java.io.IOException;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * A mock implementation for {@link FilterChain}.
- * 
+ *
  * @author higa
  * @since 1.0.0
- * 
+ *
  */
 public class MockFilterChain implements FilterChain {
 
@@ -50,7 +50,7 @@ public class MockFilterChain implements FilterChain {
 
     /**
      * Returns the request.
-     * 
+     *
      * @return the request
      */
     public ServletRequest getRequest() {
@@ -59,7 +59,7 @@ public class MockFilterChain implements FilterChain {
 
     /**
      * Returns the response.
-     * 
+     *
      * @return the response
      */
     public ServletResponse getResponse() {
@@ -68,7 +68,7 @@ public class MockFilterChain implements FilterChain {
 
     /**
      * Returns the path.
-     * 
+     *
      * @return the path
      */
     public String getPath() {

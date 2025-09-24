@@ -20,15 +20,15 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletContext;
+import jakarta.servlet.FilterConfig;
+import jakarta.servlet.ServletContext;
 
 /**
  * A mock implementation for {@link FilterConfig}.
- * 
+ *
  * @author higa
  * @since 1.0.0
- * 
+ *
  */
 public class MockFilterConfig implements FilterConfig {
 
@@ -50,7 +50,7 @@ public class MockFilterConfig implements FilterConfig {
 
     /**
      * Constructor.
-     * 
+     *
      * @param servletContext
      *            the servlet context
      * @throws NullPointerException
@@ -75,7 +75,7 @@ public class MockFilterConfig implements FilterConfig {
 
     /**
      * Sets the filter name.
-     * 
+     *
      * @param filterName
      *            the filter name
      */
@@ -89,7 +89,7 @@ public class MockFilterConfig implements FilterConfig {
 
     /**
      * Sets the initial parameter
-     * 
+     *
      * @param name
      *            the initial parameter name
      * @param value
@@ -101,7 +101,7 @@ public class MockFilterConfig implements FilterConfig {
 
     /**
      * Removes the initial parameter.
-     * 
+     *
      * @param name
      *            the parameter name
      */

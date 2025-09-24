@@ -17,21 +17,21 @@ package org.slim3.controller.upload;
 
 import java.io.IOException;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * An iterator, as returned by
  * {@link FileUpload#getItemIterator(HttpServletRequest)}.
- * 
+ *
  * @author higa
  * @since 1.0.0
- * 
+ *
  */
 public interface FileItemIterator {
 
     /**
      * Returns, whether another instance of {@link FileItemStream} is available.
-     * 
+     *
      * @throws FileUploadException
      *             Parsing or processing the file item failed.
      * @throws IOException
@@ -43,7 +43,7 @@ public interface FileItemIterator {
 
     /**
      * Returns the next available {@link FileItemStream}.
-     * 
+     *
      * @throws java.util.NoSuchElementException
      *             No more items are available. Use {@link #hasNext()} to
      *             prevent this exception.

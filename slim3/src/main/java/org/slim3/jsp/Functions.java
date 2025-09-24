@@ -23,7 +23,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.slim3.controller.ControllerConstants;
 import org.slim3.util.BooleanUtil;
@@ -42,10 +42,10 @@ import com.google.appengine.api.datastore.KeyFactory;
 
 /**
  * JSP functions of Slim3.
- * 
+ *
  * @author higa
  * @since 1.0.0
- * 
+ *
  */
 public final class Functions {
 
@@ -61,7 +61,7 @@ public final class Functions {
      * Encodes the input object. If the object is a string, it is escaped as
      * HTML. If the object is a key, it is encoded as Base64. Anything else is
      * converted to a string using toString() method.
-     * 
+     *
      * @param input
      *            the input value
      * @return the escaped value
@@ -81,7 +81,7 @@ public final class Functions {
 
     /**
      * Returns context-relative URL.
-     * 
+     *
      * @param input
      *            the input value
      * @return context-relative URL
@@ -116,7 +116,7 @@ public final class Functions {
 
     /**
      * Returns blobstore URL.
-     * 
+     *
      * @param url
      *            the part of url
      * @return context-relative URL
@@ -145,7 +145,7 @@ public final class Functions {
 
     /**
      * Converts blank to entity reference nbsp.
-     * 
+     *
      * @param input
      *            the input value
      * @return the converted value
@@ -159,7 +159,7 @@ public final class Functions {
 
     /**
      * Converts line break to br tag.
-     * 
+     *
      * @param input
      *            the input value
      * @return the converted value
@@ -175,7 +175,7 @@ public final class Functions {
 
     /**
      * Returns the current locale.
-     * 
+     *
      * @return the current locale.
      */
     public static Locale locale() {
@@ -184,7 +184,7 @@ public final class Functions {
 
     /**
      * Returns the current time zone.
-     * 
+     *
      * @return the current time zone.
      */
     public static TimeZone timeZone() {
@@ -193,7 +193,7 @@ public final class Functions {
 
     /**
      * Returns the text tag representation.
-     * 
+     *
      * @param name
      *            the property name
      * @return the text tag representation
@@ -216,7 +216,7 @@ public final class Functions {
 
     /**
      * Returns the hidden tag representation.
-     * 
+     *
      * @param name
      *            the property name
      * @return the hidden tag representation
@@ -229,7 +229,7 @@ public final class Functions {
 
     /**
      * Returns the checkbox tag representation.
-     * 
+     *
      * @param name
      *            the property name
      * @return the checkbox tag representation
@@ -253,7 +253,7 @@ public final class Functions {
 
     /**
      * Returns the multibox tag representation.
-     * 
+     *
      * @param name
      *            the property name
      * @param value
@@ -300,7 +300,7 @@ public final class Functions {
 
     /**
      * Returns the radio tag representation.
-     * 
+     *
      * @param name
      *            the property name
      * @param value
@@ -330,7 +330,7 @@ public final class Functions {
 
     /**
      * Returns the select option tag representation.
-     * 
+     *
      * @param name
      *            the property name
      * @param value
@@ -358,7 +358,7 @@ public final class Functions {
 
     /**
      * Returns the multiselect option tag representation.
-     * 
+     *
      * @param name
      *            the property name
      * @param value
@@ -403,7 +403,7 @@ public final class Functions {
 
     /**
      * Returns the error style class
-     * 
+     *
      * @param name
      *            the name
      * @param styleClass
@@ -424,7 +424,7 @@ public final class Functions {
 
     /**
      * Returns errors iterator.
-     * 
+     *
      * @return errors iterator
      */
     @SuppressWarnings("unchecked")
@@ -441,7 +441,7 @@ public final class Functions {
 
     /**
      * Returns a string representation of {@link Key}. Use {@link #h(Object)}.
-     * 
+     *
      * @param key
      *            the key
      * @return a string representation of {@link Key}
@@ -456,7 +456,7 @@ public final class Functions {
 
     /**
      * Returns the hidden tag representation. Use {@link #hidden(String)}.
-     * 
+     *
      * @param name
      *            the property name
      * @return the hidden tag representation
@@ -485,7 +485,7 @@ public final class Functions {
 
     /**
      * Returns the current request.
-     * 
+     *
      * @return the current request
      * @throws IllegalStateException
      *             if the current request does not exists

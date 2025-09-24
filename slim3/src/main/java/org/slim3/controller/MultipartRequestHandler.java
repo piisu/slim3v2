@@ -18,7 +18,7 @@ package org.slim3.controller;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.slim3.controller.upload.FileItem;
 import org.slim3.controller.upload.FileItemIterator;
@@ -31,10 +31,10 @@ import org.slim3.util.ThrowableUtil;
 
 /**
  * {@link RequestHandler} for multipart request.
- * 
+ *
  * @author higa
  * @since 1.0.0
- * 
+ *
  */
 public class MultipartRequestHandler extends RequestHandler {
 
@@ -52,7 +52,7 @@ public class MultipartRequestHandler extends RequestHandler {
 
     /**
      * Constructor.
-     * 
+     *
      * @param request
      *            the request
      */
@@ -109,7 +109,7 @@ public class MultipartRequestHandler extends RequestHandler {
 
     /**
      * Creates a {@link FileUpload}.
-     * 
+     *
      * @return a {@link FileUpload}
      */
     protected FileUpload createFileUpload() {

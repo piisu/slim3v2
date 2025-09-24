@@ -20,10 +20,10 @@ import org.slim3.controller.router.RouterFactory;
 import org.slim3.controller.validator.Errors;
 import org.slim3.util.*;
 
-import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.*;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.lang.reflect.Modifier;
 import java.util.Locale;
@@ -32,10 +32,10 @@ import java.util.UUID;
 
 /**
  * The front controller of Slim3.
- * 
+ *
  * @author higa
  * @since 1.0.0
- * 
+ *
  */
 public class FrontController implements Filter {
 
@@ -96,7 +96,7 @@ public class FrontController implements Filter {
 
     /**
      * Initializes the servlet context.
-     * 
+     *
      * @param config
      *            the filter configuration.
      */
@@ -185,7 +185,7 @@ public class FrontController implements Filter {
 
     /**
      * Executes filtering process.
-     * 
+     *
      * @param request
      *            the request
      * @param response
@@ -225,7 +225,7 @@ public class FrontController implements Filter {
 
     /**
      * Executes filtering process.
-     * 
+     *
      * @param request
      *            the request
      * @param response
@@ -271,7 +271,7 @@ public class FrontController implements Filter {
 
     /**
      * Processes the current locale.
-     * 
+     *
      * @param request
      *            the request
      * @return the current locale
@@ -301,7 +301,7 @@ public class FrontController implements Filter {
 
     /**
      * Processes the current time zone.
-     * 
+     *
      * @param request
      *            the request
      * @return the current time zone
@@ -328,7 +328,7 @@ public class FrontController implements Filter {
 
     /**
      * Returns the controller specified by the path.
-     * 
+     *
      * @param request
      *            the request
      * @param response
@@ -336,7 +336,7 @@ public class FrontController implements Filter {
      * @param path
      *            the path
      * @return the controller
-     * 
+     *
      */
     protected Controller getController(HttpServletRequest request,
             HttpServletResponse response, String path) {
@@ -368,7 +368,7 @@ public class FrontController implements Filter {
 
     /**
      * Creates a new controller specified by the path.
-     * 
+     *
      * @param path
      *            the path
      * @return a new controller
@@ -400,7 +400,7 @@ public class FrontController implements Filter {
 
     /**
      * Converts the path to the controller class name.
-     * 
+     *
      * @param path
      *            the path
      * @return the controller class name
@@ -431,7 +431,7 @@ public class FrontController implements Filter {
 
     /**
      * Returns the controller package name.
-     * 
+     *
      * @return the controller package name
      */
     protected String getControllerPackageName() {
@@ -446,7 +446,7 @@ public class FrontController implements Filter {
 
     /**
      * Processes the controller.
-     * 
+     *
      * @param request
      *            the request
      * @param response
@@ -480,7 +480,7 @@ public class FrontController implements Filter {
 
     /**
      * Handles the navigation.
-     * 
+     *
      * @param request
      *            the request
      * @param response
@@ -509,7 +509,7 @@ public class FrontController implements Filter {
 
     /**
      * Do a redirect to the path.
-     * 
+     *
      * @param request
      *            the request
      * @param response
@@ -531,7 +531,7 @@ public class FrontController implements Filter {
 
     /**
      * Do a redirect to the path.
-     * 
+     *
      * @param request
      *            the request
      * @param response
@@ -554,7 +554,7 @@ public class FrontController implements Filter {
 
     /**
      * Do a forward to the path.
-     * 
+     *
      * @param request
      *            the request
      * @param response
@@ -588,7 +588,7 @@ public class FrontController implements Filter {
 
     /**
      * Do a forward to the path.
-     * 
+     *
      * @param request
      *            the request
      * @param response

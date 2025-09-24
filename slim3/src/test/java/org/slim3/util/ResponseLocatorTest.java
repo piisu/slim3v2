@@ -18,7 +18,7 @@ package org.slim3.util;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.junit.After;
 import org.junit.Test;
@@ -26,7 +26,7 @@ import org.slim3.tester.MockHttpServletResponse;
 
 /**
  * @author higa
- * 
+ *
  */
 public class ResponseLocatorTest {
 
@@ -40,7 +40,7 @@ public class ResponseLocatorTest {
 
     /**
      * @throws Exception
-     * 
+     *
      */
     @Test
     public void test() throws Exception {

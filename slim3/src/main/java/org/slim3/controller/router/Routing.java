@@ -25,16 +25,16 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.slim3.util.WrapRuntimeException;
 
 /**
  * A class to route a path.
- * 
+ *
  * @author higa
  * @since 1.0.0
- * 
+ *
  */
 public class Routing {
 
@@ -65,7 +65,7 @@ public class Routing {
 
     /**
      * Constructor.
-     * 
+     *
      * @param from
      *            the "from" path
      * @param to
@@ -80,7 +80,7 @@ public class Routing {
 
     /**
      * Sets the "from" path.
-     * 
+     *
      * @param from
      *            the "from" path
      * @throws NullPointerException
@@ -154,7 +154,7 @@ public class Routing {
 
     /**
      * Sets the "to" path.
-     * 
+     *
      * @param to
      *            the "to" path
      */
@@ -213,7 +213,7 @@ public class Routing {
 
     /**
      * Routes the path.
-     * 
+     *
      * @param request
      *            the request
      * @param path
@@ -249,13 +249,13 @@ public class Routing {
 
     /**
      * A fragment of "to" path.
-     * 
+     *
      */
     protected static interface ToFragment {
 
         /**
          * Appends a part of "to" path.
-         * 
+         *
          * @param request
          *            the request
          * @param to
@@ -269,7 +269,7 @@ public class Routing {
 
     /**
      * {@link ToFragment} for String.
-     * 
+     *
      */
     protected static class StringFragment implements ToFragment {
 
@@ -280,7 +280,7 @@ public class Routing {
 
         /**
          * Constructor.
-         * 
+         *
          * @param value
          *            the value
          * @throws NullPointerException
@@ -301,7 +301,7 @@ public class Routing {
 
     /**
      * {@link ToFragment} for String.
-     * 
+     *
      */
     protected static class PlaceHolderFragment implements ToFragment {
 
@@ -312,7 +312,7 @@ public class Routing {
 
         /**
          * Constructor.
-         * 
+         *
          * @param name
          *            the value
          * @throws NullPointerException
@@ -333,7 +333,7 @@ public class Routing {
 
         /**
          * Encodes the path as a part of {@link URL}.
-         * 
+         *
          * @param path
          *            the path
          * @param encoding
