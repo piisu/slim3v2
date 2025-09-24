@@ -151,9 +151,11 @@ public class WebConfig {
                 throw new UnsupportedOperationException("getPrefix");
             }
 
-            public Iterator<?> getPrefixes(String uri) {
+            @Override
+            public Iterator<String> getPrefixes(String namespaceURI) {
                 throw new UnsupportedOperationException("getPrefixes");
             }
+
         });
         return xpath;
     }
