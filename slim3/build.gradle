@@ -5,10 +5,6 @@ description = """Slim3"""
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
-ext {
-    appengineVersion = "1.9.60"
-}
-
 repositories {
     mavenCentral()
     maven { url "https://maven.seasar.org/maven2" }

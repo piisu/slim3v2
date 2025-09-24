@@ -16,7 +16,6 @@ tasks.withType(Test).configureEach {
 }
 
 ext {
-    appengineVersion = "1.9.60"
     slim3Version = "2.0.0-SNAPSHOT5"
 }
 

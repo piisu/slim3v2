@@ -124,7 +124,7 @@ public class AppEngineTester {
 
     /**
      * Counts the number of the model.
-     * 
+     *
      * @param modelClass
      *            the model class
      * @return the number of the model
@@ -140,7 +140,7 @@ public class AppEngineTester {
 
     /**
      * Counts the number of the entity.
-     * 
+     *
      * @param kind
      *            the kind
      * @return the number of the model
