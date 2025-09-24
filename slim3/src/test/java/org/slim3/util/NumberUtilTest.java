@@ -22,7 +22,7 @@ import org.junit.Test;
 
 /**
  * @author higa
- * 
+ *
  */
 public class NumberUtilTest {
 
@@ -63,7 +63,7 @@ public class NumberUtilTest {
      */
     @Test
     public void testToString() throws Exception {
-        assertThat(NumberUtil.toString(new Integer(1000), "#,###"), is("1,000"));
+        assertThat(NumberUtil.toString(Integer.valueOf(1000), "#,###"), is("1,000"));
     }
 
     /**
@@ -79,6 +79,6 @@ public class NumberUtilTest {
      */
     @Test(expected = NullPointerException.class)
     public void toStringWhenPattenIsNull() throws Exception {
-        NumberUtil.toString(new Integer(1000), null);
+        NumberUtil.toString(Integer.valueOf(1000), null);
     }
 }

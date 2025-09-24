@@ -193,7 +193,7 @@ public class CopyOptionsTest {
     @Test
     public void convertObjectForDestNullNoConverter() throws Exception {
         assertThat(
-            (Integer) options.convertObject(new Integer(0), "aaa", null),
+            (Integer) options.convertObject(Integer.valueOf(0), "aaa", null),
             is(0));
         assertThat(
             (Date) options.convertObject(new Date(0), "aaa", null),
@@ -278,7 +278,7 @@ public class CopyOptionsTest {
     @Test(expected = IllegalArgumentException.class)
     public void convertValueForBadValue() throws Exception {
         options.dateConverter("yyyy", "aaa").convertValue(
-            new Integer(0),
+            Integer.valueOf(0),
             "aaa",
             String.class);
     }

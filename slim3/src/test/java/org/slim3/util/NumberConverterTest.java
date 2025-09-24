@@ -24,7 +24,7 @@ import org.junit.Test;
 
 /**
  * @author higa
- * 
+ *
  */
 public class NumberConverterTest {
 
@@ -43,7 +43,7 @@ public class NumberConverterTest {
     @Test
     public void getAsString() throws Exception {
         NumberConverter converter = new NumberConverter("##0");
-        assertThat(converter.getAsString(new Integer("100")), is("100"));
+        assertThat(converter.getAsString(Integer.parseInt("100")), is("100"));
     }
 
     /**

@@ -35,7 +35,7 @@ import org.slim3.util.ResponseLocator;
 
 /**
  * @author higa
- * 
+ *
  */
 public class FunctionsTest {
 
@@ -398,7 +398,7 @@ public class FunctionsTest {
      */
     @Test
     public void select() throws Exception {
-        request.setAttribute("aaa", new Integer(111));
+        request.setAttribute("aaa", Integer.valueOf(111));
         assertThat(
             Functions.select("aaa", "111"),
             is("value=\"111\" selected=\"selected\""));

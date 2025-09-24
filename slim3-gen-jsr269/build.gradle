@@ -2,6 +2,10 @@ apply plugin: 'java'
 
 description = """slim3-gen-jsr269"""
 
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
+
+
 repositories {
     mavenCentral()
     maven { url "https://maven.seasar.org/maven2" }

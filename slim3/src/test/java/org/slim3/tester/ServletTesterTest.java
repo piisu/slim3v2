@@ -95,8 +95,8 @@ public class ServletTesterTest {
     @Test
     public void asShort() throws Exception {
         tester.request.setAttribute("aaa", "1");
-        assertThat(tester.asShort("aaa"), is(new Short("1")));
-        assertThat(tester.asShort("aaa", "###"), is(new Short("1")));
+        assertThat(tester.asShort("aaa"), is(Short.parseShort("1")));
+        assertThat(tester.asShort("aaa", "###"), is(Short.parseShort("1")));
     }
 
     /**
@@ -106,8 +106,8 @@ public class ServletTesterTest {
     @Test
     public void asInteger() throws Exception {
         tester.request.setAttribute("aaa", "1");
-        assertThat(tester.asInteger("aaa"), is(new Integer("1")));
-        assertThat(tester.asInteger("aaa", "###"), is(new Integer("1")));
+        assertThat(tester.asInteger("aaa"), is(Integer.parseInt("1")));
+        assertThat(tester.asInteger("aaa", "###"), is(Integer.parseInt("1")));
     }
 
     /**
@@ -117,8 +117,8 @@ public class ServletTesterTest {
     @Test
     public void asLong() throws Exception {
         tester.request.setAttribute("aaa", "1");
-        assertThat(tester.asLong("aaa"), is(new Long("1")));
-        assertThat(tester.asLong("aaa", "###"), is(new Long("1")));
+        assertThat(tester.asLong("aaa"), is(Long.parseLong("1")));
+        assertThat(tester.asLong("aaa", "###"), is(Long.parseLong("1")));
     }
 
     /**
@@ -128,8 +128,8 @@ public class ServletTesterTest {
     @Test
     public void asFloat() throws Exception {
         tester.request.setAttribute("aaa", "1");
-        assertThat(tester.asFloat("aaa"), is(new Float("1")));
-        assertThat(tester.asFloat("aaa", "###"), is(new Float("1")));
+        assertThat(tester.asFloat("aaa"), is(Float.parseFloat("1")));
+        assertThat(tester.asFloat("aaa", "###"), is(Float.parseFloat("1")));
     }
 
     /**
@@ -139,8 +139,8 @@ public class ServletTesterTest {
     @Test
     public void asDouble() throws Exception {
         tester.request.setAttribute("aaa", "1");
-        assertThat(tester.asDouble("aaa"), is(new Double("1")));
-        assertThat(tester.asDouble("aaa", "###"), is(new Double("1")));
+        assertThat(tester.asDouble("aaa"), is(Double.parseDouble("1")));
+        assertThat(tester.asDouble("aaa", "###"), is(Double.parseDouble("1")));
     }
 
     /**
