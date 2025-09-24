@@ -1,6 +1,3 @@
 rootProject.name = 'slim3-root'
 include ":slim3" ,":slim3-gen-jsr269", ":slim3-blank", ":slim3-demo", ":slim3plus"
 
-//blank プロジェクトとデモはuploadArchivesから除外
-startParameter.excludedTaskNames += ':slim3-blank:uploadArchives'
-startParameter.excludedTaskNames += ':slim3-demo:uploadArchives'

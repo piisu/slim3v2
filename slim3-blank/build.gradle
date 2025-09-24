@@ -3,14 +3,17 @@ version = '1.0-SNAPSHOT'          // Version in generated output
 
 apply plugin: 'java'
 apply plugin: 'war'
-apply plugin: 'org.akhikhl.gretty'
 apply plugin: 'com.google.cloud.tools.appengine'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 
-compileJava.options.encoding = "UTF-8"
-compileTestJava.options.encoding = "UTF-8"
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = "UTF-8"
+}
+tasks.withType(Test).configureEach {
+    systemProperty "file.encoding", "UTF-8"
+}
 
 ext {
     appengineVersion = "1.9.60"
@@ -19,7 +22,6 @@ ext {
 
 buildscript {      // Configuration for building
     repositories {
-        jcenter()      // Bintray's repository - a fast Maven Central mirror & more
         mavenCentral()
         maven {
             url "https://plugins.gradle.org/m2/"
@@ -32,45 +34,35 @@ buildscript {      // Configuration for building
 }
 
 repositories {   // repositories for JARs you access in your code
-    maven {
-        url 'https://maven-central.storage.googleapis.com'             // Google's mirror of Maven Central
-    }
-    jcenter()
     mavenCentral()
 }
 
 dependencies {
-    providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
-    providedCompile "com.google.appengine:appengine:${appengineVersion}"
+    compileOnly 'javax.servlet:javax.servlet-api:3.1.0'
+    compileOnly "com.google.appengine:appengine:${appengineVersion}"
 
     // Add your dependencies here.
-    //compile "com.google.appengine:appengine-endpoints:${appengineVersion}" //add this line to avoid upper comment
-    //compile "com.google.appengine:appengine-endpoints-deps:${appengineVersion}" //works also without this line
-    compile 'javax.servlet:servlet-api:2.5'
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    //implementation "com.google.appengine:appengine-endpoints:${appengineVersion}"
+    //implementation "com.google.appengine:appengine-endpoints-deps:${appengineVersion}"
+    implementation 'javax.servlet:servlet-api:2.5'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
 
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-    testCompile group: 'com.google.appengine', name: 'appengine-local-runtime', version: appengineVersion
-    testCompile group: 'com.google.appengine', name: 'appengine-api-stubs', version: appengineVersion
-    testCompile group: 'com.google.appengine', name: 'appengine-api-1.0-sdk', version: appengineVersion
-    testCompile group: 'com.google.appengine', name: 'appengine-api-labs', version: appengineVersion
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
+    testImplementation group: 'com.google.appengine', name: 'appengine-local-runtime', version: appengineVersion
+    testImplementation group: 'com.google.appengine', name: 'appengine-api-stubs', version: appengineVersion
+    testImplementation group: 'com.google.appengine', name: 'appengine-api-1.0-sdk', version: appengineVersion
+    testImplementation group: 'com.google.appengine', name: 'appengine-api-labs', version: appengineVersion
 
-    testCompile group: 'com.google.appengine', name: 'appengine-testing', version: appengineVersion
+    testImplementation group: 'com.google.appengine', name: 'appengine-testing', version: appengineVersion
 
     annotationProcessor project(":slim3-gen-jsr269")
-    compile project(":slim3")
+    implementation project(":slim3")
     //apt "org.slim3:slim3-gen-jsr269:${slim3Version}"
-    //compile "org.slim3:slim3:${slim3Version}"
-    //compile "org.slim3:slim3plus:${slim3Version}"
+    //implementation "org.slim3:slim3:${slim3Version}"
+    //implementation "org.slim3:slim3plus:${slim3Version}"
 
     //compileOnly 'org.projectlombok:lombok:1.16.20'
     //apt "org.projectlombok:lombok:1.16.20"
-}
-
-gretty {
-    httpPort = 8080
-    contextPath = '/'
-    servletContainer = 'jetty9'  // What App Engine Flexible uses
 }
 
 appengine {
@@ -86,7 +78,6 @@ appengine {
 ////        jvmFlags = ['-Xdebug', '-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8000']
 //    }
 }
-
 
 //ant task
 ant.importBuild 'build.xml'

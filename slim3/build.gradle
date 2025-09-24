@@ -2,8 +2,8 @@ apply plugin: 'java'
 
 description = """Slim3"""
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 
 ext {
     appengineVersion = "1.9.60"
@@ -13,20 +13,25 @@ repositories {
     mavenCentral()
     maven { url "https://maven.seasar.org/maven2" }
     maven { url "https://maven.seasar.org/maven2-snapshot" }
-    maven { url "http://repo.maven.apache.org/maven2" }
 }
+
 dependencies {
-    compile group: "com.google.appengine", name: "appengine", version: appengineVersion
+    implementation group: "com.google.appengine", name: "appengine", version: appengineVersion
 
-    compile group: 'com.google.appengine', name: 'appengine-api-1.0-sdk', version: appengineVersion
-    compile group: 'com.google.appengine', name: 'appengine-api-labs', version: appengineVersion
+    implementation group: 'com.google.appengine', name: 'appengine-api-1.0-sdk', version: appengineVersion
+    implementation group: 'com.google.appengine', name: 'appengine-api-labs', version: appengineVersion
+
     compileOnly group: 'com.google.appengine', name: 'appengine-testing', version: appengineVersion
-    testCompile group: 'com.google.appengine', name: 'appengine-testing', version: appengineVersion
-    compileOnly group: 'com.google.appengine', name: 'appengine-api-stubs', version: appengineVersion
-    testCompile group: 'com.google.appengine', name: 'appengine-api-stubs', version: appengineVersion
-    testCompile group: 'com.google.appengine', name: 'appengine-api-1.0-sdk', version: appengineVersion
+    testImplementation group: 'com.google.appengine', name: 'appengine-testing', version: appengineVersion
 
-    compile group: 'javax.servlet', name: 'servlet-api', version: '2.5'
-    compile group: 'javax.servlet.jsp', name: 'jsp-api', version: '2.1'
-    compile group: 'junit', name: 'junit', version: '4.12'
+    compileOnly group: 'com.google.appengine', name: 'appengine-api-stubs', version: appengineVersion
+    testImplementation group: 'com.google.appengine', name: 'appengine-api-stubs', version: appengineVersion
+
+    testImplementation group: 'com.google.appengine', name: 'appengine-api-1.0-sdk', version: appengineVersion
+
+    implementation group: 'javax.servlet', name: 'servlet-api', version: '2.5'
+    implementation group: 'javax.servlet.jsp', name: 'jsp-api', version: '2.1'
+
+    compileOnly group: 'junit', name: 'junit', version: '4.12'
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
 }
