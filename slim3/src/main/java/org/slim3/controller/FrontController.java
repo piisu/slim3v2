@@ -15,6 +15,8 @@
  */
 package org.slim3.controller;
 
+import com.google.appengine.repackaged.com.google.common.base.Splitter;
+import jakarta.servlet.http.HttpServletRequestWrapper;
 import org.slim3.controller.router.Router;
 import org.slim3.controller.router.RouterFactory;
 import org.slim3.controller.validator.Errors;
@@ -24,11 +26,11 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.lang.reflect.Modifier;
-import java.util.Locale;
-import java.util.TimeZone;
-import java.util.UUID;
+import java.net.URI;
+import java.util.*;
 
 /**
  * The front controller of Slim3.
@@ -97,8 +99,7 @@ public class FrontController implements Filter {
     /**
      * Initializes the servlet context.
      *
-     * @param config
-     *            the filter configuration.
+     * @param config the filter configuration.
      */
     protected void initServletContext(FilterConfig config) {
         servletContext = config.getServletContext();
@@ -176,7 +177,7 @@ public class FrontController implements Filter {
     }
 
     public void doFilter(ServletRequest request, ServletResponse response,
-            FilterChain chain) throws IOException, ServletException {
+                         FilterChain chain) throws IOException, ServletException {
         doFilter(
             (HttpServletRequest) request,
             (HttpServletResponse) response,
@@ -186,20 +187,15 @@ public class FrontController implements Filter {
     /**
      * Executes filtering process.
      *
-     * @param request
-     *            the request
-     * @param response
-     *            the response
-     * @param chain
-     *            the filter chain
-     * @throws IOException
-     *             if {@link IOException} is encountered
-     * @throws ServletException
-     *             if {@link ServletException} is encountered
+     * @param request  the request
+     * @param response the response
+     * @param chain    the filter chain
+     * @throws IOException      if {@link IOException} is encountered
+     * @throws ServletException if {@link ServletException} is encountered
      */
     protected void doFilter(HttpServletRequest request,
-            HttpServletResponse response, FilterChain chain)
-            throws IOException, ServletException {
+                            HttpServletResponse response, FilterChain chain)
+        throws IOException, ServletException {
         String path = RequestUtil.getPath(request);
         if (request.getCharacterEncoding() == null) {
             request.setCharacterEncoding(charset);
@@ -213,7 +209,11 @@ public class FrontController implements Filter {
                 String routingPath = router.route(request, path);
                 if (routingPath != null) {
                     request.setAttribute(ControllerConstants.ROUTED_KEY, true);
-                    doForward(request, response, routingPath);
+                    if ("true".equals(servletContext.getAttribute(ControllerConstants.ROUTING_INTERNAL))) {
+                        routingInternal(request, response, routingPath, chain);
+                    } else {
+                        doForward(request, response, routingPath);
+                    }
                 } else {
                     doFilter(request, response, chain, path);
                 }
@@ -223,25 +223,53 @@ public class FrontController implements Filter {
         }
     }
 
+    private void routingInternal(HttpServletRequest request, HttpServletResponse response, String routingPath, FilterChain chain)
+        throws ServletException, IOException {
+        final URI uri = URI.create(routingPath);
+        final Map<String, String> attrs = uri.getQuery() != null ?
+            Splitter.on('&').withKeyValueSeparator('=').split(uri.getQuery()) : Collections.emptyMap();
+
+        HttpServletRequestWrapper requestWrapper = new HttpServletRequestWrapper(request) {
+            @Override
+            public String getRequestURI() {
+                return uri.getPath();
+            }
+
+            @Override
+            public String getServletPath() {
+                return uri.getPath();
+            }
+
+            @Override
+            public String getQueryString() {
+                return uri.getQuery();
+            }
+
+            @Override
+            public Object getAttribute(String name) {
+                if (attrs.containsKey(name)) {
+                    return attrs.get(name);
+                }
+                return super.getAttribute(name);
+            }
+        };
+        request.setAttribute(ControllerConstants.ROUTED_KEY, true);
+        doFilter(requestWrapper, response, chain);
+    }
+
     /**
      * Executes filtering process.
      *
-     * @param request
-     *            the request
-     * @param response
-     *            the response
-     * @param chain
-     *            the filter chain
-     * @param path
-     *            the path
-     * @throws IOException
-     *             if {@link IOException} is encountered
-     * @throws ServletException
-     *             if {@link ServletException} is encountered
+     * @param request  the request
+     * @param response the response
+     * @param chain    the filter chain
+     * @param path     the path
+     * @throws IOException      if {@link IOException} is encountered
+     * @throws ServletException if {@link ServletException} is encountered
      */
     protected void doFilter(HttpServletRequest request,
-            HttpServletResponse response, FilterChain chain, String path)
-            throws IOException, ServletException {
+                            HttpServletResponse response, FilterChain chain, String path)
+        throws IOException, ServletException {
         HttpServletRequest previousRequest = RequestLocator.get();
         RequestLocator.set(request);
         HttpServletResponse previousResponse = ResponseLocator.get();
@@ -257,7 +285,6 @@ public class FrontController implements Filter {
             if (controller != null) {
                 processController(request, response, controller);
             } else {
-
                 chain.doFilter(request, response);
             }
         } finally {
@@ -272,8 +299,7 @@ public class FrontController implements Filter {
     /**
      * Processes the current locale.
      *
-     * @param request
-     *            the request
+     * @param request the request
      * @return the current locale
      */
     protected Locale processLocale(HttpServletRequest request) {
@@ -302,8 +328,7 @@ public class FrontController implements Filter {
     /**
      * Processes the current time zone.
      *
-     * @param request
-     *            the request
+     * @param request the request
      * @return the current time zone
      */
     protected TimeZone processTimeZone(HttpServletRequest request) {
@@ -329,17 +354,14 @@ public class FrontController implements Filter {
     /**
      * Returns the controller specified by the path.
      *
-     * @param request
-     *            the request
-     * @param response
-     *            the response
-     * @param path
-     *            the path
+     * @param request  the request
+     * @param response the response
+     * @param path     the path
      * @return the controller
      *
      */
     protected Controller getController(HttpServletRequest request,
-            HttpServletResponse response, String path) {
+                                       HttpServletResponse response, String path) {
         if (path.indexOf('.') >= 0) {
             return null;
         }
@@ -369,15 +391,13 @@ public class FrontController implements Filter {
     /**
      * Creates a new controller specified by the path.
      *
-     * @param path
-     *            the path
+     * @param path the path
      * @return a new controller
-     * @throws IllegalStateException
-     *             if the controller does not extend
-     *             "org.slim3.controller.Controller"
+     * @throws IllegalStateException if the controller does not extend
+     *                               "org.slim3.controller.Controller"
      */
     protected Controller createController(String path)
-            throws IllegalStateException {
+        throws IllegalStateException {
         String className = toControllerClassName(path);
         if (className == null) {
             return null;
@@ -401,14 +421,12 @@ public class FrontController implements Filter {
     /**
      * Converts the path to the controller class name.
      *
-     * @param path
-     *            the path
+     * @param path the path
      * @return the controller class name
-     * @throws IllegalStateException
-     *             if the system property(slim3.controllerPackage) is not found
+     * @throws IllegalStateException if the system property(slim3.controllerPackage) is not found
      */
     protected String toControllerClassName(String path)
-            throws IllegalStateException {
+        throws IllegalStateException {
         if (path.startsWith("/_ah/")) {
             return null;
         }
@@ -447,20 +465,15 @@ public class FrontController implements Filter {
     /**
      * Processes the controller.
      *
-     * @param request
-     *            the request
-     * @param response
-     *            the response
-     * @param controller
-     *            the controller
-     * @throws IOException
-     *             if {@link IOException} has occurred
-     * @throws ServletException
-     *             if {@link ServletException} has occurred
+     * @param request    the request
+     * @param response   the response
+     * @param controller the controller
+     * @throws IOException      if {@link IOException} has occurred
+     * @throws ServletException if {@link ServletException} has occurred
      */
     protected void processController(HttpServletRequest request,
-            HttpServletResponse response, Controller controller)
-            throws IOException, ServletException {
+                                     HttpServletResponse response, Controller controller)
+        throws IOException, ServletException {
         RequestHandler requestHandler =
             controller.createRequestHandler(request);
         requestHandler.handle();
@@ -481,22 +494,16 @@ public class FrontController implements Filter {
     /**
      * Handles the navigation.
      *
-     * @param request
-     *            the request
-     * @param response
-     *            the response
-     * @param controller
-     *            the controller
-     * @param navigation
-     *            the navigation
-     * @throws IOException
-     *             if {@link IOException} has occurred
-     * @throws ServletException
-     *             if {@link ServletException} has occurred
+     * @param request    the request
+     * @param response   the response
+     * @param controller the controller
+     * @param navigation the navigation
+     * @throws IOException      if {@link IOException} has occurred
+     * @throws ServletException if {@link ServletException} has occurred
      */
     protected void handleNavigation(HttpServletRequest request,
-            HttpServletResponse response, Controller controller,
-            Navigation navigation) throws IOException, ServletException {
+                                    HttpServletResponse response, Controller controller,
+                                    Navigation navigation) throws IOException, ServletException {
         if (navigation == null) {
             return;
         }
@@ -510,42 +517,31 @@ public class FrontController implements Filter {
     /**
      * Do a redirect to the path.
      *
-     * @param request
-     *            the request
-     * @param response
-     *            the response
-     * @param controller
-     *            the controller
-     * @param path
-     *            the path
-     * @throws IOException
-     *             if {@link IOException} has occurred
-     * @throws ServletException
-     *             if {@link ServletException} has occurred
+     * @param request    the request
+     * @param response   the response
+     * @param controller the controller
+     * @param path       the path
+     * @throws IOException      if {@link IOException} has occurred
+     * @throws ServletException if {@link ServletException} has occurred
      */
     protected void doRedirect(HttpServletRequest request,
-            HttpServletResponse response, Controller controller, String path)
-            throws IOException, ServletException {
+                              HttpServletResponse response, Controller controller, String path)
+        throws IOException, ServletException {
         doRedirect(request, response, path);
     }
 
     /**
      * Do a redirect to the path.
      *
-     * @param request
-     *            the request
-     * @param response
-     *            the response
-     * @param path
-     *            the path
-     * @throws IOException
-     *             if {@link IOException} has occurred
-     * @throws ServletException
-     *             if {@link ServletException} has occurred
+     * @param request  the request
+     * @param response the response
+     * @param path     the path
+     * @throws IOException      if {@link IOException} has occurred
+     * @throws ServletException if {@link ServletException} has occurred
      */
     protected void doRedirect(HttpServletRequest request,
-            HttpServletResponse response, String path) throws IOException,
-            ServletException {
+                              HttpServletResponse response, String path) throws IOException,
+        ServletException {
         if (path.startsWith("/")) {
             path = request.getContextPath() + path;
         }
@@ -555,22 +551,16 @@ public class FrontController implements Filter {
     /**
      * Do a forward to the path.
      *
-     * @param request
-     *            the request
-     * @param response
-     *            the response
-     * @param controller
-     *            the controller
-     * @param path
-     *            the path
-     * @throws IOException
-     *             if {@link IOException} has occurred
-     * @throws ServletException
-     *             if {@link ServletException} has occurred
+     * @param request    the request
+     * @param response   the response
+     * @param controller the controller
+     * @param path       the path
+     * @throws IOException      if {@link IOException} has occurred
+     * @throws ServletException if {@link ServletException} has occurred
      */
     protected void doForward(HttpServletRequest request,
-            HttpServletResponse response, Controller controller, String path)
-            throws IOException, ServletException {
+                             HttpServletResponse response, Controller controller, String path)
+        throws IOException, ServletException {
         if (!path.startsWith("/")) {
             path = controller.basePath + path;
         }
@@ -589,20 +579,15 @@ public class FrontController implements Filter {
     /**
      * Do a forward to the path.
      *
-     * @param request
-     *            the request
-     * @param response
-     *            the response
-     * @param path
-     *            the path
-     * @throws IOException
-     *             if {@link IOException} has occurred
-     * @throws ServletException
-     *             if {@link ServletException} has occurred
+     * @param request  the request
+     * @param response the response
+     * @param path     the path
+     * @throws IOException      if {@link IOException} has occurred
+     * @throws ServletException if {@link ServletException} has occurred
      */
     protected void doForward(HttpServletRequest request,
-            HttpServletResponse response, String path) throws IOException,
-            ServletException {
+                             HttpServletResponse response, String path) throws IOException,
+        ServletException {
         RequestDispatcher rd = servletContext.getRequestDispatcher(path);
         if (rd == null) {
             response.sendError(

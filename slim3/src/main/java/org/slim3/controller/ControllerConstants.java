@@ -17,10 +17,10 @@ package org.slim3.controller;
 
 /**
  * This interface defines the constants of Slim3 Controller.
- * 
+ *
  * @author higa
  * @since 1.0.0
- * 
+ *
  */
 public final class ControllerConstants {
 
@@ -75,6 +75,12 @@ public final class ControllerConstants {
      * The key of cool package.
      */
     public static String COOL_PACKAGE_KEY = "slim3.coolPackage";
+
+    /**
+     * The key of routing internal
+     * forwardせずに内部ルーティングする
+     */
+    public static String ROUTING_INTERNAL = "slim3.routing.internal";
 
     /**
      * The default cool package.

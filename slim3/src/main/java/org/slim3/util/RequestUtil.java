@@ -40,7 +40,8 @@ public final class RequestUtil {
             throw new NullPointerException(
                 "The request parameter must not be null.");
         }
-        return request.getServletPath();
+        return request.getRequestURI();
+//        return request.getServletPath();
     }
 
     /**

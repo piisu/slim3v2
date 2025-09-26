@@ -335,20 +335,20 @@ public class MockServletContext implements ServletContext, Serializable {
         this.responseCharacterEncoding = encoding;
     }
 
-    @Override
-    public void setResponseCharacterEncoding(Charset encoding) {
-        this.responseCharacterEncoding = encoding.name();
-    }
+//    @Override
+//    public void setResponseCharacterEncoding(Charset encoding) {
+//        this.responseCharacterEncoding = encoding.name();
+//    }
 
     @Override
     public String getResponseCharacterEncoding() {
         return responseCharacterEncoding;
     }
 
-    @Override
-    public void setRequestCharacterEncoding(Charset encoding) {
-        this.requestCharacterEncoding = encoding.name();
-    }
+//    @Override
+//    public void setRequestCharacterEncoding(Charset encoding) {
+//        this.requestCharacterEncoding = encoding.name();
+//    }
 
     @Override
     public void setRequestCharacterEncoding(String requestCharacterEncoding) {
