@@ -6,42 +6,61 @@ sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
-  mavenCentral()
-  maven { url "https://maven.seasar.org/maven2" }
-  maven { url "https://maven.seasar.org/maven2-snapshot" }
+    mavenCentral()
+    maven { url "https://maven.seasar.org/maven2" }
+    maven { url "https://maven.seasar.org/maven2-snapshot" }
 }
 
 dependencies {
-  implementation group: "com.google.appengine", name: "appengine", version: appengineVersion
+    implementation group: "com.google.appengine", name: "appengine", version: appengineVersion
 
-  compileOnly group: 'com.google.appengine', name: 'appengine-api-1.0-sdk', version: appengineVersion
-  testImplementation group: 'com.google.appengine', name: 'appengine-api-1.0-sdk', version: appengineVersion
+    compileOnly group: 'com.google.appengine', name: 'appengine-api-1.0-sdk', version: appengineVersion
+    testImplementation group: 'com.google.appengine', name: 'appengine-api-1.0-sdk', version: appengineVersion
 
-  compileOnly group: 'com.google.appengine', name: 'appengine-api-labs', version: appengineVersion
-  testImplementation group: 'com.google.appengine', name: 'appengine-api-labs', version: appengineVersion
+    compileOnly group: 'com.google.appengine', name: 'appengine-api-labs', version: appengineVersion
+    testImplementation group: 'com.google.appengine', name: 'appengine-api-labs', version: appengineVersion
 
-  compileOnly group: 'com.google.appengine', name: 'appengine-testing', version: appengineVersion
-  testImplementation group: 'com.google.appengine', name: 'appengine-testing', version: appengineVersion
+    compileOnly group: 'com.google.appengine', name: 'appengine-testing', version: appengineVersion
+    testImplementation group: 'com.google.appengine', name: 'appengine-testing', version: appengineVersion
 
-  compileOnly group: 'com.google.appengine', name: 'appengine-api-stubs', version: appengineVersion
-  testImplementation group: 'com.google.appengine', name: 'appengine-api-stubs', version: appengineVersion
+    compileOnly group: 'com.google.appengine', name: 'appengine-api-stubs', version: appengineVersion
+    testImplementation group: 'com.google.appengine', name: 'appengine-api-stubs', version: appengineVersion
 
-  testImplementation group: 'com.google.appengine', name: 'appengine-api-1.0-sdk', version: appengineVersion
+    testImplementation group: 'com.google.appengine', name: 'appengine-api-1.0-sdk', version: appengineVersion
 
-  implementation group: 'javax.servlet', name: 'servlet-api', version: '2.5'
-  implementation group: 'javax.servlet.jsp', name: 'jsp-api', version: '2.1'
+    implementation group: 'javax.servlet', name: 'servlet-api', version: '2.5'
+    implementation group: 'javax.servlet.jsp', name: 'jsp-api', version: '2.1'
 
-  compileOnly group: 'junit', name: 'junit', version: '4.12'
-  testImplementation group: 'junit', name: 'junit', version: '4.12'
+    compileOnly group: 'junit', name: 'junit', version: '4.12'
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
 }
 
 publishing {
-  publications {
-    maven(MavenPublication) {
-      groupId = project.group
-      artifactId = 'slim3'
-      version = project.version
-      from components.java
+    publications {
+        maven(MavenPublication) {
+            groupId = project.group
+            artifactId = 'slim3'
+            version = project.version
+            from components.java
+        }
     }
-  }
+
+    repositories {
+        def settingsXml = new XmlParser().parse(new File(System.getProperty("user.home"), ".m2/settings.xml"))
+        def ghServerConfig = settingsXml.servers.server.find({ it.id.text() == "piisu.github.io" })
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/piisu/slim3v2")
+            credentials {
+                username ghServerConfig.username.text()
+                password ghServerConfig.password.text()
+            }
+        }
+    }
+    publications {
+        gpr(MavenPublication) {
+            from(components.java)
+        }
+    }
+
 }
