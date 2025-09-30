@@ -3,43 +3,61 @@ apply plugin: 'java'
 description = """Slim3"""
 
 repositories {
-  mavenCentral()
-  maven { url "https://maven.seasar.org/maven2" }
-  maven { url "https://maven.seasar.org/maven2-snapshot" }
+    mavenCentral()
+    maven { url "https://maven.seasar.org/maven2" }
+    maven { url "https://maven.seasar.org/maven2-snapshot" }
 }
 
 dependencies {
-  //implementation group: "com.google.appengine", name: "appengine", version: appengineVersion
+    //implementation group: "com.google.appengine", name: "appengine", version: appengineVersion
 
-  compileOnly group: 'com.google.appengine', name: 'appengine-api-1.0-sdk', version: appengineVersion
-  testImplementation group: 'com.google.appengine', name: 'appengine-api-1.0-sdk', version: appengineVersion
+    compileOnly group: 'com.google.appengine', name: 'appengine-api-1.0-sdk', version: appengineVersion
+    testImplementation group: 'com.google.appengine', name: 'appengine-api-1.0-sdk', version: appengineVersion
 
 //  compileOnly group: 'com.google.appengine', name: 'appengine-api-labs', version: appengineVersion
 //  testImplementation group: 'com.google.appengine', name: 'appengine-api-labs', version: appengineVersion
 
-  compileOnly group: 'com.google.appengine', name: 'appengine-testing', version: appengineVersion
-  testImplementation group: 'com.google.appengine', name: 'appengine-testing', version: appengineVersion
+    compileOnly group: 'com.google.appengine', name: 'appengine-testing', version: appengineVersion
+    testImplementation group: 'com.google.appengine', name: 'appengine-testing', version: appengineVersion
 
-  compileOnly group: 'com.google.appengine', name: 'appengine-api-stubs', version: appengineVersion
-  testImplementation group: 'com.google.appengine', name: 'appengine-api-stubs', version: appengineVersion
+    compileOnly group: 'com.google.appengine', name: 'appengine-api-stubs', version: appengineVersion
+    testImplementation group: 'com.google.appengine', name: 'appengine-api-stubs', version: appengineVersion
 
-  testImplementation group: 'com.google.appengine', name: 'appengine-api-1.0-sdk', version: appengineVersion
+    testImplementation group: 'com.google.appengine', name: 'appengine-api-1.0-sdk', version: appengineVersion
 
-  implementation 'jakarta.servlet:jakarta.servlet-api:6.1.0'
-  // https://mvnrepository.com/artifact/jakarta.servlet.jsp/jakarta.servlet.jsp-api
-  compileOnly("jakarta.servlet.jsp:jakarta.servlet.jsp-api:2.3.6")
+    implementation 'jakarta.servlet:jakarta.servlet-api:6.1.0'
+    // https://mvnrepository.com/artifact/jakarta.servlet.jsp/jakarta.servlet.jsp-api
+    compileOnly("jakarta.servlet.jsp:jakarta.servlet.jsp-api:2.3.6")
 
-  compileOnly group: 'junit', name: 'junit', version: '4.12'
-  testImplementation group: 'junit', name: 'junit', version: '4.12'
+    compileOnly group: 'junit', name: 'junit', version: '4.12'
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
 }
 
 publishing {
-  publications {
-    maven(MavenPublication) {
-      groupId = project.group
-      artifactId = 'slim3'
-      version = project.version
-      from components.java
+    publications {
+        maven(MavenPublication) {
+            groupId = project.group
+            artifactId = 'slim3'
+            version = project.version
+            from components.java
+        }
     }
-  }
+    repositories {
+        def settingsXml = new XmlParser().parse(new File(System.getProperty("user.home"), ".m2/settings.xml"))
+        def ghServerConfig = settingsXml.servers.server.find({ it.id.text() == "piisu.github.io" })
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/piisu/slim3v2")
+            credentials {
+                username ghServerConfig.username.text()
+                password ghServerConfig.password.text()
+            }
+        }
+    }
+    publications {
+        gpr(MavenPublication) {
+            from(components.java)
+        }
+    }
+
 }
