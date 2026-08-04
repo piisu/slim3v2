@@ -18,7 +18,7 @@ tasks.withType(Test).configureEach {
 }
 
 ext {
-    slim3Version = "2.0.0-SNAPSHOT6"
+    slim3Version = "2.5.0-SNAPSHOT1"
 }
 
 buildscript {      // Configuration for building

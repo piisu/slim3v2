@@ -1,5 +1,3 @@
-import groovy.xml.XmlParser
-
 apply plugin: 'java'
 
 description = """Slim3"""
@@ -40,23 +38,4 @@ publishing {
             from components.java
         }
     }
-
-    repositories {
-        def settingsXml = new XmlParser().parse(new File(System.getProperty("user.home"), ".m2/settings.xml"))
-        def ghServerConfig = settingsXml.servers.server.find({ it.id.text() == "piisu.github.io" })
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/piisu/slim3v2")
-            credentials {
-                username = ghServerConfig.username.text()
-                password = ghServerConfig.password.text()
-            }
-        }
-    }
-    publications {
-        gpr(MavenPublication) {
-            from(components.java)
-        }
-    }
-
 }
