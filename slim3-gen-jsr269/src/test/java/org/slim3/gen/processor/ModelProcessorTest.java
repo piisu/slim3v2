@@ -18,6 +18,9 @@ package org.slim3.gen.processor;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
+import java.io.File;
+import java.io.IOException;
+
 import org.junit.Test;
 import org.seasar.aptina.unit.AptinaTestCase;
 import org.seasar.aptina.unit.SourceNotGeneratedException;
@@ -28,6 +31,17 @@ import org.slim3.test.model.*;
  * 
  */
 public class ModelProcessorTest extends AptinaTestCase {
+
+    private static final String[] GENERATED_SOURCES = {
+        "AttributeParameterSampleModelMeta.java",
+        "AttributeSampleModelMeta.java",
+        "BasicModelMeta.java",
+        "ImplementComparableModelMeta.java",
+        "ListenerModelMeta.java",
+        "RefAModelMeta.java",
+        "RefBModelMeta.java" };
+
+    private final File generatedSourceDir = new File("org/slim3/test/meta");
 
     /**
      * Test for generate Meta class of {@link BasicModel}.
@@ -184,6 +198,55 @@ public class ModelProcessorTest extends AptinaTestCase {
     protected void setUp() throws Exception {
         super.setUp();
         addSourcePath("src/test/java");
+        addOption("-proc:only");
         setCharset("utf-8");
+        prepareGeneratedSourcePlaceholders();
+    }
+
+    @Override
+    protected void tearDown() throws Exception {
+        try {
+            deleteGeneratedSourcePlaceholders();
+        } finally {
+            super.tearDown();
+        }
+    }
+
+    private void prepareGeneratedSourcePlaceholders() throws IOException {
+        if (!generatedSourceDir.exists() && !generatedSourceDir.mkdirs()) {
+            throw new IOException("Could not create " + generatedSourceDir);
+        }
+        for (String source : GENERATED_SOURCES) {
+            File file = new File(generatedSourceDir, source);
+            if (file.exists() && !file.delete()) {
+                throw new IOException("Could not delete " + file);
+            }
+            if (!file.createNewFile()) {
+                throw new IOException("Could not create " + file);
+            }
+        }
+    }
+
+    private void deleteGeneratedSourcePlaceholders() throws IOException {
+        for (String source : GENERATED_SOURCES) {
+            deleteIfExists(new File(generatedSourceDir, source));
+        }
+        deleteIfEmpty(generatedSourceDir);
+        deleteIfEmpty(new File("org/slim3/test"));
+        deleteIfEmpty(new File("org/slim3"));
+        deleteIfEmpty(new File("org"));
+    }
+
+    private void deleteIfExists(File file) throws IOException {
+        if (file.exists() && !file.delete()) {
+            throw new IOException("Could not delete " + file);
+        }
+    }
+
+    private void deleteIfEmpty(File dir) throws IOException {
+        String[] files = dir.list();
+        if (files != null && files.length == 0 && !dir.delete()) {
+            throw new IOException("Could not delete " + dir);
+        }
     }
 }

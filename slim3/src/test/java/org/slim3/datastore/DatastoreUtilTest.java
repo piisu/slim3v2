@@ -46,9 +46,9 @@ import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.appengine.api.datastore.Transaction;
-import com.google.storage.onestore.v3.OnestoreEntity.Path;
-import com.google.storage.onestore.v3.OnestoreEntity.Path.Element;
-import com.google.storage.onestore.v3.OnestoreEntity.Reference;
+import com.google.appengine.repackaged.com.google.storage.onestore.v3_bytes.proto2api.OnestoreEntity.Path;
+import com.google.appengine.repackaged.com.google.storage.onestore.v3_bytes.proto2api.OnestoreEntity.Path.Element;
+import com.google.appengine.repackaged.com.google.storage.onestore.v3_bytes.proto2api.OnestoreEntity.Reference;
 
 /**
  * @author higa
@@ -60,6 +60,22 @@ public class DatastoreUtilTest extends AppEngineTestCase {
         .getAsyncDatastoreService();
 
     private HogeMeta meta = new HogeMeta();
+
+    private Reference reference(Element.Builder... elements) {
+        Path.Builder path = Path.newBuilder();
+        for (Element.Builder element : elements) {
+            path.addElement(element);
+        }
+        return Reference.newBuilder().setApp("test").setPath(path).build();
+    }
+
+    private Element.Builder idElement(String type, long id) {
+        return Element.newBuilder().setType(type).setId(id);
+    }
+
+    private Element.Builder nameElement(String type, String name) {
+        return Element.newBuilder().setType(type).setName(name);
+    }
 
     @Override
     public void setUp() throws Exception {
@@ -681,12 +697,7 @@ public class DatastoreUtilTest extends AppEngineTestCase {
     @Test
     public void refereceToKeyForId() throws Exception {
         Key key = KeyFactory.createKey("Hoge", 1);
-        Reference reference = new Reference();
-        Path path = new Path();
-        reference.setPath(path);
-        Element element = path.addElement();
-        element.setType("Hoge");
-        element.setId(1);
+        Reference reference = reference(idElement("Hoge", 1));
         assertThat(DatastoreUtil.referenceToKey(reference), is(key));
     }
 
@@ -696,12 +707,7 @@ public class DatastoreUtilTest extends AppEngineTestCase {
     @Test
     public void refereceToKeyForMinusId() throws Exception {
         Key key = KeyFactory.createKey("Hoge", -1);
-        Reference reference = new Reference();
-        Path path = new Path();
-        reference.setPath(path);
-        Element element = path.addElement();
-        element.setType("Hoge");
-        element.setId(-1);
+        Reference reference = reference(idElement("Hoge", -1));
         assertThat(DatastoreUtil.referenceToKey(reference), is(key));
     }
 
@@ -711,12 +717,7 @@ public class DatastoreUtilTest extends AppEngineTestCase {
     @Test
     public void refereceToKeyForName() throws Exception {
         Key key = KeyFactory.createKey("Hoge", "aaa");
-        Reference reference = new Reference();
-        Path path = new Path();
-        reference.setPath(path);
-        Element element = path.addElement();
-        element.setType("Hoge");
-        element.setName("aaa");
+        Reference reference = reference(nameElement("Hoge", "aaa"));
         assertThat(DatastoreUtil.referenceToKey(reference), is(key));
     }
 
@@ -727,15 +728,8 @@ public class DatastoreUtilTest extends AppEngineTestCase {
     public void refereceToKeyForParent() throws Exception {
         Key parentKey = KeyFactory.createKey("Parent", 1);
         Key childKey = KeyFactory.createKey(parentKey, "Child", 1);
-        Reference reference = new Reference();
-        Path path = new Path();
-        reference.setPath(path);
-        Element element = path.addElement();
-        element.setType("Parent");
-        element.setId(1);
-        element = path.addElement();
-        element.setType("Child");
-        element.setId(1);
+        Reference reference =
+            reference(idElement("Parent", 1), idElement("Child", 1));
         assertThat(DatastoreUtil.referenceToKey(reference), is(childKey));
     }
 

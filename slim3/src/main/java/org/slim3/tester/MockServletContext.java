@@ -20,15 +20,22 @@ import java.io.Serializable;
 import java.net.URL;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.EventListener;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.Filter;
+import javax.servlet.FilterRegistration;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.Servlet;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRegistration;
+import javax.servlet.SessionCookieConfig;
+import javax.servlet.SessionTrackingMode;
+import javax.servlet.descriptor.JspConfigDescriptor;
 
 import org.slim3.util.WrapRuntimeException;
 
@@ -99,6 +106,12 @@ public class MockServletContext implements ServletContext, Serializable {
      */
     protected MockRequestDispatcher latestRequestDispatcher;
 
+    protected int sessionTimeout;
+
+    protected String requestCharacterEncoding;
+
+    protected String responseCharacterEncoding;
+
     /**
      * Constructor.
      */
@@ -114,6 +127,14 @@ public class MockServletContext implements ServletContext, Serializable {
     }
 
     public int getMinorVersion() {
+        return MINOR_VERSION;
+    }
+
+    public int getEffectiveMajorVersion() {
+        return MAJOR_VERSION;
+    }
+
+    public int getEffectiveMinorVersion() {
         return MINOR_VERSION;
     }
 
@@ -259,8 +280,9 @@ public class MockServletContext implements ServletContext, Serializable {
      * @param value
      *            the value
      */
-    public void setInitParameter(String name, String value) {
+    public boolean setInitParameter(String name, String value) {
         initParameterMap.put(name, value);
+        return true;
     }
 
     /**
@@ -315,5 +337,143 @@ public class MockServletContext implements ServletContext, Serializable {
      */
     public void setContextPath(String contextPath) {
         this.contextPath = contextPath;
+    }
+
+    public ServletRegistration.Dynamic addServlet(
+            String servletName, String className) {
+        return null;
+    }
+
+    public ServletRegistration.Dynamic addServlet(
+            String servletName, Servlet servlet) {
+        return null;
+    }
+
+    public ServletRegistration.Dynamic addServlet(
+            String servletName, Class<? extends Servlet> servletClass) {
+        return null;
+    }
+
+    public ServletRegistration.Dynamic addJspFile(
+            String servletName, String jspFile) {
+        return null;
+    }
+
+    public <T extends Servlet> T createServlet(Class<T> clazz)
+            throws ServletException {
+        return createInstance(clazz);
+    }
+
+    public ServletRegistration getServletRegistration(String servletName) {
+        return null;
+    }
+
+    public Map<String, ? extends ServletRegistration> getServletRegistrations() {
+        return Collections.emptyMap();
+    }
+
+    public FilterRegistration.Dynamic addFilter(
+            String filterName, String className) {
+        return null;
+    }
+
+    public FilterRegistration.Dynamic addFilter(
+            String filterName, Filter filter) {
+        return null;
+    }
+
+    public FilterRegistration.Dynamic addFilter(
+            String filterName, Class<? extends Filter> filterClass) {
+        return null;
+    }
+
+    public <T extends Filter> T createFilter(Class<T> clazz)
+            throws ServletException {
+        return createInstance(clazz);
+    }
+
+    public FilterRegistration getFilterRegistration(String filterName) {
+        return null;
+    }
+
+    public Map<String, ? extends FilterRegistration> getFilterRegistrations() {
+        return Collections.emptyMap();
+    }
+
+    public SessionCookieConfig getSessionCookieConfig() {
+        return null;
+    }
+
+    public void setSessionTrackingModes(
+            Set<SessionTrackingMode> sessionTrackingModes) {
+    }
+
+    public Set<SessionTrackingMode> getDefaultSessionTrackingModes() {
+        return Collections.emptySet();
+    }
+
+    public Set<SessionTrackingMode> getEffectiveSessionTrackingModes() {
+        return Collections.emptySet();
+    }
+
+    public void addListener(String className) {
+    }
+
+    public <T extends EventListener> void addListener(T listener) {
+    }
+
+    public void addListener(Class<? extends EventListener> listenerClass) {
+    }
+
+    public <T extends EventListener> T createListener(Class<T> clazz)
+            throws ServletException {
+        return createInstance(clazz);
+    }
+
+    public JspConfigDescriptor getJspConfigDescriptor() {
+        return null;
+    }
+
+    public ClassLoader getClassLoader() {
+        return Thread.currentThread().getContextClassLoader();
+    }
+
+    public void declareRoles(String... roleNames) {
+    }
+
+    public String getVirtualServerName() {
+        return serverInfo;
+    }
+
+    public int getSessionTimeout() {
+        return sessionTimeout;
+    }
+
+    public void setSessionTimeout(int sessionTimeout) {
+        this.sessionTimeout = sessionTimeout;
+    }
+
+    public String getRequestCharacterEncoding() {
+        return requestCharacterEncoding;
+    }
+
+    public void setRequestCharacterEncoding(String requestCharacterEncoding) {
+        this.requestCharacterEncoding = requestCharacterEncoding;
+    }
+
+    public String getResponseCharacterEncoding() {
+        return responseCharacterEncoding;
+    }
+
+    public void setResponseCharacterEncoding(String responseCharacterEncoding) {
+        this.responseCharacterEncoding = responseCharacterEncoding;
+    }
+
+    private <T> T createInstance(Class<T> clazz) throws ServletException {
+        try {
+            return clazz.getDeclaredConstructor().newInstance();
+        } catch (Exception e) {
+            throw new ServletException(e);
+        }
     }
 }

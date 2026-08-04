@@ -15,6 +15,7 @@
  */
 package org.slim3.datastore;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -42,9 +43,6 @@ import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Text;
 import com.google.appengine.api.datastore.Transaction;
-import com.google.storage.onestore.v3.OnestoreEntity.EntityProto;
-import com.google.storage.onestore.v3.OnestoreEntity.Path.Element;
-import com.google.storage.onestore.v3.OnestoreEntity.Reference;
 
 /**
  * A utility for {@link DatastoreService}.
@@ -77,6 +75,8 @@ public final class DatastoreUtil {
         new ConcurrentHashMap<String, ModelMeta<?>>(87);
 
     private static volatile boolean initialized = false;
+
+    private static final Object NO_METHOD = new Object();
 
     static {
         initialize();
@@ -832,10 +832,7 @@ public final class DatastoreUtil {
             throw new NullPointerException(
                 "The entity parameter must not be null.");
         }
-        EntityProto pb = EntityTranslator.convertToPb(entity);
-        byte[] buf = new byte[pb.encodingSize()];
-        pb.outputTo(buf, 0);
-        return buf;
+        return EntityTranslator.convertToPb(entity).toByteArray();
     }
 
     /**
@@ -853,9 +850,7 @@ public final class DatastoreUtil {
             throw new NullPointerException(
                 "The bytes parameter must not be null.");
         }
-        EntityProto pb = new EntityProto();
-        pb.mergeFrom(bytes);
-        return EntityTranslator.createFromPb(pb);
+        return EntityTranslator.createFromPbBytes(bytes);
     }
 
     /**
@@ -867,17 +862,22 @@ public final class DatastoreUtil {
      * @throws NullPointerException
      *             if the reference parameter is null
      */
-    public static Key referenceToKey(Reference reference)
+    public static Key referenceToKey(Object reference)
             throws NullPointerException {
         if (reference == null) {
             throw new NullPointerException(
                 "The reference parameter must not be null.");
         }
+        Object path = invokeNoArg(reference, "getPath");
+        Object elements = tryInvokeNoArg(path, "getElementList");
+        if (elements == NO_METHOD) {
+            elements = invokeNoArg(path, "elements");
+        }
         Key key = null;
-        for (Element e : reference.getPath().elements()) {
-            String kind = e.getType();
-            long id = e.getId();
-            String name = e.getName();
+        for (Object e : (Iterable<?>) elements) {
+            String kind = (String) invokeNoArg(e, "getType");
+            long id = ((Number) invokeNoArg(e, "getId")).longValue();
+            String name = (String) invokeNoArg(e, "getName");
             if (key == null) {
                 if (id != 0) {
                     key = KeyFactory.createKey(kind, id);
@@ -898,6 +898,33 @@ public final class DatastoreUtil {
                 + ") cannot be converted to Key.");
         }
         return key;
+    }
+
+    private static Object invokeNoArg(Object target, String methodName) {
+        Object value = tryInvokeNoArg(target, methodName);
+        if (value == NO_METHOD) {
+            throw new IllegalArgumentException("The method("
+                + methodName
+                + ") was not found on "
+                + target.getClass().getName()
+                + ".");
+        }
+        return value;
+    }
+
+    private static Object tryInvokeNoArg(Object target, String methodName) {
+        try {
+            Method method = target.getClass().getMethod(methodName);
+            return method.invoke(target);
+        } catch (NoSuchMethodException e) {
+            return NO_METHOD;
+        } catch (ReflectiveOperationException e) {
+            throw new IllegalArgumentException("The method("
+                + methodName
+                + ") could not be invoked on "
+                + target.getClass().getName()
+                + ".", e);
+        }
     }
 
     /**

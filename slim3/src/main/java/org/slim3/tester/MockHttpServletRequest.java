@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -27,12 +28,20 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.AsyncContext;
+import javax.servlet.DispatcherType;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletInputStream;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpUpgradeHandler;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import org.slim3.util.ArrayMap;
 import org.slim3.util.StringUtil;
@@ -531,6 +540,12 @@ public class MockHttpServletRequest implements HttpServletRequest {
         return getSession(true);
     }
 
+    public String changeSessionId() {
+        HttpSession currentSession = getSession(true);
+        requestedSessionId = currentSession.getId();
+        return requestedSessionId;
+    }
+
     public boolean isRequestedSessionIdValid() {
         if (session != null) {
             return session.isValid();
@@ -576,6 +591,10 @@ public class MockHttpServletRequest implements HttpServletRequest {
     }
 
     public int getContentLength() {
+        return contentLength;
+    }
+
+    public long getContentLengthLong() {
         return contentLength;
     }
 
@@ -910,5 +929,61 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
     public String getRealPath(String path) {
         return servletContext.getRealPath(path);
+    }
+
+    public ServletContext getServletContext() {
+        return servletContext;
+    }
+
+    public AsyncContext startAsync() throws IllegalStateException {
+        throw new IllegalStateException("Async processing is not supported.");
+    }
+
+    public AsyncContext startAsync(
+            ServletRequest servletRequest, ServletResponse servletResponse)
+            throws IllegalStateException {
+        throw new IllegalStateException("Async processing is not supported.");
+    }
+
+    public boolean isAsyncStarted() {
+        return false;
+    }
+
+    public boolean isAsyncSupported() {
+        return false;
+    }
+
+    public AsyncContext getAsyncContext() {
+        throw new IllegalStateException("Async processing is not started.");
+    }
+
+    public DispatcherType getDispatcherType() {
+        return DispatcherType.REQUEST;
+    }
+
+    public boolean authenticate(HttpServletResponse response)
+            throws IOException, ServletException {
+        return userPrincipal != null;
+    }
+
+    public void login(String username, String password) throws ServletException {
+        throw new ServletException("Programmatic login is not supported.");
+    }
+
+    public void logout() throws ServletException {
+        userPrincipal = null;
+    }
+
+    public Collection<Part> getParts() throws IOException, ServletException {
+        return Collections.emptyList();
+    }
+
+    public Part getPart(String name) throws IOException, ServletException {
+        return null;
+    }
+
+    public <T extends HttpUpgradeHandler> T upgrade(Class<T> handlerClass)
+            throws IOException, ServletException {
+        throw new ServletException("HTTP upgrade is not supported.");
     }
 }

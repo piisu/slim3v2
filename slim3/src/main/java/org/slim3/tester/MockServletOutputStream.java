@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.WriteListener;
 
 /**
  * An implementation for {@link ServletOutputStream}.
@@ -53,6 +54,13 @@ public class MockServletOutputStream extends ServletOutputStream {
     @Override
     public void write(int b) throws IOException {
         outputStream.write(b);
+    }
+
+    public boolean isReady() {
+        return true;
+    }
+
+    public void setWriteListener(WriteListener writeListener) {
     }
 
 }

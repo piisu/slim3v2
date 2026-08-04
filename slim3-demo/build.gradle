@@ -3,10 +3,12 @@ version = '1.0-SNAPSHOT'          // Version in generated output
 
 apply plugin: 'java'
 apply plugin: 'war'
-apply plugin: 'com.google.cloud.tools.appengine'
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
+def appEngineGradlePluginCompatible =
+        GradleVersion.current() < GradleVersion.version('9.0')
+if (appEngineGradlePluginCompatible) {
+    apply plugin: 'com.google.cloud.tools.appengine'
+}
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = "UTF-8"
@@ -19,12 +21,11 @@ buildscript {      // Configuration for building
     repositories {
         mavenCentral()
         maven {
-            url "https://plugins.gradle.org/m2/"
+            url = uri("https://plugins.gradle.org/m2/")
         }
     }
     dependencies {
-        classpath 'com.google.cloud.tools:appengine-gradle-plugin:+'
-        classpath 'org.akhikhl.gretty:gretty:+'
+        classpath "com.google.cloud.tools:appengine-gradle-plugin:${appengineGradlePluginVersion}"
     }
 }
 
@@ -33,49 +34,49 @@ repositories {   // repositories for JARs you access in your code
 }
 
 dependencies {
-    compileOnly 'javax.servlet:javax.servlet-api:3.1.0'
-    compileOnly "com.google.appengine:appengine:${appengineVersion}"
+    compileOnly "javax.servlet:javax.servlet-api:${servletApiVersion}"
+    compileOnly "com.google.appengine:appengine-api-1.0-sdk:${appengineApiVersion}"
 
     // Add your dependencies here.
-    //implementation "com.google.appengine:appengine-endpoints:${appengineVersion}"
-    //implementation "com.google.appengine:appengine-endpoints-deps:${appengineVersion}"
-    implementation 'javax.servlet:servlet-api:2.5'
+    //implementation "com.google.appengine:appengine-endpoints:${appengineApiVersion}"
+    //implementation "com.google.appengine:appengine-endpoints-deps:${appengineApiVersion}"
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
-    testImplementation group: 'junit', name: 'junit', version: '4.12'
-    testImplementation group: 'com.google.appengine', name: 'appengine-local-runtime', version: appengineVersion
-    testImplementation group: 'com.google.appengine', name: 'appengine-api-stubs', version: appengineVersion
-    testImplementation group: 'com.google.appengine', name: 'appengine-api-1.0-sdk', version: appengineVersion
-    testImplementation group: 'com.google.appengine', name: 'appengine-api-labs', version: appengineVersion
+    testImplementation "junit:junit:${junitVersion}"
+    testImplementation "com.google.appengine:appengine-local-runtime:${appengineLocalRuntimeVersion}"
+    testImplementation "com.google.appengine:appengine-api-stubs:${appengineApiVersion}"
+    testImplementation "com.google.appengine:appengine-api-1.0-sdk:${appengineApiVersion}"
+    testImplementation "com.google.appengine:appengine-api-labs:${appengineLabsVersion}"
 
-    testImplementation group: 'com.google.appengine', name: 'appengine-testing', version: appengineVersion
+    testImplementation "com.google.appengine:appengine-testing:${appengineApiVersion}"
 
-    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.4'
-    implementation group: 'javax.jdo', name: 'jdo-api', version: '3.1'
+    implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonDatabindVersion}"
+    implementation "javax.jdo:jdo-api:${jdoApiVersion}"
 
-    compileOnly "org.projectlombok:lombok:1.16.20"
-    annotationProcessor "org.projectlombok:lombok:1.16.20"
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 
     annotationProcessor project(":slim3-gen-jsr269")
     implementation project(":slim3")
-
-    //compileOnly 'org.projectlombok:lombok:1.16.20'
-    //apt "org.projectlombok:lombok:1.16.20"
 }
 
-appengine {
-    deploy {   // deploy configuration
-        projectId = "slim3-demo"
-        version = new Date().format("yyyyMMdd't'HHmmss")
-        stopPreviousVersion = true  // default - stop the current version
-        promote = true              // default - & make this the current version
-    }
+if (appEngineGradlePluginCompatible) {
+    appengine {
+        deploy {   // deploy configuration
+            projectId = "slim3-demo"
+            version = new Date().format("yyyyMMdd't'HHmmss")
+            stopPreviousVersion = true  // default - stop the current version
+            promote = true              // default - & make this the current version
+        }
 
-//    run {
-//        jvmFlags = ["-Dappengine.fullscan.seconds=5"]//enable hot reloading
-////        jvmFlags = ['-Xdebug', '-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8000']
-//    }
+    //    run {
+    //        jvmFlags = ["-Dappengine.fullscan.seconds=5"]//enable hot reloading
+    ////        jvmFlags = ['-Xdebug', '-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8000']
+    //    }
+    }
 }
 
 //ant task
-ant.importBuild 'build.xml'
+if (!fileTree(dir: 'lib', include: ['*.jar']).isEmpty()) {
+    ant.importBuild 'build.xml'
+}

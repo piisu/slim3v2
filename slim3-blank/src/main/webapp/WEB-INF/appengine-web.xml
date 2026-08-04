@@ -2,7 +2,8 @@
 <appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
 	<application></application>
 	<version>1</version>
-	<runtime>java8</runtime>
+	<runtime>java21</runtime>
+	<app-engine-apis>true</app-engine-apis>
 	
 	<precompilation-enabled>true</precompilation-enabled>
 	
@@ -14,7 +15,7 @@
         <property name="slim3.uploadFileSizeMax" value="100000"/>
         -->
 	    <property name="java.util.logging.config.file" value="WEB-INF/classes/logging.properties"/>
+	    <property name="appengine.use.EE8" value="true"/>
 	</system-properties>
 	<sessions-enabled>false</sessions-enabled>
-	<threadsafe>true</threadsafe>
 </appengine-web-app>

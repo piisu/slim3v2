@@ -7,11 +7,15 @@ allprojects  {
 subprojects {
   apply plugin: 'java'
 
-  sourceCompatibility = JavaVersion.VERSION_1_8
-  targetCompatibility = JavaVersion.VERSION_1_8
+  java {
+    toolchain {
+      languageVersion = JavaLanguageVersion.of(javaLanguageVersion.toInteger())
+    }
+  }
 
   tasks.withType(JavaCompile).configureEach {
     options.encoding = "UTF-8"
+    options.release.set(javaLanguageVersion.toInteger())
   }
   tasks.withType(Test).configureEach {
     systemProperty "file.encoding", "UTF-8"
@@ -20,9 +24,7 @@ subprojects {
   repositories {
     mavenCentral()
     mavenLocal()
-    maven { url "https://maven.seasar.org/maven2" }
-    maven { url "https://maven.seasar.org/maven2-snapshot" }
+    maven { url = uri("https://maven.seasar.org/maven2") }
+    maven { url = uri("https://maven.seasar.org/maven2-snapshot") }
   }
 }
-
-

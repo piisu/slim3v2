@@ -204,7 +204,7 @@ public class AbstQueryTest extends AppEngineTestCase {
      */
     @Test
     public void asEntityList() throws Exception {
-        ds.put(new Entity("Hoge"));
+        ds.put(new Entity("Hoge")).get();
         MyQuery query = new MyQuery(ds, "Hoge");
         List<Entity> list = query.asEntityList();
         assertThat(list.size(), is(1));
@@ -215,7 +215,7 @@ public class AbstQueryTest extends AppEngineTestCase {
      */
     @Test
     public void asEntityListForKindlessQuery() throws Exception {
-        ds.put(new Entity("Hoge"));
+        ds.put(new Entity("Hoge")).get();
         MyQuery query = new MyQuery(ds);
         List<Entity> list = query.asEntityList();
         assertThat(list.size(), is(1));
@@ -227,7 +227,7 @@ public class AbstQueryTest extends AppEngineTestCase {
     @Test
     public void asEntityListForKindlessAncestorQuery() throws Exception {
         Key parentKey = DatastoreUtil.put(ds, null, new Entity("Parent"));
-        ds.put(new Entity(KeyFactory.createKey(parentKey, "Child", 1)));
+        ds.put(new Entity(KeyFactory.createKey(parentKey, "Child", 1))).get();
         MyQuery query = new MyQuery(ds, parentKey);
         List<Entity> list = query.asEntityList();
         assertThat(list.size(), is(2));
@@ -238,7 +238,7 @@ public class AbstQueryTest extends AppEngineTestCase {
      */
     @Test
     public void asSingleEntity() throws Exception {
-        ds.put(new Entity("Hoge"));
+        ds.put(new Entity("Hoge")).get();
         MyQuery query = new MyQuery(ds, "Hoge");
         assertThat(query.asSingleEntity(), is(not(nullValue())));
     }
@@ -248,7 +248,7 @@ public class AbstQueryTest extends AppEngineTestCase {
      */
     @Test
     public void asSingleEntityForKindlessQuery() throws Exception {
-        ds.put(new Entity("Hoge"));
+        ds.put(new Entity("Hoge")).get();
         MyQuery query = new MyQuery(ds);
         assertThat(query.asSingleEntity(), is(not(nullValue())));
     }
@@ -268,7 +268,7 @@ public class AbstQueryTest extends AppEngineTestCase {
      */
     @Test
     public void asIterableEntities() throws Exception {
-        ds.put(new Entity("Hoge"));
+        ds.put(new Entity("Hoge")).get();
         MyQuery query = new MyQuery(ds, "Hoge");
         boolean found = false;
         for (Entity entity : query.asIterableEntities()) {
@@ -283,7 +283,7 @@ public class AbstQueryTest extends AppEngineTestCase {
      */
     @Test
     public void asEntityIterator() throws Exception {
-        ds.put(new Entity("Hoge"));
+        ds.put(new Entity("Hoge")).get();
         MyQuery query = new MyQuery(ds, "Hoge");
         boolean found = false;
         for (Iterator<Entity> i = query.asEntityIterator(); i.hasNext();) {
@@ -298,8 +298,8 @@ public class AbstQueryTest extends AppEngineTestCase {
      */
     @Test
     public void asQueryResultEntityList() throws Exception {
-        ds.put(new Entity("Hoge"));
-        ds.put(new Entity("Hoge"));
+        ds.put(new Entity("Hoge")).get();
+        ds.put(new Entity("Hoge")).get();
         MyQuery query = new MyQuery(ds, "Hoge");
         QueryResultList<Entity> list = query.limit(1).asQueryResultEntityList();
         assertThat(list, is(notNullValue()));
@@ -312,8 +312,8 @@ public class AbstQueryTest extends AppEngineTestCase {
      */
     @Test
     public void asQueryResultEntityIterator() throws Exception {
-        ds.put(new Entity("Hoge"));
-        ds.put(new Entity("Hoge"));
+        ds.put(new Entity("Hoge")).get();
+        ds.put(new Entity("Hoge")).get();
         MyQuery query = new MyQuery(ds, "Hoge");
         QueryResultIterator<Entity> ite =
             query.limit(1).asQueryResultEntityIterator();
@@ -326,8 +326,8 @@ public class AbstQueryTest extends AppEngineTestCase {
      */
     @Test
     public void asQueryResultEntityIterable() throws Exception {
-        ds.put(new Entity("Hoge"));
-        ds.put(new Entity("Hoge"));
+        ds.put(new Entity("Hoge")).get();
+        ds.put(new Entity("Hoge")).get();
         MyQuery query = new MyQuery(ds, "Hoge");
         QueryResultIterable<Entity> iterable =
             query.limit(1).asQueryResultEntityIterable();
@@ -412,7 +412,7 @@ public class AbstQueryTest extends AppEngineTestCase {
      */
     @Test
     public void count() throws Exception {
-        ds.put(new Entity("Hoge"));
+        ds.put(new Entity("Hoge")).get();
         MyQuery query = new MyQuery(ds, "Hoge");
         assertThat(query.count(), is(1));
     }
@@ -424,13 +424,13 @@ public class AbstQueryTest extends AppEngineTestCase {
     public void min() throws Exception {
         Entity entity = new Entity("Hoge");
         entity.setProperty("age", 10);
-        ds.put(entity);
+        ds.put(entity).get();
         Entity entity2 = new Entity("Hoge");
         entity2.setProperty("age", 20);
-        ds.put(entity2);
+        ds.put(entity2).get();
         Entity entity3 = new Entity("Hoge");
         entity3.setProperty("age", null);
-        ds.put(entity3);
+        ds.put(entity3).get();
         MyQuery query = new MyQuery(ds, "Hoge");
         assertThat((Long) query.min("age"), is(10L));
         assertThat(query.max("name"), is(nullValue()));
@@ -443,10 +443,10 @@ public class AbstQueryTest extends AppEngineTestCase {
     public void max() throws Exception {
         Entity entity = new Entity("Hoge");
         entity.setProperty("age", 10);
-        ds.put(entity);
+        ds.put(entity).get();
         Entity entity2 = new Entity("Hoge");
         entity2.setProperty("age", 20);
-        ds.put(entity2);
+        ds.put(entity2).get();
         MyQuery query = new MyQuery(ds, "Hoge");
         assertThat((Long) query.max("age"), is(20L));
         assertThat(query.max("name"), is(nullValue()));
@@ -497,7 +497,7 @@ public class AbstQueryTest extends AppEngineTestCase {
      */
     @Test
     public void startCursor() throws Exception {
-        ds.put(new Entity("Hoge"));
+        ds.put(new Entity("Hoge")).get();
         MyQuery query = new MyQuery(ds, "Hoge");
         QueryResultList<Entity> list = query.limit(1).asQueryResultEntityList();
         Cursor cursor = list.getCursor();
@@ -511,7 +511,7 @@ public class AbstQueryTest extends AppEngineTestCase {
      */
     @Test
     public void endCursor() throws Exception {
-        ds.put(new Entity("Hoge"));
+        ds.put(new Entity("Hoge")).get();
         MyQuery query = new MyQuery(ds, "Hoge");
         QueryResultList<Entity> list = query.limit(1).asQueryResultEntityList();
         Cursor cursor = list.getCursor();
@@ -525,7 +525,7 @@ public class AbstQueryTest extends AppEngineTestCase {
      */
     @Test
     public void encodedStartCursor() throws Exception {
-        ds.put(new Entity("Hoge"));
+        ds.put(new Entity("Hoge")).get();
         MyQuery query = new MyQuery(ds, "Hoge");
         QueryResultList<Entity> list = query.limit(1).asQueryResultEntityList();
         Cursor cursor = list.getCursor();
@@ -542,7 +542,7 @@ public class AbstQueryTest extends AppEngineTestCase {
      */
     @Test
     public void encodedEndCursor() throws Exception {
-        ds.put(new Entity("Hoge"));
+        ds.put(new Entity("Hoge")).get();
         MyQuery query = new MyQuery(ds, "Hoge");
         QueryResultList<Entity> list = query.limit(1).asQueryResultEntityList();
         Cursor cursor = list.getCursor();

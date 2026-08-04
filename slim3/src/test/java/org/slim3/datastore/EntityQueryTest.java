@@ -83,7 +83,7 @@ public class EntityQueryTest extends AppEngineTestCase {
      */
     @Test
     public void asList() throws Exception {
-        ds.put(new Entity("Hoge"));
+        ds.put(new Entity("Hoge")).get();
         EntityQuery q = new EntityQuery(ds, "Hoge");
         assertThat(q.asList().size(), is(1));
     }
@@ -93,7 +93,7 @@ public class EntityQueryTest extends AppEngineTestCase {
      */
     @Test
     public void asQueryResultList() throws Exception {
-        ds.put(new Entity("Hoge"));
+        ds.put(new Entity("Hoge")).get();
         EntityQuery q = new EntityQuery(ds, "Hoge");
         assertThat(q.asQueryResultList().size(), is(1));
     }
@@ -103,7 +103,7 @@ public class EntityQueryTest extends AppEngineTestCase {
      */
     @Test
     public void asQueryResultIterator() throws Exception {
-        ds.put(new Entity("Hoge"));
+        ds.put(new Entity("Hoge")).get();
         EntityQuery q = new EntityQuery(ds, "Hoge");
         assertThat(q.asQueryResultIterator(), is(notNullValue()));
     }
@@ -113,7 +113,7 @@ public class EntityQueryTest extends AppEngineTestCase {
      */
     @Test
     public void asSingleEntity() throws Exception {
-        ds.put(new Entity("Hoge"));
+        ds.put(new Entity("Hoge")).get();
         EntityQuery q = new EntityQuery(ds, "Hoge");
         Entity entity = q.asSingleEntity();
         assertThat(entity, is(not(nullValue())));
@@ -124,7 +124,7 @@ public class EntityQueryTest extends AppEngineTestCase {
      */
     @Test
     public void asIterable() throws Exception {
-        ds.put(new Entity("Hoge"));
+        ds.put(new Entity("Hoge")).get();
         EntityQuery q = new EntityQuery(ds, "Hoge");
         boolean found = false;
         for (Entity entity : q.asIterable()) {
@@ -139,7 +139,7 @@ public class EntityQueryTest extends AppEngineTestCase {
      */
     @Test
     public void asIterator() throws Exception {
-        ds.put(new Entity("Hoge"));
+        ds.put(new Entity("Hoge")).get();
         EntityQuery q = new EntityQuery(ds, "Hoge");
         boolean found = false;
         for (Iterator<Entity> i = q.asIterator(); i.hasNext();) {

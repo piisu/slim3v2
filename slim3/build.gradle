@@ -1,38 +1,34 @@
+import groovy.xml.XmlParser
+
 apply plugin: 'java'
 
 description = """Slim3"""
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
-
 repositories {
     mavenCentral()
-    maven { url "https://maven.seasar.org/maven2" }
-    maven { url "https://maven.seasar.org/maven2-snapshot" }
+    maven { url = uri("https://maven.seasar.org/maven2") }
+    maven { url = uri("https://maven.seasar.org/maven2-snapshot") }
 }
 
 dependencies {
-    implementation group: "com.google.appengine", name: "appengine", version: appengineVersion
+    implementation "com.google.appengine:appengine-api-1.0-sdk:${appengineApiVersion}"
 
-    compileOnly group: 'com.google.appengine', name: 'appengine-api-1.0-sdk', version: appengineVersion
-    testImplementation group: 'com.google.appengine', name: 'appengine-api-1.0-sdk', version: appengineVersion
+    compileOnly "com.google.appengine:appengine-api-stubs:${appengineApiVersion}"
+    testImplementation "com.google.appengine:appengine-api-stubs:${appengineApiVersion}"
 
-    compileOnly group: 'com.google.appengine', name: 'appengine-api-labs', version: appengineVersion
-    testImplementation group: 'com.google.appengine', name: 'appengine-api-labs', version: appengineVersion
+    compileOnly "com.google.appengine:appengine-testing:${appengineApiVersion}"
+    testImplementation "com.google.appengine:appengine-testing:${appengineApiVersion}"
 
-    compileOnly group: 'com.google.appengine', name: 'appengine-testing', version: appengineVersion
-    testImplementation group: 'com.google.appengine', name: 'appengine-testing', version: appengineVersion
+    compileOnly "com.google.appengine:appengine-api-labs:${appengineLabsVersion}"
+    testImplementation "com.google.appengine:appengine-api-labs:${appengineLabsVersion}"
 
-    compileOnly group: 'com.google.appengine', name: 'appengine-api-stubs', version: appengineVersion
-    testImplementation group: 'com.google.appengine', name: 'appengine-api-stubs', version: appengineVersion
+    testImplementation "com.google.appengine:appengine-local-runtime:${appengineLocalRuntimeVersion}"
 
-    testImplementation group: 'com.google.appengine', name: 'appengine-api-1.0-sdk', version: appengineVersion
+    compileOnly "javax.servlet:javax.servlet-api:${servletApiVersion}"
+    compileOnly "javax.servlet.jsp:javax.servlet.jsp-api:${jspApiVersion}"
 
-    implementation group: 'javax.servlet', name: 'servlet-api', version: '2.5'
-    implementation group: 'javax.servlet.jsp', name: 'jsp-api', version: '2.1'
-
-    compileOnly group: 'junit', name: 'junit', version: '4.12'
-    testImplementation group: 'junit', name: 'junit', version: '4.12'
+    compileOnly "junit:junit:${junitVersion}"
+    testImplementation "junit:junit:${junitVersion}"
 }
 
 publishing {
@@ -52,8 +48,8 @@ publishing {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/piisu/slim3v2")
             credentials {
-                username ghServerConfig.username.text()
-                password ghServerConfig.password.text()
+                username = ghServerConfig.username.text()
+                password = ghServerConfig.password.text()
             }
         }
     }

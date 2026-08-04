@@ -4,16 +4,17 @@ description = """slim3-gen-jsr269"""
 
 repositories {
     mavenCentral()
-    maven { url "https://maven.seasar.org/maven2" }
-    maven { url "https://maven.seasar.org/maven2-snapshot" }
+    maven { url = uri("https://maven.seasar.org/maven2") }
+    maven { url = uri("https://maven.seasar.org/maven2-snapshot") }
 }
 
 dependencies {
-    implementation group: 'org.apache.ant', name: 'ant', version: '1.7.0'
+    implementation "org.apache.ant:ant:${antVersion}"
     implementation project(":slim3")
-    testImplementation group: 'junit', name: 'junit', version: '4.7'
-    testImplementation group: 'org.seasar.aptina', name: 'aptina-commons', version: '1.0.0'
-    testImplementation group: 'org.seasar.aptina', name: 'aptina-unit', version: '1.0.0'
+    testImplementation "com.google.appengine:appengine-api-1.0-sdk:${appengineApiVersion}"
+    testImplementation "junit:junit:${junitVersion}"
+    testImplementation "org.seasar.aptina:aptina-commons:1.0.0"
+    testImplementation "org.seasar.aptina:aptina-unit:1.0.0"
 }
 
 publishing {
