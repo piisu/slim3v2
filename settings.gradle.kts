@@ -1,0 +1,3 @@
+rootProject.name = "slim3-root"
+
+include(":slim3", ":slim3-gen-jsr269", ":slim3-blank", ":slim3-demo")
